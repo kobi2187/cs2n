@@ -1,0 +1,47 @@
+Mapping from C# to Nim. Finding (semantically) equivalent code
+==============================================================
+This software (cs2nim) gets confused by annotations, we remove them. The C# compiler adds code when that field is read, according to its annotation.
+perhaps if CsDisplay uses the dll instead of explicit C# files, we can get that information. Anyhow, for now we ignore it.
+please comment out or remove from your c# source before using the software.
+
+a list of mappings:
+- a namespace in C# is a module, which is a file in nim
+- a class in C# is a type x = ref object in Nim
+- a struct in C# is a type x = object in Nim
+- an enum in C# is a type x = enum in Nim
+  - note: can make them look the same with {. pure .}
+  - flags annotation??
+- an interface in C# ... has no built in construct in Nim (concepts in CT, but for runtime dispatch, possibly a library mature enough will do.)
+- a static function is a proc in Nim
+  - note: can make them look the same with first argument _:typedesc[TheClass]
+  - note: but it's not idiomatic in Nim. I prefer to have the same function name.
+  - note3: function names cannot start with _ underscore. by convention should start with lowercase letter.
+- a regular function is a method in Nim. (object orientation, specifically runtime dispatch only works with methods as far as i know)
+  - the first argument for the method should be the enclosing class. (this or self)
+- a ctor in c# is a regular proc in Nim, with a convention: proc newX() : X =, where X is the class name. it returns the initialized object.
+- assignment looks the same. an equal sign.
+- invocation looks the same.
+- delegates in C# ... ??
+- events in C# ... ??
+  - add, remove delegates ...
+- operators in C# are regular procs in Nim, with backticks to define them. example: proc `+`*(arg1,arg2:int) : int =
+- destructors in C#... not sure what in Nim, maybe dispose i don't have experience with them
+  - using clause - C# calls dispose on the object automatically when it exits the scope. don't know equivalence in Nim, perhaps a macro or template is enough.
+- properties are regular functions.
+  - but an object field is created for get; or set; with no body. cannot use _ underscore so I am using m_
+- a class variable in C#, even if just used for the next function, will be in Nim a field in the object.
+  - it's either in the module or the type, and module is like a namespace, so visibility is a little off - not entirely the same semantic code.
+  - perhaps I can discern what is static and what isn't.
+    - so static will go in the module, but instance vars belong in the class.
+- access modifiers:
+  - public = *
+  - private = nothing, private by default
+  - internal = nonexisting, will use public: *.
+  - sealed, etc ... don't know yet if there is an equivalent.
+- ternary b ? x : y in C#  will be in Nim: if b: x else: y
+- "switch case" in C# will be "case of" in Nim.
+- try, catch, finally is almost the same in Nim: try, except, finally.
+- indexer in C# is a regular proc in Nim, just like operators
+- casting in C# is a type conversion in Nim. for example lossly converting float to int -- but maybe can also be a bit casting operation.
+- member access expression in C# X[d.Times - 1] or X[7] etc. is the same in Nim.
+- lock clause in C# -- has an equivalent withLock macro in Nim
