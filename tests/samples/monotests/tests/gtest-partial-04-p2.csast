@@ -1,0 +1,5 @@
+<<<<<<< HEAD
+{"File":"/home/kobi7/currentWork/cs2nim/tests/samples/monotests/tests/gtest-partial-04-p2.cs","Lines":[{"Kind":0,"KindStr":"Decl","Declaration":"StructDeclaration","Info":null,"ParentKind":8840,"RawKind":8856,"Source":"\npublic partial struct Bug\n{\n}\n"},{"Kind":0,"KindStr":"Decl","Declaration":"BlockStarts","Info":{"Essentials":["1"],"Extras":["StructDeclaration"]},"ParentKind":0,"RawKind":0,"Source":null},{"Kind":1,"KindStr":"EndBlock","Declaration":"","Info":{"Essentials":["0","StructDeclaration"],"Extras":[]},"ParentKind":0,"RawKind":0,"Source":null}]}
+=======
+{"File":"../cs2nim/tests/samples/monotests/tests/gtest-partial-04-p2.cs","Lines":[{"Kind":0,"KindStr":"Decl","Declaration":"StructDeclaration","Info":null,"ParentKind":8840,"RawKind":8856,"Source":"\npublic partial struct Bug\n{\n}\n"},{"Kind":0,"KindStr":"Decl","Declaration":"BlockStarts","Info":{"Essentials":["1"],"Extras":["StructDeclaration"]},"ParentKind":0,"RawKind":0,"Source":null},{"Kind":1,"KindStr":"EndBlock","Declaration":"","Info":{"Essentials":["0","StructDeclaration"],"Extras":[]},"ParentKind":0,"RawKind":0,"Source":null}]}
+>>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3

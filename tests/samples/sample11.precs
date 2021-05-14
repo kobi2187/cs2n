@@ -1,0 +1,10 @@
+public static class AVLTreeTest
+{
+
+  public static void DoTest()
+  {
+    AVLTree<int> avlTree = new AVLTree<int>();
+    avlTree.Insert(4); 
+    AssertCase_2(avlTree);
+  }
+}
