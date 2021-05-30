@@ -1556,7 +1556,6 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckCastExpression, ckTypeOfExpression": true
   of "ckArrowExpressionClause, ckTupleExpression": true
   of "ckBinaryExpression, ckMemberAccessExpression": true
-  of "ckRefExpression, ckBinaryExpression": true
   of "ckBinaryExpression, ckRefTypeExpression": true
   of "ckEqualsValueClause, ckRefTypeExpression": true
   of "ckEqualsValueClause, ckElementAccessExpression": true
@@ -1771,7 +1770,6 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckArrayType, ckNullableType": true
   of "ckTupleElement, ckRefType": true
   of "ckWhenClause, ckPrefixUnaryExpression": true
-  of "ckNamespace, ckIndexer": true
   of "ckEqualsValueClause, ckBaseExpression": true
   of "ckForStatement, ckDoStatement": true
   of "ckAnonymousMethodExpression, ckIfStatement": true

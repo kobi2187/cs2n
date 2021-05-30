@@ -5050,3 +5050,35 @@ method add*(parent: var CsForEachVariableStatement; item: CsLiteralExpression) =
   echo "in method add*(parent: var CsForEachVariableStatement; item: CsLiteralExpression)"
   todoimpl # TODO(add: CsForEachVariableStatement, CsLiteralExpression)
 
+method add*(parent: var CsStruct; item: CsRangeExpression) =
+  echo "in method add*(parent: var CsStruct; item: CsRangeExpression)"
+  todoimplAdd() # TODO(add: CsStruct, CsRangeExpression)
+
+method add*(parent: var CsElseClause; item: CsMemberAccessExpression) =
+  echo "in method add*(parent: var CsElseClause; item: CsMemberAccessExpression)"
+  todoimplAdd() # TODO(add: CsElseClause, CsMemberAccessExpression)
+
+method add*(parent: var CsWithExpression; item: CsIsPatternExpression) =
+  echo "in method add*(parent: var CsWithExpression; item: CsIsPatternExpression)"
+  todoimplAdd() # TODO(add: CsWithExpression, CsIsPatternExpression)
+
+method add*(parent: var CsConditionalExpression; item: CsConstructorInitializer) =
+  echo "in method add*(parent: var CsConditionalExpression; item: CsConstructorInitializer)"
+  todoimplAdd() # TODO(add: CsConditionalExpression, CsConstructorInitializer)
+
+method add*(parent: var CsConditionalExpression; item: CsFixedStatement) =
+  echo "in method add*(parent: var CsConditionalExpression; item: CsFixedStatement)"
+  todoimplAdd() # TODO(add: CsConditionalExpression, CsFixedStatement)
+
+method add*(parent: var CsConditionalExpression; item: CsIfStatement) =
+  echo "in method add*(parent: var CsConditionalExpression; item: CsIfStatement)"
+  todoimplAdd() # TODO(add: CsConditionalExpression, CsIfStatement)
+
+method add*(parent: var CsArgument; item: CsUsingStatement) =
+  echo "in method add*(parent: var CsArgument; item: CsUsingStatement)"
+  todoimplAdd() # TODO(add: CsArgument, CsUsingStatement)
+
+method add*(parent: var CsArgument; item: CsWhileStatement) =
+  echo "in method add*(parent: var CsArgument; item: CsWhileStatement)"
+  todoimplAdd() # TODO(add: CsArgument, CsWhileStatement)
+

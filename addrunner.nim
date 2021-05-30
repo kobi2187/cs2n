@@ -1,6 +1,6 @@
 # addrunner.nim
 import nre, osproc, options, system, os
-let cwd = "/home/kobi7/currentWork/cs2nim"
+let cwd = "/home/kobi/cs2n"
 
 proc mkAdd(p, c: string): string =
   result = "method add*(parent: var " & p & "; item: " & c & ") =\n"
