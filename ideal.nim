@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import constructs/justtypes
 import types, constructs/cs_root, construct, parent_finder #, block_utils
 # , state,
@@ -19,7 +17,6 @@ import uuids, options, sequtils
 
 # proc pathOfBlocks(): seq[B] = discard # TODO
 
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 import type_creator, parent_finder, storeInParent
 import all_needed_data

@@ -8,13 +8,9 @@ proc main() =
   var folderCountBefore = newTable[int, seq[string]]()
   var folderCountTotal = newTable[int, seq[string]]()
 
-<<<<<<< HEAD
   let args = commandLineParams()
   if args.len == 0: quit("Must pass a folder to scan")
   let rootFolder = args[0] # "/home/kobi7/More_CS_Libs_and_Apps"
-=======
-  let rootFolder = "/home/kobi7/More_CS_Libs_and_Apps"
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   let finishedLines = (rootFolder / "finished.txt").open(fmRead).readAll.splitLines.toHashSet
   let afterGenLines = (rootFolder / "aftergen.txt").open(fmRead).readAll.splitLines.toHashSet
   for k, folder in walkDir(rootFolder, checkDir = true):
@@ -36,7 +32,6 @@ proc main() =
       folderCountBefore[leftBefore.len].add folder
       if not folderCountTotal.hasKey(leftUnfinished.len): folderCountTotal[leftUnfinished.len] = @[]
       folderCountTotal[leftUnfinished.len].add folder
-<<<<<<< HEAD
 
   echo "========================="
   for i, k in folderCountBefore.keys.toseq.sorted:
@@ -55,15 +50,4 @@ proc main() =
     for dir in folderCountTotal[k]:
       let (count, files) = unfinishedDict[dir]
       echo files.join("\r\n")
-=======
-  var i = 0
-  for k in folderCountBefore.keys.toseq.sorted:
-    if limit.isSome and i >= limit.get: break
-    i.inc
-    echo "\n", k
-    for dir in folderCountBefore[k]:
-      let (count, files) = beforeDict[dir]
-      echo files.join("\r\n")
-
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 main()

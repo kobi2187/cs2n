@@ -1,10 +1,6 @@
 # mapper.nim
 # import ../parentChildMapping
-<<<<<<< HEAD
 import ../constructs/justtypes
-=======
-import ../construct
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 import tables, sequtils, strutils
 
 proc srcToHash(contents: string): TableRef[string, seq[string]] =
@@ -71,13 +67,8 @@ proc caseGenerator(table: TableRef[string, seq[string]]): string =
 
 proc genStoreInParent*(): string =
   result = """import constructs/[cs_all_constructs, justtypes]
-<<<<<<< HEAD
 import types
 import options
-=======
-import types, construct
-import  options
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc add*(parent, child: Construct; data: AllNeededData) =
   echo "in add <Construct>"

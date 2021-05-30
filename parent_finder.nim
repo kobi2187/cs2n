@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import options, sequtils, sets, uuids, sugar, tables, cfits
 import common_utils, state, all_needed_data, block_utils, state_utils
 import types, constructs/[cs_all_constructs, justtypes]
@@ -11,16 +10,6 @@ type FindParentResult = object
 proc handleLiteralExpression(data: AllNeededData, childId:UUID): Option[UUID] =
   echo "obj is LiteralExpression"
   let last = state.getLastType((c) => c.name notin ["IdentifierName", "LiteralExpression"], childId)
-=======
-import options, sequtils, sets, uuids, sugar, tables
-import common_utils, state, all_needed_data, block_utils, info_center, state_utils
-import types, construct, constructs/[cs_all_constructs, justtypes]
-import constructs/cs_root
-
-proc handleLiteralExpression(data: AllNeededData): Option[UUID] =
-  echo "obj is LiteralExpression"
-  let last = state.getLastType((c) => c.name notin ["IdentifierName", "PrefixUnaryExpression", "LiteralExpression"])
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   result = last.get.id.some
 
 proc parentHint(parentRawKind: int): Option[string] =
@@ -35,14 +24,7 @@ proc parentHint(c: Construct): Option[string] =
   result = parentHint(c.parentRawKind)
 # inconsistent results, maybe overwritten in hashtable??
 
-<<<<<<< HEAD
 proc someInfo(data:AllNeededData, irrelevant:HashSet[string]) =
-=======
-proc determineParentId(obj: Construct; data: AllNeededData): (bool, Option[UUID]) =
-  var discarded = false
-  let irrelevant = ["PredefinedType", "IdentifierName", "QualifiedName", "GenericName"].toHashSet()
-  var res: Option[UUID]
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   echo "blocks: ", blocks
   echo "all received constructs: ", currentConstruct
   echo "all received constructs: ", currentConstruct.filterIt(it.name notin irrelevant).mapIt(it.name)
@@ -51,32 +33,6 @@ proc determineParentId(obj: Construct; data: AllNeededData): (bool, Option[UUID]
     echo data.lastMethod.name
     echo data.lastMethod.body.mapIt(it.ttype)
 
-<<<<<<< HEAD
-=======
-  let ignoredConstructs = ["IdentifierName", "QualifiedName", "BlockStarts", "AliasQualifiedName"]
-  if obj.parentId.isSome:
-    echo "obj already has parent id, returning that."
-    return (false, obj.parentId)
-
-  let phint = parentHint(obj)
-  # try numerical first.
-  let tryMatch = getLastType(b=>b.info.rawKind == obj.parentRawKind)
-  if tryMatch.isSome:
-    echo "found the parent in blocks via object's numeric rawkind"
-    let id = tryMatch.get.id.some
-    let kind = tryMatch.get.info.rawkind
-    if parentTable.hasKey(kind) and parentTable[kind] notin ignoredConstructs:
-      return (false, id)
-
-  elif phint.isSome():
-    if phint.get notin ignoredConstructs:
-      let lastMatch = getLastType(phint.get)
-      if lastMatch.isSome:
-        echo "found parent ID thru Roslyn's parent Kind (string type)."
-        let id = lastMatch.get.id.some
-        return (false, id)
-      else: assert false, "couldn't find it (`" & phint.get & "`) in last blocks even though we should have"
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentResult =
   var res: Option[UUID]
@@ -84,13 +40,10 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
   echo "trying to determine parent based on structure, and previous constructs"
   echo data.sourceCode
   case obj.kind
-<<<<<<< HEAD
   of ckIdentifier:
     echo "got an identifier"
     assert false, "TODO" #TODO!
 
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   of ckClass:
     echo "obj is a class, returning the current namespace id"
     res = data.currentNamespace.id
@@ -100,11 +53,7 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
     res = none(UUID) # namespaces don't have a parentID, since we have just one root.
   of ckMethod:
     echo "object is a method"
-<<<<<<< HEAD
     let m = getLastBlocks(@[ckClass, ckStruct], obj.id.get)
-=======
-    let m = getLastBlocks(@[ckClass, ckStruct])
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
     assert m.isSome
     res = m.get.id.some
     # echo "last added in namespace: ", data.nsLastAdded
@@ -176,15 +125,6 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
     else:
       res = data.lastBodyExprId
 
-<<<<<<< HEAD
-=======
-  of ckExpressionStatement:
-    echo "obj is ExpressionStatement"
-    # echo "we assume we're in method or ctor, but if there are more options change that."
-    let last = state.getLastType((c) => c.name notin ["IdentifierName"]) # FIXME: add more according to cases.
-    res = last.get.id.some
-
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   of ckAssignmentExpression:
     echo "obj is AssignmentExpression"
     assert data.classLastAdded in [ClassParts.Methods, ClassParts.Ctors],
@@ -194,11 +134,7 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
   of ckIndexer:
     echo "obj is IndexerDeclaration"
     let p = @[ckClass, ckStruct]
-<<<<<<< HEAD
     let m = getLastBlocks(p, obj.id.get)
-=======
-    let m = getLastBlocks(p)
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
     assert m.isSome
     res = m.get.id.some
 
@@ -216,11 +152,7 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
     echo "obj is property"
     # can be interfaces or classes
     let parents = @[ckClass, ckInterface, ckStruct, ckNamespace]
-<<<<<<< HEAD
     let match = getLastBlocks(parents, obj.id.get)
-=======
-    let match = getLastBlocks(parents)
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
     assert match.isSome
     res = match.get.id.some
 
@@ -275,11 +207,7 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
     assert data.classLastAdded in [ClassParts.Properties, ClassParts.Indexer]
     res = data.idLastClassPart
   of ckAccessor: # find its parent:AccessorList
-<<<<<<< HEAD
     let lastMatch = getLastType("AccessorList", obj.id.get)
-=======
-    let lastMatch = getLastType("AccessorList")
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
     assert lastMatch.isSome
     res = lastMatch.get.id.some
     # assert data.classLastAdded in [ClassParts.Properties, ClassParts.Indexer]
@@ -321,28 +249,10 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
   of ckGenericName:
     # just return the last construct.
     let b = getLastType((c) => c.name notin ["GenericName", "BlockStarts",
-<<<<<<< HEAD
         "IdentifierName", "QualifiedName"], obj.id.get)
     if b.isNone: discarded = true
     echo b.get.name
     res = b.get.id.some
-=======
-        "IdentifierName", "QualifiedName"])
-    if b.isNone: discarded = true
-    echo b.get.name
-    res = b.get.id.some
-    # when false: # previous impl. do we pass unit tests?
-    #   case data.previousConstruct.get.name
-    #   of ["IdentifierName"]: discarded = true
-    #   of ["VariableDeclaration", "ObjectCreationExpression",
-    #       "MethodDeclaration", "Parameter", "SimpleBaseType"]:
-    #     assert data.classLastAdded == Methods, $data.classLastAdded
-    #     res = data.lastBodyExprId
-    #     if res.get != data.previousConstruct.get.id:
-    #       let btype = if not data.lastBodyExpr.get.typ.isEmptyOrWhitespace: data.lastBodyExpr.get.typ else: data.lastBodyExpr.get.ttype
-    #       echo btype, " <=> ", data.previousConstruct.get.name
-    #   else: assert false, data.previousConstruct.get.name
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 
   of ckTypeArgumentList:
@@ -378,30 +288,18 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
         data.previousConstruct.get.name
 
   of ckInitializerExpression: # find your parent: the last object creation expression
-<<<<<<< HEAD
     let m = getLastTypes([ckObjectCreationExpression], obj.id.get)
-=======
-    let m = getLastTypes([ckObjectCreationExpression])
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
     assert m.isSome
     res = m.get.id.some
 
   of ckPrefixUnaryExpression: # hmm, not the previous but the next one. so just add it.
     let fitting = getLastType(c=>c.name in [
-<<<<<<< HEAD
         "InitializerExpression", "NameEquals"], obj.id.get) # TODO: add others as needed.
-=======
-        "InitializerExpression", "NameEquals"]) # TODO: add others as needed.
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
     assert fitting.isSome, $data.simplified
     res = fitting.get.id.some
   of ckBinaryExpression:
     let b = state.getLastType(c=>c.name in [
-<<<<<<< HEAD
         "VariableDeclarator", "LiteralExpression"], obj.id.get) # TODO: add others as needed.
-=======
-        "VariableDeclarator", "LiteralExpression"]) # TODO: add others as needed.
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
     assert b.isSome, $data.simplified
     res = b.get.id.some
   of ckField: # classes, or interfaces
@@ -409,17 +307,10 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
     # res = data.idLastNsPart
 
     let parents = @["ClassDeclaration", "StructDeclaration", "InterfaceDeclaration"]
-<<<<<<< HEAD
     let lastMatch = getLastBlocks(parents, obj.id.get)
     assert lastMatch.isSome
     res = lastMatch.get.id.some
   of ckNameEquals: # so far only saw it with a using line (import)
-=======
-    let lastMatch = getLastBlocks(parents)
-    assert lastMatch.isSome
-    res = lastMatch.get.id.some
-  of ckNameEquals:
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
     res = data.lastUsing.id # could be related to inner annotation not being removed by CsDisplay, check cs source code first.
 
   of ckExternAliasDirective:
@@ -428,21 +319,16 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
     echo "got " & $ckExternAliasDirective & " which we don't support (doesn't make sense for nim modules)"
 
   of [ckInterface, ckDelegate, ckStruct, ckEvent]:
-<<<<<<< HEAD
     res = if data.currentNamespace.isNil:
       currentRoot.global.id
     else:
       data.currentNamespace.id
-=======
-    res = data.currentNamespace.id
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
   of ckCaseSwitchLabel:
     assert false, "got: " & $obj.kind & data.sourceCode
 
   of ckSwitchSection:
     let parents = @["SwitchStatement"]
-<<<<<<< HEAD
     let lastMatch = getLastBlocks(parents, obj.id.get)
     assert lastMatch.isSome
     res = lastMatch.get.id.some
@@ -451,69 +337,30 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
     let lastMatch = getLastBlocks(@["ForStatement", "TryStatement", "ForEachStatement", "WhileStatement", "IfStatement", "SwitchSection", "CatchClause", "DoStatement"], obj.id.get)
     assert lastMatch.isSome
     res = lastMatch.get.id.some
-=======
-    let lastMatch = getLastBlocks(parents)
-    assert lastMatch.isSome
-    res = lastMatch.get.id.some
-
-  of ckPostfixUnaryExpression:
-    assert false, "got: " & $obj.kind & data.sourceCode
-  of ckCatchClause:
-    assert false, "got: " & $obj.kind & data.sourceCode
-  of ckCatch:
-    assert false, "got: " & $obj.kind & data.sourceCode
-  of ckContinueStatement:
-    let lastMatch = getLastBlocks(@["ForStatement", "ForEachStatement", "WhileStatement", "IfStatement", "SwitchSection", "CatchClause", "DoStatement"])
-    assert lastMatch.isSome
-    res = lastMatch.get.id.some
-  of ckFinallyClause:
-    assert false, "got: " & $obj.kind & data.sourceCode
-  of ckDefaultSwitchLabel:
-    assert false, "got: " & $obj.kind & data.sourceCode
-
-  of ckThrowExpression:
-    assert false, "got: " & $obj.kind & data.sourceCode
-
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   # general body constructs
   of [
     ckGotoStatement, ckLabeledStatement, ckUnsafeStatement, ckFixedStatement,
     ckSwitchStatement, ckReturnStatement, ckIfStatement, ckElseClause,
     ckForStatement, ckDoStatement, ckCastExpression, ckWhileStatement,
     ckForEachStatement, ckForEachVariableStatement, ckUsingStatement, ckLockStatement, ckCheckedStatement,
-<<<<<<< HEAD
     ckTryStatement, ckThrowStatement, ckYieldStatement, ckExpressionStatement
-=======
-    ckTryStatement, ckThrowStatement, ckYieldStatement
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
     ]:
     echo "got " & $obj.kind
     let parents = @[
     "DestructorDeclaration", "AccessorDeclaration", "ConversionOperatorDeclaration", "ParenthesizedLambdaExpression",
       "MethodDeclaration", "ForStatement", "ForEachStatement", "ElseClause",
-<<<<<<< HEAD
       "SwitchSection", "IndexerDeclaration", "LockStatement","FinallyClause",
       "ConstructorDeclaration", "OperatorDeclaration", "LocalFunctionStatement",
       "AnonymousMethodExpression", "IfStatement", "TryStatement", "SimpleLambdaExpression" ]
       # "PropertyDeclaration",
     echo "and looking for its parent in:", parents
     let lastMatch = getLastBlocks(parents, obj.id.get)
-=======
-      "SwitchSection", "IndexerDeclaration",
-      "ConstructorDeclaration", "OperatorDeclaration", "LocalFunctionStatement",
-      "AnonymousMethodExpression", "IfStatement", "TryStatement", "SimpleLambdaExpression"
-    ]
-      # "PropertyDeclaration",
-    echo "and looking for its parent in:", parents
-    let lastMatch = getLastBlocks(parents)
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
     assert lastMatch.isSome
     res = lastMatch.get.id.some
 
   of ckLocalDeclarationStatement:
     let parents = @[ckClass, ckMethod, ckConstructor, ckProperty, ckForStatement, ckIfStatement, ckSwitchSection, ckElseClause,
     ckUsingStatement, ckConversionOperator, ckAccessor, ckDestructor, ckAnonymousMethodExpression, ckParenthesizedLambdaExpression, ckGlobalStatement,
-<<<<<<< HEAD
     ckForEachStatement, ckIndexer, ckTryStatement, ckOperator, ckLabeledStatement, ckLocalFunctionStatement]
 
     let lastMatch = getLastBlocks(parents, obj.id.get)
@@ -596,58 +443,11 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
     assert false,"got: " & $obj.kind & "\nsource: " & data.sourceCode
   of ckArrowExpressionClause:
     assert false,"got: " & $obj.kind & "\nsource: " & data.sourceCode
-=======
-    ckForEachStatement, ckIndexer, ckTryStatement, ckOperator, ckLabeledStatement]
-    let lastMatch = getLastBlocks(parents)
-    assert lastMatch.isSome
-    res = lastMatch.get.id.some
-  of ckBreakStatement: # if, case, else, while, do, ...others?
-    let lastMatch = getLastBlocks(@[ ckIfStatement, ckTryStatement, ckElseClause, ckSwitchSection, ckWhileStatement, ckMethod])
-    assert lastMatch.isSome
-    res = lastMatch.get.id.some
-    # assert false # plz add more cases above.
-
-  of ckThisExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckBracketedArgumentList:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckElementAccessExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckParenthesizedExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckArrayRankSpecifier:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckArrayType:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckOmittedArraySizeExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckTypeOfExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-  of ckSimpleLambdaExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckArrayCreationExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckArrowExpressionClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   of ckAliasQualifiedName:
     echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
     discarded = true
     # assert false
   of ckTypeParameter:
-<<<<<<< HEAD
     assert false,"got: " & $obj.kind & "\nsource: " & data.sourceCode
   of ckAwaitExpression:
     assert false,"got: " & $obj.kind & "\nsource: " & data.sourceCode
@@ -726,153 +526,11 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
     assert false,"got: " & $obj.kind & "\nsource: " & data.sourceCode
   of ckTupleType:
     assert false,"got: " & $obj.kind & "\nsource: " & data.sourceCode
-=======
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckAwaitExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckConditionalExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckTypeParameterList:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-  of ckInterpolatedStringText:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckParenthesizedLambdaExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckNullableType:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckBaseExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckInterpolation:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckNameColon:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckTypeParameterConstraintClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckTypeConstraint:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-  of ckSingleVariableDesignation:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckInterpolatedStringExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckImplicitArrayCreationExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckDeclarationExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckConditionalAccessExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckMemberBindingExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-  of ckDefaultExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckPointerType:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckAnonymousObjectMemberDeclarator:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckCheckedExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckIsPatternExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckDeclarationPattern:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckConstantPattern:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckRefType:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckRefExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-  of ckClassOrStructConstraint:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckOmittedTypeArgument:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckTupleElement:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckOperator:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckEventField:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    let p = @[ckClass, ckNamespace]
-    let m = getLastBlocks(p)
-    assert m.isSome
-    res = m.get.id.some
-
-  of ckImplicitElementAccess:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckAnonymousMethodExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckTupleExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-  of ckAnonymousObjectCreationExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckGlobalStatement: # ignored.
-    discarded = true # not sure what to do here. for example got a file with just a few strings.
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    # assert false
-  of ckIncompleteMember: #ignore
-    # TODO: don't know what this means, for now, ignore it.
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    discarded = true
-    # assert false
-
-  of ckLocalFunctionStatement: #
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    let parents = @[ ckMethod, ckConstructor, ckDestructor, ckAccessor]
-    let lastMatch = getLastTypes(parents)
-    assert lastMatch.isSome
-    res = lastMatch.get.id.some
-
-  of ckConversionOperator:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckTupleType:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   of ckEmptyStatement: # ignore
     echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
     discarded = true
     # assert false
   of ckSizeOfExpression:
-<<<<<<< HEAD
     assert false,"got: " & $obj.kind & "\nsource: " & data.sourceCode
 
   of ckQueryBody:
@@ -978,164 +636,6 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
 
 
   result = FindParentResult(discarded: discarded, parentId: res)
-=======
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-  of ckQueryBody:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckQueryExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckCasePatternSwitchLabel:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-  of ckConstructorConstraint:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckParenthesizedVariableDesignation:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-  of ckInterpolationFormatClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckDestructor:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckDiscardDesignation:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckStackAllocArrayCreationExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckWhenClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckLetClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckElementBindingExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-  of ckCatchFilterClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckOrdering:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckInterpolationAlignmentClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckQueryContinuation:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckMakeRefExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckRefValueExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckRefTypeExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckBlock:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckBinaryPattern:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckDiscardPattern:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-  of ckFunctionPointerType:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckImplicitObjectCreationExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckParenthesizedPattern:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckPositionalPatternClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckPrimaryConstructorBaseType:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckPropertyPatternClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckRangeExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckRecord:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-  of ckRecursivePattern:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckRelationalPattern:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckSubpattern:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckSwitchExpression:
-    let parents = @[ckSwitchExpressionArm]
-    let lastMatch = getLastTypes(parents)
-    assert lastMatch.isSome
-    res = lastMatch.get.id.some
-
-  of ckSwitchExpressionArm:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckTypePattern:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckUnaryPattern:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckVarPattern:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckWithExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-  of ckImplicitStackAllocArrayCreationExpression:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckOrderByClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckGroupClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckJoinClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckFromClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckSelectClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckWhereClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-  of ckJoinIntoClause:
-    echo "got: " & $obj.kind & "\nsource: " & data.sourceCode
-    assert false
-
-
-  result = (discarded, res)
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   if res.isNone: assert discarded == true
   assert (not discarded and res.isSome) or (discarded and res.isNone), "dis: " &
       $discarded & ", res: " & $res
@@ -1217,11 +717,7 @@ proc getParent*(root: var CsRoot; newobj: Construct; allData: AllNeededData): (b
     echo "parent id found: ", $pid
     res = root.infoCenter.fetch(pid.get)
     if res.isNone:
-<<<<<<< HEAD
       echo "!!! couldn't find registered object for this id" ### NOTE: can happen for IdentifierName since we don't register it. it means the parent was wrongly identified as IdentifierName.
-=======
-      echo "--- couldn't find registered object for this id" ### NOTE: can happen for IdentifierName since we don't register it. it means the parent was wrongly identified as IdentifierName.
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
       # assert false
 
     assert cfits(res.get,newobj,allData) # check again that parent fits, if not: likely cfits mapping is wrong or the specific matching needs tweaking

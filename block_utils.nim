@@ -53,7 +53,6 @@ proc endBlock*(info: Info) =
 import stacks
 proc resetBlocks*() = blocks.clear()
 
-<<<<<<< HEAD
 proc getLastBlocks*(types: openArray[ConstructKind], childId:UUID): Option[Block] =
   let typestrs :seq[string] = types.mapIt(ckToStr[it])
   result = getLastBlocks(typestrs, childId)
@@ -61,13 +60,3 @@ proc getLastBlocks*(types: openArray[ConstructKind], childId:UUID): Option[Block
 proc getLastTypes*(types: openArray[ConstructKind],childId:UUID): Option[Block] =
   let typestrs :seq[string] = types.mapIt(if ckToStr.hasKey(it): ckToStr[it] else: "unknown")
   result = getLastTypes(typestrs,childId)
-=======
-import construct, options, tables
-proc getLastBlocks*(types: openArray[ConstructKind]): Option[Block] =
-  let typestrs :seq[string] = types.mapIt(ckToStr[it])
-  result = getLastBlocks(typestrs)
-
-proc getLastTypes*(types: openArray[ConstructKind]): Option[Block] =
-  let typestrs :seq[string] = types.mapIt(if ckToStr.hasKey(it): ckToStr[it] else: "unknown")
-  result = getLastTypes(typestrs)
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3

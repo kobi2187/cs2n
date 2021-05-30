@@ -6,10 +6,6 @@ import constructs/justtypes
 import strutils, options
 import constructs/cs_root
 import tables, sets
-<<<<<<< HEAD
-=======
-import construct
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 var parentTable* = initTable[int, string]()
 
@@ -89,12 +85,6 @@ proc getCurrentNs*(root: var CsRoot): (string, CsNamespace) =
   let ns = root.nsTables[p]
   result = (p, ns)
 
-<<<<<<< HEAD
-=======
-# proc getLastProperty*(root: var CsRoot): Option[CsProperty] =
-#   var (_, ns) = root.getCurrentNs
-#   result = ns.getLastProperty()
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc getIndexer(c: CsClass): Option[CsIndexer] =
   if not c.hasIndexer():
@@ -137,57 +127,3 @@ proc getLastCtor*(cls: CsClass): Option[CsConstructor] =
   if cls.ctors.len == 0: return
   else:
     return some(cls.ctors.last)
-<<<<<<< HEAD
-=======
-
-# import tables
-
-import options
-
-# proc getLastProperty(c: CsClass): Option[CsProperty] =
-#   assert c.lastAddedTo.isSome
-#   case c.lastAddedTo.get
-#   of ClassParts.Properties:
-#     # echo "~~~" & c.properties.mapIt(it.name)
-#     if c.properties.isEmpty:
-#       result = none(CsProperty)
-#     else:
-#       assert c.properties.len > 0
-#       var last = c.properties[^1]
-#       result = some(last)
-
-#   else: assert false, "Unsupported"
-
-
-
-# proc getLastProperty*(ns: CsNamespace): Option[CsProperty] =
-#   assert ns.lastAddedTo.isSome
-#   case ns.lastAddedTo.get
-#   of NamespaceParts.Interfaces: discard # TODO
-#   of NamespaceParts.Classes:
-#     let c = ns.getLastClass()
-#     if c.isNone: result = none(CsProperty)
-#     else:
-#       result = c.get.getLastProperty()
-#   of [NamespaceParts.Enums, NamespaceParts.Unset, NamespaceParts.Using]: discard
-
-# ===
-
-
-
-# proc getCurrentNs*(root:var CsRoot): (string, CsNamespace) =
-#   var p = nsPath(root)
-#   if p == "": p = "default"
-#   # echo p
-#   assert root.nsTables.hasKey(p)
-#   let ns = root.nsTables[p]
-#   result = (p, ns)
-
-# proc getLastIndexer*(root: var CsRoot): Option[CsIndexer] =
-#   var (_, ns) = root.getCurrentNs
-#   result = ns.getLastIndexer()
-
-# proc getLastProperty*(root: var CsRoot): Option[CsProperty] =
-#   var (_, ns) = root.getCurrentNs
-#   result = ns.getLastProperty()
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3

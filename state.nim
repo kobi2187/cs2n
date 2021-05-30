@@ -26,11 +26,7 @@ import strutils
 #   result = getLastBlock(proc(c: Block): bool = c.name.toLowerAscii in loweredTypeStrs)
 
 
-<<<<<<< HEAD
 proc getLastBlockTypes(typeStrs: openArray[string], childId:UUID; so: SearchOption): Option[Block] =
-=======
-proc getLastBlockTypes(typeStrs: openArray[string], so: SearchOption): Option[Block] =
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   var x = if so == soBlocks: currentPath() else: currentConstruct
   let loweredTypeStrsSet = typeStrs.mapIt(it.toLowerAscii).toHashSet()
   # let constrSet = currentConstruct.mapIt(it.name.toLowerAscii).toHashSet()
@@ -38,7 +34,6 @@ proc getLastBlockTypes(typeStrs: openArray[string], so: SearchOption): Option[Bl
   # the order is important though
   if (constrSet - loweredTypeStrsSet).len > 0:
     # for c in currentConstruct.reversed:
-<<<<<<< HEAD
     x = x.filterIt(it.id != childId)
     for c in x.filterIt(it.name notin [ "BlockStarts"]).reversed:
       echo "- matching " & c.name
@@ -64,32 +59,6 @@ proc getLastBlock*(cond: (proc(c: Block): bool), childId:UUID, so = soBlocks): O
 
 proc getLastType*(cond: (proc(c: Block): bool), childId:UUID): Option[Block] =
   result = getLastBlock(cond, childId, soAll)
-=======
-    for c in x.reversed:
-      if c.name.toLowerAscii in loweredTypeStrsSet:
-        result = some(c)
-  else: result = none(Block)
-
-proc getLastTypes*(typeStrs: openArray[string]): Option[Block] =
-  result = getLastBlockTypes(typeStrs, soAll)
-proc getLastBlocks*(typeStrs: openArray[string]): Option[Block] =
-  result = getLastBlockTypes(typeStrs, soBlocks)
-proc getLastType*(typeStr: string): Option[Block] =
-  result = getLastTypes(@[typestr])
-
-proc getLastBlock*(cond: (proc(c: Block): bool), so = soBlocks): Option[Block] =
-  var x = if so == soBlocks: currentPath() else: currentConstruct
-  for c in x.reversed:
-    if c.cond(): return c.some
-  return none(Block)
-
-proc getLastType*(cond: (proc(c: Block): bool)): Option[Block] =
-  result = getLastBlock(cond, soAll)
-
-# import construct, tables
-
-
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc prevprevConstruct*: Block =
   let skipList = @[
@@ -132,10 +101,7 @@ let blockTypesTxt* = [ # everything in C# that has an opening { brace
   "IndexerDeclaration",
   "LockStatement",
   "MethodDeclaration",
-<<<<<<< HEAD
   "LocalFunctionStatement",
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   "NamespaceDeclaration",
   "OperatorDeclaration",
   "ParenthesizedLambdaExpression",

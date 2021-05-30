@@ -1,7 +1,6 @@
 {.experimental: "codeReordering".}
 # import ../state_utils
 import nre, sequtils, strutils, sets, re, uuids, options, tables, hashes
-<<<<<<< HEAD
 import ../types, justtypes
 import sequtils, algorithm
 # import :store_utils
@@ -73,13 +72,6 @@ method addConditional*(parent: CsConditionalExpression; item: BodyExpr) =
       assert false, "t = " & parent.bodyTrue.typ & parent.bodyTrue.src & ": f = " & parent.bodyFalse.typ & parent.bodyFalse.src
   echo "after", parent
 
-=======
-{.experimental: "codeReordering".}
-import ../types
-import justtypes
-
-
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc colonsToTable*(s: seq[string]): TableRef[string, string] =
   new result
   for x in s:
@@ -88,16 +80,6 @@ proc colonsToTable*(s: seq[string]): TableRef[string, string] =
     let k = r[0]
     let v = r[1]
     result[k] = v
-<<<<<<< HEAD
-=======
-
-
-
-# const stopEarly = false
-  # NOTE: for some reason I get the following warning:
-  #   use {.base.} for base methods; baseless methods are deprecated [UseBase]
-# the other add methods don't recognize that this is their base method. (even though both parameters inherit correctly from CsObject.
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(a: var ref CsObject, b: CsObject) {.base.} =
   raise newException(Exception, "missing implementation for " & a.typ & ", " & b.typ)
@@ -123,7 +105,6 @@ proc extract*(t: typedesc[CsAccessorList]; info: Info): CsAccessorList =
   #   result.hasGetBody = true # TODO: check against real code.
   # if val.contains(nre.re"set\s*{"): echo val; result.hasSetBody = true
 
-<<<<<<< HEAD
 method add*(parent: CsAccessorList; item: CsAccessor) =
   parent.accessors.add item
 
@@ -157,29 +138,6 @@ method genNim*(c: CsAccessorList): string =
     result &= ac.genNim()
     result &= "\n"
   echo "<-- end of genNim*(c: var CsAccessorList)"
-=======
-method add*(parent: var CsAccessorList; item: CsAccessor) =
-  parent.accessors.add item
-  # echo "csaccessor is " & $item.name & ":" & $item.kind
-  # assert item.kind in ["get", "set"#[ for normal properties ]#, "add","remove" #[ properties for events ]#]
-  # if item.kind == "get":
-  #   parent.getPart = item
-  # else:
-  #   parent.setPart = item
-
-# proc add*(parent: var CsAccessorList; item: Dummy; data: AllNeededData) = parent.add(item)
-
-method gen*(c: CsIfStatement): string =
-  echo "--> in  gen*(c: var CsIfStatement)"
-  result = "NotYetImplemented"
-  todoimpl
-
-method gen*(c: var CsAccessorList): string =
-  echo "--> in  gen*(c: var CsAccessorList)"
-  todoimpl
-
-# ============= CsAccessor ========
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc newCs*(t: typedesc[CsAccessor]): CsAccessor =
   new result
@@ -189,10 +147,6 @@ import sequtils
 proc extract*(t: typedesc[CsAccessor]; info: Info): CsAccessor =
   echo info
   let tbl = colonsToTable(info.essentials)
-<<<<<<< HEAD
-=======
-  # todoimpl
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   result = newCs(CsAccessor)
   result.kind = tbl["keyword"]
   result.statementsTxt = if tbl.hasKey("statements"): tbl["statements"] else: ""
@@ -296,15 +250,6 @@ proc newCs*(t: typedesc[CsAnonymousMethodExpression]): CsAnonymousMethodExpressi
 proc extract*(t: typedesc[CsAnonymousMethodExpression]; info: Info): CsAnonymousMethodExpression =
   echo info
   result = newCs(CsAnonymousMethodExpression)
-<<<<<<< HEAD
-=======
-
-  # todoimpl
-
-# method add*(parent: var CsAnonymousMethodExpression; item: Dummy)  =
-#   echo "!!! ---->> unimplemented:  method add*(parent: var CsAnonymousMethodExpression; item: Dummy) "
-#   if stopEarly: assert false
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method genCs*(c: CsAnonymousMethodExpression): string =
   result = "[GENCS:CsAnonymousMethodExpression]"
@@ -354,39 +299,25 @@ method genNim*(c: CsAnonymousObjectMemberDeclarator): string =
 
   echo "--> in  genNim*(c: var CsAnonymousObjectMemberDeclarator)"
 
-<<<<<<< HEAD
   todoimplGen()
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc newCs*(t: typedesc[CsArgumentList]): CsArgumentList =
   new result
   result.typ = $typeof(t)
 
 proc extract*(t: typedesc[CsArgumentList]; info: Info): CsArgumentList =
-<<<<<<< HEAD
   result = newCs(CsArgumentList) #, info.essentials[0].split(","))
 
-=======
-  result = newCs(CsArgumentList)#, info.essentials[0].split(","))
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc replacementGenericTypes (s: string): string =
   if s.contains("<") and s.contains(">"):
     result = s.replace("<", "[").replace(">", "]")
   else: result = s
 
-<<<<<<< HEAD
 proc toNimType(s:string):string = # todo: feature: maybe need to change cs type names to nim type names.
   result = s.replacementGenericTypes
 
 method genCs*(c: CsArgumentList): string =
   result = "[GENCS:CsArgumentList]"
-=======
-method gen*(c: var CsArgumentList): string =
-  echo "--> in  gen*(c: var CsArgumentList)"
-  if not c.isNil:
-    result = c.args.mapIt(it.gen()).join(", ")
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
   echo "--> in genCs*(c: var CsArgumentList): string ="
   todoimplGen()
@@ -409,7 +340,6 @@ proc extract*(t: typedesc[CsArgument]; info: Info): CsArgument =
   # result.name = tbl["value"]
   result.value = tbl["value"]
 
-<<<<<<< HEAD
 method genCs*(c: CsArgument): string =
   result = "[GENCS:CsArgument]"
 
@@ -423,17 +353,6 @@ method genNim*(c: CsArgument): string =
   else: result = c.expr.genNim()
   echo result
   echo "<-- end of genNim csArgument"
-=======
-
-# proc add*(parent: var CsArgument; item: Dummy; data: AllNeededData) = parent.add(item)
-
-method gen*(c: CsArgument): string =
-  echo "--> in  gen*(c: var CsArgument)"
-  result = c.name & ": " & c.value
-
-# ============= CsArrayCreationExpression ========
-
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc newCs*(t: typedesc[CsArrayCreationExpression]): CsArrayCreationExpression =
   new result
   result.typ = $typeof(t)
@@ -513,7 +432,6 @@ proc extract*(t: typedesc[CsArrowExpressionClause]; info: Info): CsArrowExpressi
   echo info
   result = newCs(CsArrowExpressionClause)
 
-<<<<<<< HEAD
 method genCs*(c: CsArrowExpressionClause): string =
   result = "[GENCS:CsArrowExpressionClause]"
   echo "--> in genCs*(c: var CsArrowExpressionClause): string ="
@@ -541,23 +459,6 @@ method genNim*(c: CsAssignmentExpression): string =
   echo c.right.typ
   result = c.leftStr & " = " & c.right.genNim()
   # assert false #TODO(genNim:CsAssignmentExpression)
-=======
-method gen*(c: var CsArrowExpressionClause): string =
-  todoimpl
-  echo "--> in  gen*(c: var CsArrowExpressionClause)"
-
-# ============= CsAssignmentExpression ========
-
-method gen*(c: CsAssignmentExpression): string =
-  echo "--> in  gen*(c: CsAssignmentExpression)"
-  assert c.left.len > 0
-  assert not c.right.isNil
-  echo c.right.typ
-  result = c.left & " = " & c.right.gen()
-  # assert false #TODO(gen:CsAssignmentExpression)
-
-# ============= CsAttributeArgumentList ========
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc newCs*(t: typedesc[CsAttributeArgumentList];
     name: string): CsAttributeArgumentList =
@@ -1007,12 +908,6 @@ method add*(parent: CsMethod, item: CsAssignmentExpression) =
 
 method add*(parent: CsMethod, item: CsIfStatement) =
   parent.body.add item
-<<<<<<< HEAD
-=======
-
-method add*(parent: var CsMethod, item: CsGenericName) =
-  todoimpl # TODO
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsMethod, item: CsGenericName) =
   parent.genericName = item
@@ -1020,30 +915,8 @@ method add*(parent: CsMethod, item: CsGenericName) =
 method add*(parent: CsMethod, item: CsInvocationExpression) =
   parent.body.add item
 
-<<<<<<< HEAD
 method add*(parent: CsMethod, item: CsVariableDeclarator) =
   parent.body.add item
-=======
-method add*(parent: var CsEqualsValueClause, item: CsBinaryExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause, item: CsBinaryExpression)"
-  parent.rhsValue = item
-
-method add*(parent: var CsEqualsValueClause, item: CsMemberAccessExpression) =
-  echo "in ", "method add*(parent: var CsEqualsValueClause, item: CsMemberAccessExpression)"
-  parent.rhsValue = item
-  # if parent.rhsValue.isNil:
-  #   parent.rhsValue = item
-method add*(parent: var CsEqualsValueClause, item: CsObjectCreationExpression) =
-  echo "in ", "method add*(parent: var CsEqualsValueClause, item: CsObjectCreationExpression)="
-  parent.rhsValue = item
-  # if parent.rhsValue.isNil:
-  #   parent.rhsValue = item
-method add*(parent: var CsEqualsValueClause, item: CsLiteralExpression) =
-  echo "in ", "method add*(parent: var CsEqualsValueClause, item: CsLiteralExpression)"
-  parent.rhsValue = item
-  # if parent.rhsValue.isNil:
-  #   parent.rhsValue = item
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsEqualsValueClause, item: CsBinaryExpression) =
   echo "in method add*(parent: CsEqualsValueClause, item: CsBinaryExpression)"
@@ -1095,7 +968,6 @@ method addSelfParam(m: var CsMethod) =
   let p = newCs(CsParameter, "this", m.parentClass)
   m.parameterList.parameters.insert(@[p], 0)
 
-<<<<<<< HEAD
 method addSelfTypedesc(m:var CsMethod)=
   let p = newCs(CsParameter, "_", "typedesc[" & m.parentClass & "]")
   m.parameterList.parameters.insert(@[p], 0)
@@ -1104,10 +976,6 @@ method genNim*(p: CsParameter): string =
   result = "[GENNIM:CsParameter]"
 
   echo "--> in  genNim*(p: CsParameter)"
-=======
-proc gen*(p: CsParameter): string =
-  echo "--> in  gen*(p: CsParameter)"
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   result = p.name & ": "
   if p.isRef:
     result &= "var "
@@ -1190,11 +1058,7 @@ method genNim*(b: CsMethod): string =
       var lines: seq[string]
       for ln in m.body: # a sequence of bodyExpr -- only known at runtime.
         echo ln.typ, " ", ln.ttype
-<<<<<<< HEAD
         let generatedString = ln.genNim()
-=======
-        let generatedString = ln.gen()
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
         echo "generated string for the method bodyexpr was: " & generatedString
         lines.add generatedString
       lines.join("\r\n  ")
@@ -1242,7 +1106,6 @@ method genNim*(c: CsConstructor): string =
 
   result &= body
 
-<<<<<<< HEAD
 # type AccessorType = enum atIndexer, atMethod
 
 method genCs*(c: CsIndexer): string =
@@ -1268,21 +1131,11 @@ method genNim*(c: CsIndexer): string =
   result = ""
  #TODO: handle when indexer has some body, less strings, more objects stored. (lookup in csdisplay to see fields)
   echo "--> in  genNim*(c: var CsIndexer)"
-=======
-type AccessorType = enum atIndexer, atMethod
-
-method gen*(c: var CsIndexer): string = #TODO: handle when indexer has some body, less strings, more objects stored. (lookup in csdisplay to see fields)
-  echo "--> in  gen*(c: var CsIndexer)"
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   echo "generating indexer"
   let x = c.firstVarType.rsplit(".", 1)[^1]
   var setPart, getPart: string
 
-<<<<<<< HEAD
   let sq = c.pmlist[1..^2].split(" ")
-=======
-  let sq= c.pmlist[1..^2].split(" ")
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   echo "pmlist:" & sq[1] & sq[0]
   let part = "(this: var " & x & "; " & sq[1] & ": " & sq[0]
   if c.hasDefaultGet:
@@ -1336,11 +1189,7 @@ proc getLastCtor*(cls: CsClass): Option[CsConstructor] =
   else:
     return some(cls.ctors.last)
 
-<<<<<<< HEAD
 import tables, options, strformat
-=======
-import tables, options
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc genFields(ls:seq[CsField]):string =
   if ls.len > 0:
@@ -1348,7 +1197,6 @@ proc genFields(ls:seq[CsField]):string =
     for f in ls:
       result &= "  " & f.genNim() & "\r\n"
 
-<<<<<<< HEAD
 method genCs*(c: CsClass): string =
   result = "[GENCS:CsClass]"
   result = ""
@@ -1404,12 +1252,6 @@ method genNim*(c: CsClass): string =
     # finish type declaration
     result &= " = ref object"
 
-=======
-method gen*(c: CsClass): string =
-  echo "--> in  gen*(c: CsClass)"
-  echo "generating class:" & c.name
-  if c.isNil: result = "" else: result &= "type " & c.name & "* = ref object"
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   if c.extends != "": result &= " of " & c.extends
   result &= genFields(c.fields)
   result &= "\r\n\r\n"
@@ -1640,12 +1482,7 @@ proc newCs*(t: typedesc[CsConstructorInitializer]): CsConstructorInitializer =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
 proc extract*(t: typedesc[CsConstructorInitializer]; info: Info): CsConstructorInitializer =
-=======
-
-proc extract*(t: typedesc[CsConstructorInitializer];    info: Info): CsConstructorInitializer =
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   echo info
   result = newCs(CsConstructorInitializer)
 
@@ -1659,15 +1496,11 @@ method genNim*(c: CsConstructorInitializer): string =
 
   echo "--> in  genNim*(c: var CsConstructorInitializer)"
 
-<<<<<<< HEAD
   todoimplGen()
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc newCs*(t: typedesc[CsConstructor]): CsConstructor =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
 proc extract*(t: typedesc[CsConstructor]; info: Info): CsConstructor =
   let tbl = colonsToTable(info.essentials)
   let name = tbl["name"]
@@ -1675,14 +1508,6 @@ proc extract*(t: typedesc[CsConstructor]; info: Info): CsConstructor =
   result = newCs(CsConstructor)
   result.name = name
   result.modifiers = mods.split(",").mapIt(it.strip)
-=======
-
-proc extract*(t: typedesc[CsConstructor]; info: Info): CsConstructor =
-  let tbl = colonsToTable(info.essentials)
-  let name = tbl["name"]
-  result = newCs(CsConstructor)
-  result.name = name
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsConstructor; item: CsLocalDeclarationStatement) =
   parent.body.add item
@@ -1871,10 +1696,6 @@ proc newCs*(t: typedesc[CsDoStatement]): CsDoStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsDoStatement]; info: Info): CsDoStatement =
   echo info
   result = newCs(CsDoStatement)
@@ -1894,10 +1715,6 @@ proc newCs*(t: typedesc[CsElementAccessExpression]): CsElementAccessExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsElementAccessExpression]; info: Info): CsElementAccessExpression =
   echo info
   result = newCs(CsElementAccessExpression)
@@ -1926,10 +1743,6 @@ proc newCs*(t: typedesc[CsElementBindingExpression]): CsElementBindingExpression
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsElementBindingExpression]; info: Info): CsElementBindingExpression =
   echo info
   result = newCs(CsElementBindingExpression)
@@ -1949,10 +1762,6 @@ proc newCs*(t: typedesc[CsElseClause]): CsElseClause =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsElseClause]; info: Info): CsElseClause =
   echo info
   result = newCs(CsElseClause)
@@ -1973,10 +1782,6 @@ proc newCs*(t: typedesc[CsEmptyStatement]): CsEmptyStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsEmptyStatement]; info: Info): CsEmptyStatement =
   echo info
   result = newCs(CsEmptyStatement)
@@ -1998,11 +1803,7 @@ proc newCs*(t: typedesc[CsEnumMember]; name, value: auto): CsEnumMember =
   result.name = name
   result.value = value
 
-<<<<<<< HEAD
 import tables, sequtils
-=======
-import tables,sequtils
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsEnumMember]; info: Info): CsEnumMember =
   echo info
   let tbl = colonsToTable(info.essentials)
@@ -2011,7 +1812,6 @@ proc extract*(t: typedesc[CsEnumMember]; info: Info): CsEnumMember =
   result = newCs(CsEnumMember, name, value)
 
 method add*(em: CsEnumMember; val: string) =
-<<<<<<< HEAD
   echo "val:", val
   if em.value.isEmptyOrWhitespace:
     em.value = val.strip
@@ -2031,17 +1831,6 @@ method genNim*(e: CsEnumMember): string =
 
   echo "--> in  genNim*(e: CsEnumMember)"
   # echo e.name, e.value
-=======
-  echo "val:",val
-  if em.value.isEmptyOrWhitespace:
-    em.value = val.strip
-  else: echo "value is already set:`", em.value, "`. got `", val, "`;"
-  assert false # stop here
-
-proc gen*(e: CsEnumMember): string =
-  echo "--> in  gen*(e: CsEnumMember)"
-  echo e.name, e.value
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   result = e.name
   if e.value != "": result &= " = " & $e.value
 
@@ -2054,16 +1843,10 @@ proc extract*(t: typedesc[CsEnum]; info: Info): CsEnum =
   assert info.essentials.len > 0
   let tbl = colonsToTable(info.essentials)
   let name = tbl.getOrDefault("name")
-<<<<<<< HEAD
   let mods = tbl.getOrDefault("modifiers")
   result = newCs(CsEnum)
   result.name = name
   result.modifiers = mods.split(",").mapIt(it.strip)
-=======
-  result = newCs(CsEnum, name)
-
-method add*(parent: var CsEnum; item: CsEnumMember) =
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsEnum; item: CsEnumMember) =
   parent.items.add item
@@ -2098,7 +1881,6 @@ method add*(em: var CsEnumMember; item: CsEqualsValueClause) =
 proc newCs*(t: typedesc[CsEqualsValueClause]): CsEqualsValueClause =
   new result
   result.typ = $typeof(t)
-<<<<<<< HEAD
 
 proc extract*(t: typedesc[CsEqualsValueClause]; info: Info): CsEqualsValueClause =
   let tbl = info.essentials.colonsToTable()
@@ -2113,18 +1895,6 @@ method genCs*(c: CsEqualsValueClause): string =
   todoimplGen()
 method genNim*(c: CsEqualsValueClause): string =
   result = "[GENNIM:CsEqualsValueClause]"
-=======
-
-proc extract*(t: typedesc[CsEqualsValueClause]; info: Info): CsEqualsValueClause =
-  let tbl = info.essentials.colonsToTable()
-  let val = tbl["value"]
-  result = newCs(CsEqualsValueClause)
-  result.value = val
-
-method gen*(c: CsEqualsValueClause): string =
-  echo "--> in  gen*(c: var CsEqualsValueClause)"
-  result = c.value
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
   echo "--> in  genNim*(c: var CsEqualsValueClause)"
   result = c.value
@@ -2133,10 +1903,6 @@ proc newCs*(t: typedesc[CsEventField]): CsEventField =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsEventField]; info: Info): CsEventField =
   echo info
   result = newCs(CsEventField)
@@ -2216,11 +1982,6 @@ method add*(parent: CsTypeArgumentList; item: CsPredefinedType) =
 method add*(parent: CsArgument; item: CsLiteralExpression) =
   parent.expr = item
 
-<<<<<<< HEAD
-=======
-method add*(parent: CsArgumentList; item: CsArgument) =
-  parent.args.add item
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 
 method add*(parent: CsArgumentList; item: CsArgument) =
@@ -2283,10 +2044,6 @@ proc newCs*(t: typedesc[CsFinallyClause]): CsFinallyClause =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsFinallyClause]; info: Info): CsFinallyClause =
   echo info
   result = newCs(CsFinallyClause)
@@ -2306,10 +2063,6 @@ proc newCs*(t: typedesc[CsFixedStatement]): CsFixedStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsFixedStatement]; info: Info): CsFixedStatement =
   echo info
   result = newCs(CsFixedStatement)
@@ -2329,10 +2082,6 @@ proc newCs*(t: typedesc[CsForEachStatement]): CsForEachStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsForEachStatement]; info: Info): CsForEachStatement =
   echo info
   result = newCs(CsForEachStatement)
@@ -2358,10 +2107,6 @@ proc newCs*(t: typedesc[CsForEachVariableStatement]): CsForEachVariableStatement
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsForEachVariableStatement]; info: Info): CsForEachVariableStatement =
   echo info
   result = newCs(CsForEachVariableStatement)
@@ -2389,14 +2134,6 @@ proc newCs*(t: typedesc[CsForStatement]): CsForStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-=======
-proc extract*(t: typedesc[CsForStatement]; info: Info): CsForStatement =
-  echo "in proc extract*(t: typedesc[CsForStatement];    info: Info): CsForStatement"
-  echo info
-  result = newCs(t)
-  # todoimpl
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc extract*(t: typedesc[CsForStatement]; info: Info): CsForStatement =
   echo "in proc extract*(t: typedesc[CsForStatement];    info: Info): CsForStatement"
@@ -2437,13 +2174,6 @@ proc newCs*(t: typedesc[CsFromClause]): CsFromClause =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-=======
-proc extract*(t: typedesc[CsFromClause]; info: Info): CsFromClause =
-  echo info
-  result = newCs(CsFromClause)
-  # todoimpl
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc extract*(t: typedesc[CsFromClause]; info: Info): CsFromClause =
   echo info
@@ -2497,10 +2227,6 @@ proc newCs*(t: typedesc[CsGlobalStatement]): CsGlobalStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsGlobalStatement]; info: Info): CsGlobalStatement =
   echo info
   result = newCs(CsGlobalStatement)
@@ -2520,10 +2246,6 @@ proc newCs*(t: typedesc[CsGotoStatement]): CsGotoStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsGotoStatement]; info: Info): CsGotoStatement =
   echo info
   result = newCs(CsGotoStatement)
@@ -2538,21 +2260,11 @@ method genNim*(c: CsGotoStatement): string =
 
   echo "--> in  genNim*(c: var CsGotoStatement)"
 
-<<<<<<< HEAD
   todoimplGen()
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc newCs*(t: typedesc[CsGroupClause]): CsGroupClause =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-=======
-proc extract*(t: typedesc[CsGroupClause]; info: Info): CsGroupClause =
-  echo info
-  result = newCs(CsGroupClause)
-  # todoimpl
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc extract*(t: typedesc[CsGroupClause]; info: Info): CsGroupClause =
   echo info
@@ -2573,20 +2285,6 @@ proc newCs*(t: typedesc[CsIfStatement]): CsIfStatement =
   new result
   result.typ = $typeof(t)
   result.ttype = $typeof(t)
-<<<<<<< HEAD
-=======
-#TODO(create:CsIfStatement)
-
-proc extract*(t: typedesc[CsIfStatement]; info: Info): CsIfStatement =
-  echo info
-  result = newCs(CsIfStatement)
-  # todoimpl
-
-
-# method add*(parent: var CsIfStatement; item: Dummy)  =
-#   echo "!!! ---->> unimplemented:  method add*(parent: var CsIfStatement; item: Dummy) "
-#   if stopEarly: assert false
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 
 proc extract*(t: typedesc[CsIfStatement]; info: Info): CsIfStatement =
@@ -2601,10 +2299,6 @@ proc newCs*(t: typedesc[CsImplicitArrayCreationExpression]): CsImplicitArrayCrea
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsImplicitArrayCreationExpression]; info: Info): CsImplicitArrayCreationExpression =
   echo info
   result = newCs(CsImplicitArrayCreationExpression)
@@ -2624,10 +2318,6 @@ proc newCs*(t: typedesc[CsImplicitElementAccess]): CsImplicitElementAccess =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsImplicitElementAccess]; info: Info): CsImplicitElementAccess =
   echo info
   result = newCs(CsImplicitElementAccess)
@@ -2647,10 +2337,6 @@ proc newCs*(t: typedesc[CsIncompleteMember]): CsIncompleteMember =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsIncompleteMember]; info: Info): CsIncompleteMember =
   echo info
   result = newCs(CsIncompleteMember)
@@ -2677,31 +2363,18 @@ proc extract*(t: typedesc[CsIndexer]; info: Info): CsIndexer =
   echo "extract info:", info
   let tbl = colonsToTable(info.essentials)
   result = newCs(CsIndexer)
-<<<<<<< HEAD
   result.pmlist = tbl.getOrDefault("parameterList")
   result.exprBody = tbl.getOrDefault("expressionBody")
   result.acclist = tbl.getOrDefault("accessorList")
   result.mods = tbl.getOrDefault("modifiers")
   result.explSpecifier = tbl.getOrDefault "explicitInterfaceSpecifier"
-=======
-  result.pmlist = tbl["parameterList"]
-  result.acclist = tbl["accessorList"]
-  result.mods = tbl["modifiers"]
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsIndexer; item: CsParameter) =
   parent.varName = item.name
   parent.varType = item.ptype
 
-<<<<<<< HEAD
 method add*(parent: CsIndexer; item: CsBracketedParameterList) =
   parent.paramlist = item
-=======
-method add*(parent: var CsIndexer; item: CsBracketedParameterList) =
-  todoimpl # add (csindexer, csparameter) already does what we need. because indexer has just one parameter.
-
-method add*(parent: var CsIndexer; item: CsPredefinedType) =
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsIndexer; item: CsPredefinedType) =
   parent.retType = item.name
@@ -2719,10 +2392,6 @@ proc newCs*(t: typedesc[CsInitializerExpression]): CsInitializerExpression =
   result.typ = $typeof(t)
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsInitializerExpression]; info: Info): CsInitializerExpression =
   result = newCs(t)
   echo info
@@ -2730,7 +2399,6 @@ proc extract*(t: typedesc[CsInitializerExpression]; info: Info): CsInitializerEx
     let tbl = colonsToTable(info.essentials)
     result.valueReceived = tbl["expressions"]
 
-<<<<<<< HEAD
 method genCs*(c: CsInitializerExpression): string =
   result = "[GENCS:CsInitializerExpression]"
 
@@ -2740,23 +2408,13 @@ method genNim*(c: CsInitializerExpression): string =
   result = "[GENNIM:CsInitializerExpression]"
   echo "--> in  genNim*(c: var CsInitializerExpression)"
   echo "genNim CsInitializerExpression, got values:", c.valueReceived
-=======
-method gen*(c: var CsInitializerExpression): string =
-  echo "--> in  gen*(c: var CsInitializerExpression)"
-  echo "gen CsInitializerExpression, got values:", c.valueReceived
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   # result = ".initWith("
   result = ".initWith(@["
   var ls: seq[string] = @[]
   for b in c.bexprs:
-<<<<<<< HEAD
     echo "gen for " & b.typ
     let generated = b.genNim()
     echo b.typ, " generated: ", generated
-=======
-    let generated = b.gen()
-    echo b.typ," generated: ", generated
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
     ls.add generated
   result &= ls.join(", ")
   # result &= ")"
@@ -2790,10 +2448,6 @@ proc newCs*(t: typedesc[CsInterpolatedStringExpression]): CsInterpolatedStringEx
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsInterpolatedStringExpression]; info: Info): CsInterpolatedStringExpression =
   echo info
   result = newCs(CsInterpolatedStringExpression)
@@ -2813,10 +2467,6 @@ proc newCs*(t: typedesc[CsInterpolatedStringText]): CsInterpolatedStringText =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsInterpolatedStringText]; info: Info): CsInterpolatedStringText =
   echo info
   result = newCs(CsInterpolatedStringText)
@@ -2836,10 +2486,6 @@ proc newCs*(t: typedesc[CsInterpolationAlignmentClause]): CsInterpolationAlignme
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsInterpolationAlignmentClause]; info: Info): CsInterpolationAlignmentClause =
   echo info
   result = newCs(CsInterpolationAlignmentClause)
@@ -2859,10 +2505,6 @@ proc newCs*(t: typedesc[CsInterpolationFormatClause]): CsInterpolationFormatClau
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsInterpolationFormatClause]; info: Info): CsInterpolationFormatClause =
   echo info
   result = newCs(CsInterpolationFormatClause)
@@ -2882,10 +2524,6 @@ proc newCs*(t: typedesc[CsInterpolation]): CsInterpolation =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsInterpolation]; info: Info): CsInterpolation =
   echo info
   result = newCs(CsInterpolation)
@@ -2922,7 +2560,6 @@ func beforeFirstDot(s:string):string =
   let parts = s.rsplit(".", 1)
   result = parts[0]
 
-<<<<<<< HEAD
 
 method genCs*(c: CsInvocationExpression): string =
   result = "[GENCS:CsInvocationExpression]"
@@ -2933,10 +2570,6 @@ method genNim*(c: CsInvocationExpression): string =
   result = "[GENNIM:CsInvocationExpression]"
   echo "--> in  genNim*(c: CsInvocationExpression)"
   echo c.callName
-=======
-method gen*(c: CsInvocationExpression): string =
-  echo "--> in  gen*(c: CsInvocationExpression)"
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   result = if c.callName.contains(".") and c.callName.startsWith(re.re"[A-Z]"):
     normalizeCallName(c.callName)
   elif c.callName.startsWith(re.re"[A-Z]"):
@@ -2945,7 +2578,6 @@ method gen*(c: CsInvocationExpression): string =
     c.callName
   result = result.replacementGenericTypes()
   result &= "("
-<<<<<<< HEAD
   if c.args != nil:
     result &= c.args.genNim()
     #  and c.args.args.len > 0:
@@ -2954,21 +2586,11 @@ method gen*(c: CsInvocationExpression): string =
   result &= ")"
   echo result
   echo "<-- end of genNim*(c: CsInvocationExpression)"
-=======
-  if c.args != nil and c.args.args.len > 0:
-    let args = c.args.args.mapIt(it.value).join(", ")
-    result &= args
-  result &= ")"
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc newCs*(t: typedesc[CsIsPatternExpression]): CsIsPatternExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsIsPatternExpression]; info: Info): CsIsPatternExpression =
   echo info
   result = newCs(CsIsPatternExpression)
@@ -2983,23 +2605,11 @@ method genNim*(c: CsIsPatternExpression): string =
 
   echo "--> in  genNim*(c: var CsIsPatternExpression)"
 
-<<<<<<< HEAD
   todoimplGen()
-=======
-# ============= CsJoinClause ========
-
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc newCs*(t: typedesc[CsJoinClause]): CsJoinClause =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-=======
-proc extract*(t: typedesc[CsJoinClause]; info: Info): CsJoinClause =
-  echo info
-  result = newCs(CsJoinClause)
-  # todoimpl
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc extract*(t: typedesc[CsJoinClause]; info: Info): CsJoinClause =
   echo info
@@ -3015,21 +2625,11 @@ method genNim*(c: CsJoinClause): string =
 
   echo "--> in  genNim*(c: var CsJoinClause)"
 
-<<<<<<< HEAD
   todoimplGen()
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc newCs*(t: typedesc[CsJoinIntoClause]): CsJoinIntoClause =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-=======
-proc extract*(t: typedesc[CsJoinIntoClause]; info: Info): CsJoinIntoClause =
-  echo info
-  result = newCs(CsJoinIntoClause)
-  # todoimpl
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc extract*(t: typedesc[CsJoinIntoClause]; info: Info): CsJoinIntoClause =
   echo info
@@ -3050,10 +2650,6 @@ proc newCs*(t: typedesc[CsLabeledStatement]): CsLabeledStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsLabeledStatement]; info: Info): CsLabeledStatement =
   echo info
   result = newCs(CsLabeledStatement)
@@ -3103,21 +2699,12 @@ method add*(parent: CsInitializerExpression; item: CsPrefixUnaryExpression) =
 method add*(parent: CsInitializerExpression; item: CsLiteralExpression) =
   parent.bexprs.add item
 
-<<<<<<< HEAD
 method add*(parent: CsBaseList; item: CsSimpleBaseType) =
   parent.baseList2.add item
   parent.baseList.add item.name
 
 method add*(parent: CsBracketedParameterList; item: CsParameter) =
   parent.plist.add item.genNim()
-=======
-method add*(parent: var CsBaseList; item: CsSimpleBaseType) =
-  parent.baseList2.add item
-  parent.baseList.add item.name
-
-method add*(parent: var CsBracketedParameterList; item: CsParameter) =
-  parent.plist.add item.gen()
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsPrefixUnaryExpression; item: CsLiteralExpression) =
   parent.actingOn = item
@@ -3156,10 +2743,6 @@ proc newCs*(t: typedesc[CsLocalFunctionStatement]): CsLocalFunctionStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsLocalFunctionStatement]; info: Info): CsLocalFunctionStatement =
   echo info
   result = newCs(CsLocalFunctionStatement)
@@ -3183,10 +2766,6 @@ proc newCs*(t: typedesc[CsLockStatement]): CsLockStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsLockStatement]; info: Info): CsLockStatement =
   echo info
   result = newCs(CsLockStatement)
@@ -3212,10 +2791,6 @@ proc newCs*(t: typedesc[CsMakeRefExpression]): CsMakeRefExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsMakeRefExpression]; info: Info): CsMakeRefExpression =
   echo info
   result = newCs(CsMakeRefExpression)
@@ -3235,10 +2810,6 @@ proc newCs*(t: typedesc[CsMemberBindingExpression]): CsMemberBindingExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsMemberBindingExpression]; info: Info): CsMemberBindingExpression =
   echo info
   result = newCs(CsMemberBindingExpression)
@@ -3298,16 +2869,11 @@ proc extract*(t: typedesc[CsAssignmentExpression]; info: Info): CsAssignmentExpr
   # let t = colonsToTable(info.essentials)
   # echo t
   echo info
-<<<<<<< HEAD
   result.leftStr = info.essentials[0]
-=======
-  result.left = info.essentials[0]
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   # result.right = info.essentials[1]
 
 method add*(parent: CsAssignmentExpression; item: CsTypeArgumentList) =
   echo "havent implemented method add*(parent:CsAssignmentExpression; item: CsTypeArgumentList) "
-<<<<<<< HEAD
   todoimplAdd()
 
 method add*(parent: CsAssignmentExpression; item: CsGenericName) =
@@ -3317,18 +2883,6 @@ method add*(parent: CsAssignmentExpression; item: CsGenericName) =
 method add*(parent: CsAssignmentExpression; item: CsArgumentList) =
   echo "havent implemented method add*(parent:CsAssignmentExpression; item: CsArgumentList) "
   todoimplAdd()
-=======
-  todoimpl
-
-
-method add*(parent: CsAssignmentExpression; item: CsGenericName) =
-  echo "havent implemented method add*(parent:CsAssignmentExpression; item: CsGenericName) "
-  todoimpl
-
-method add*(parent: CsAssignmentExpression; item: CsArgumentList) =
-  echo "havent implemented method add*(parent:CsAssignmentExpression; item: CsArgumentList) "
-  todoimpl
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsAssignmentExpression; item: CsObjectCreationExpression) =
   parent.right = item
@@ -3455,7 +3009,6 @@ proc newCs*(t: typedesc[CsNamespace]; name:string): CsNamespace =
   result.interfaceTable = newTable[string, CsInterface]()
 
 proc extract*(t: typedesc[CsMethod]; info: Info; data: AllNeededData): CsMethod =
-<<<<<<< HEAD
   let tblE = colonsToTable(info.essentials)
   let tblX = colonsToTable(info.extras)
   let name = tblE["name"]
@@ -3467,37 +3020,16 @@ proc extract*(t: typedesc[CsMethod]; info: Info; data: AllNeededData): CsMethod 
     result.isStatic = true
   if mods.contains("public"): result.isPublic = true
   if not ret.isEmptyOrWhitespace: result.returnType = ret
-=======
-  let tbl = colonsToTable(info.essentials)
-  let name = tbl["name"]
-  let m = newCs(CsMethod, name)
-  result = m
-  if info.extras.len > 0:
-    let e = info.extras[0]
-    echo e
-    if e.contains("static"):
-      result.isStatic = true
-
-  if info.essentials.len > 1:
-    let ret = info.essentials[1]
-    if not ret.isEmptyOrWhitespace: result.returnType = ret
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc extract*(t: typedesc[CsClass]; info: Info; data: AllNeededData): CsClass =
   # new result
   let tbl = colonsToTable(info.essentials)
-<<<<<<< HEAD
   let tblX = colonsToTable(info.extras)
   let name = tbl["name"]
   let mods = tblX["modifiers"]
 
   if tbl.hasKey("basetypes"):
     let baseTypes = tbl["basetypes"].split(", ")
-=======
-  let name = tbl["name"]
-  if info.essentials.len > 1:
-    let baseTypes = info.essentials[1].split(", ")
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
     # echo "BASETYPES: " & $baseTypes
     if baseTypes.len > 1:
       result = newCs(CsClass, name, baseTypes[0], baseTypes[1..^1])
@@ -3511,13 +3043,8 @@ proc extract*(t: typedesc[CsClass]; info: Info; data: AllNeededData): CsClass =
 proc extract*(t: typedesc[CsNamespace]; info: Info; ): CsNamespace =
   echo "extract CsNamespace"
   let table = colonsToTable(info.essentials)
-<<<<<<< HEAD
   let name = table["name"]
   result = newCs(CsNamespace,name)
-=======
-  let name =  table["name"]
-  result = newCs(t, name)
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc extract*(t: typedesc[CsNamespace]; info: Info;    data: AllNeededData): CsNamespace =
   extract(t, info)
@@ -3591,10 +3118,6 @@ proc newCs*(t: typedesc[CsNullableType]): CsNullableType =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsNullableType]; info: Info): CsNullableType =
   echo info
   result = newCs(CsNullableType)
@@ -3629,10 +3152,6 @@ proc newCs*(t: typedesc[CsOmittedArraySizeExpression]): CsOmittedArraySizeExpres
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsOmittedArraySizeExpression]; info: Info): CsOmittedArraySizeExpression =
   echo info
   result = newCs(CsOmittedArraySizeExpression)
@@ -3652,10 +3171,6 @@ proc newCs*(t: typedesc[CsOmittedTypeArgument]): CsOmittedTypeArgument =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsOmittedTypeArgument]; info: Info): CsOmittedTypeArgument =
   echo info
   result = newCs(CsOmittedTypeArgument)
@@ -3690,23 +3205,11 @@ method genNim*(c: CsOperator): string =
 
   echo "--> in  genNim*(c: var CsOperator)"
 
-<<<<<<< HEAD
   todoimplGen()
-=======
-# ============= CsOrderByClause ========
-
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc newCs*(t: typedesc[CsOrderByClause]): CsOrderByClause =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-=======
-proc extract*(t: typedesc[CsOrderByClause]; info: Info): CsOrderByClause =
-  echo info
-  result = newCs(CsOrderByClause)
-  # todoimpl
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc extract*(t: typedesc[CsOrderByClause]; info: Info): CsOrderByClause =
   echo info
@@ -3769,10 +3272,6 @@ proc newCs*(t: typedesc[CsParenthesizedExpression]): CsParenthesizedExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsParenthesizedExpression]; info: Info): CsParenthesizedExpression =
   echo info
   result = newCs(CsParenthesizedExpression)
@@ -3794,10 +3293,6 @@ proc newCs*(t: typedesc[CsParenthesizedLambdaExpression]): CsParenthesizedLambda
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsParenthesizedLambdaExpression]; info: Info): CsParenthesizedLambdaExpression =
   echo info
   result = newCs(CsParenthesizedLambdaExpression)
@@ -3817,10 +3312,6 @@ proc newCs*(t: typedesc[CsParenthesizedVariableDesignation]): CsParenthesizedVar
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsParenthesizedVariableDesignation]; info: Info): CsParenthesizedVariableDesignation =
   echo info
   result = newCs(CsParenthesizedVariableDesignation)
@@ -3840,10 +3331,6 @@ proc newCs*(t: typedesc[CsPointerType]): CsPointerType =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsPointerType]; info: Info): CsPointerType =
   echo info
   result = newCs(CsPointerType)
@@ -3863,10 +3350,6 @@ proc newCs*(t: typedesc[CsPostfixUnaryExpression]): CsPostfixUnaryExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsPostfixUnaryExpression]; info: Info): CsPostfixUnaryExpression =
   echo info
   result = newCs(CsPostfixUnaryExpression)
@@ -3989,10 +3472,6 @@ proc newCs*(t: typedesc[CsQueryContinuation]): CsQueryContinuation =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsQueryContinuation]; info: Info): CsQueryContinuation =
   echo info
   result = newCs(CsQueryContinuation)
@@ -4012,10 +3491,6 @@ proc newCs*(t: typedesc[CsQueryExpression]): CsQueryExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsQueryExpression]; info: Info): CsQueryExpression =
   echo info
   result = newCs(CsQueryExpression)
@@ -4035,10 +3510,6 @@ proc newCs*(t: typedesc[CsRefExpression]): CsRefExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsRefExpression]; info: Info): CsRefExpression =
   echo info
   result = newCs(CsRefExpression)
@@ -4058,10 +3529,6 @@ proc newCs*(t: typedesc[CsRefTypeExpression]): CsRefTypeExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsRefTypeExpression]; info: Info): CsRefTypeExpression =
   echo info
   result = newCs(CsRefTypeExpression)
@@ -4101,10 +3568,6 @@ proc newCs*(t: typedesc[CsRefValueExpression]): CsRefValueExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsRefValueExpression]; info: Info): CsRefValueExpression =
   echo info
   result = newCs(CsRefValueExpression)
@@ -4171,22 +3634,10 @@ method genNim*(c: CsReturnStatement): string =
     #   result &= "(" & c.args.genNim() & ")"
   echo "result was:" & result
 
-<<<<<<< HEAD
-=======
-# ============= CsSelectClause ========
-
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc newCs*(t: typedesc[CsSelectClause]): CsSelectClause =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-=======
-proc extract*(t: typedesc[CsSelectClause]; info: Info): CsSelectClause =
-  echo info
-  result = newCs(CsSelectClause)
-  # todoimpl
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc extract*(t: typedesc[CsSelectClause]; info: Info): CsSelectClause =
   echo info
@@ -4229,10 +3680,6 @@ proc newCs*(t: typedesc[CsSimpleLambdaExpression]): CsSimpleLambdaExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsSimpleLambdaExpression]; info: Info): CsSimpleLambdaExpression =
   echo info
   result = newCs(CsSimpleLambdaExpression)
@@ -4252,10 +3699,6 @@ proc newCs*(t: typedesc[CsSingleVariableDesignation]): CsSingleVariableDesignati
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsSingleVariableDesignation]; info: Info): CsSingleVariableDesignation =
   echo info
   result = newCs(CsSingleVariableDesignation)
@@ -4275,10 +3718,6 @@ proc newCs*(t: typedesc[CsSizeOfExpression]): CsSizeOfExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsSizeOfExpression]; info: Info): CsSizeOfExpression =
   echo info
   result = newCs(CsSizeOfExpression)
@@ -4298,10 +3737,6 @@ proc newCs*(t: typedesc[CsStackAllocArrayCreationExpression]): CsStackAllocArray
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsStackAllocArrayCreationExpression]; info: Info): CsStackAllocArrayCreationExpression =
   echo info
   result = newCs(CsStackAllocArrayCreationExpression)
@@ -4341,10 +3776,6 @@ proc newCs*(t: typedesc[CsSwitchSection]): CsSwitchSection =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsSwitchSection]; info: Info): CsSwitchSection =
   echo info
   result = newCs(CsSwitchSection)
@@ -4364,10 +3795,6 @@ proc newCs*(t: typedesc[CsSwitchStatement]): CsSwitchStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsSwitchStatement]; info: Info): CsSwitchStatement =
   echo info
   result = newCs(CsSwitchStatement)
@@ -4407,10 +3834,6 @@ proc newCs*(t: typedesc[CsThrowExpression]): CsThrowExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsThrowExpression]; info: Info): CsThrowExpression =
   echo info
   result = newCs(CsThrowExpression)
@@ -4430,10 +3853,6 @@ proc newCs*(t: typedesc[CsThrowStatement]): CsThrowStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsThrowStatement]; info: Info): CsThrowStatement =
   echo info
   result = newCs(CsThrowStatement)
@@ -4462,10 +3881,6 @@ proc newCs*(t: typedesc[CsTryStatement]): CsTryStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsTryStatement]; info: Info): CsTryStatement =
   echo info
   let tbl = colonsToTable(info.essentials)
@@ -4501,10 +3916,6 @@ proc newCs*(t: typedesc[CsTupleElement]): CsTupleElement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsTupleElement]; info: Info): CsTupleElement =
   echo info
   result = newCs(CsTupleElement)
@@ -4524,10 +3935,6 @@ proc newCs*(t: typedesc[CsTupleExpression]): CsTupleExpression =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsTupleExpression]; info: Info): CsTupleExpression =
   echo info
   result = newCs(CsTupleExpression)
@@ -4595,10 +4002,6 @@ proc newCs*(t: typedesc[CsTypeConstraint]): CsTypeConstraint =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsTypeConstraint]; info: Info): CsTypeConstraint =
   result = newCs(CsTypeConstraint)
   echo info
@@ -4714,10 +4117,6 @@ proc newCs*(t: typedesc[CsUnsafeStatement]): CsUnsafeStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsUnsafeStatement]; info: Info): CsUnsafeStatement =
   echo info
   result = newCs(CsUnsafeStatement)
@@ -4751,10 +4150,6 @@ proc newCs*(t: typedesc[CsUsingStatement]): CsUsingStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsUsingStatement]; info: Info): CsUsingStatement =
   echo info
   result = newCs(CsUsingStatement)
@@ -4774,10 +4169,6 @@ proc newCs*(t: typedesc[CsWhenClause]): CsWhenClause =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsWhenClause]; info: Info): CsWhenClause =
   echo info
   result = newCs(CsWhenClause)
@@ -4792,23 +4183,11 @@ method genNim*(c: CsWhenClause): string =
 
   echo "--> in  genNim*(c: var CsWhenClause)"
 
-<<<<<<< HEAD
   todoimplGen()
-=======
-# ============= CsWhereClause ========
-
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc newCs*(t: typedesc[CsWhereClause]): CsWhereClause =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-=======
-proc extract*(t: typedesc[CsWhereClause]; info: Info): CsWhereClause =
-  echo info
-  result = newCs(CsWhereClause)
-  # todoimpl
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 proc extract*(t: typedesc[CsWhereClause]; info: Info): CsWhereClause =
   echo info
@@ -4829,10 +4208,6 @@ proc newCs*(t: typedesc[CsWhileStatement]): CsWhileStatement =
   new result
   result.typ = $typeof(t)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc extract*(t: typedesc[CsWhileStatement]; info: Info): CsWhileStatement =
   echo info
   result = newCs(CsWhileStatement)
@@ -5253,7 +4628,6 @@ proc extract*(t: typedesc[CsRelationalPattern], info: Info, data: AllNeededData)
   echo info
   result = newCs(CsRelationalPattern)
 
-<<<<<<< HEAD
 method genCs*(c: CsRelationalPattern): string =
   result = "[GENCS:CsRelationalPattern]"
 
@@ -5265,8 +4639,6 @@ method genNim*(c: CsRelationalPattern): string =
 
   todoimplGen()
 
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 proc newCs*(t: typedesc[CsSubpattern]): CsSubpattern =
   new result
   result.typ = $typeof(t)
@@ -5388,79 +4760,6 @@ proc newCs*(t: typedesc[CsWithExpression]): CsWithExpression =
 proc extract*(t: typedesc[CsWithExpression], info: Info, data: AllNeededData): CsWithExpression =
   echo info
   result = newCs(CsWithExpression)
-<<<<<<< HEAD
-=======
-  # todoimpl
-method gen*(c: CsWithExpression): string = todoimpl
-
-# method add*(parent:var CsImplicitStackAllocArrayCreationExpression; item: Dummy)  =
-#   echo "!!! ---->> unimplemented:  method add*(parent:var CsImplicitStackAllocArrayCreationExpression; item: Dummy) "
-#   #   assert false
-proc extract*(t: typedesc[CsImplicitStackAllocArrayCreationExpression], info: Info, data: AllNeededData): CsImplicitStackAllocArrayCreationExpression =
-  todoimpl
-method gen*(c: CsImplicitStackAllocArrayCreationExpression): string = todoimpl
-
-
-method add*(parent: var CsParameter; item: CsEqualsValueClause) =
-  echo "in method add*(parent: var CsParameter; item: CsEqualsValueClause)"
-  todoimpl # TODO(add:CsParameter)
-
-method add*(parent: var CsEqualsValueClause; item: CsInvocationExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause; item: CsInvocationExpression)"
-  parent.rhsValue = item
-method add*(parent: var CsArgument; item: CsPrefixUnaryExpression) =
-  echo "in method add*(parent: var CsArgument; item: CsPrefixUnaryExpression)"
-  todoimpl # TODO(add:CsArgument)
-
-method add*(parent: var CsArgument; item: CsObjectCreationExpression) =
-  echo "in method add*(parent: var CsArgument; item: CsObjectCreationExpression)"
-  todoimpl # TODO(add:CsArgument)
-
-method add*(parent: var CsArgument; item: CsMemberAccessExpression) =
-  echo "in method add*(parent: var CsArgument; item: CsMemberAccessExpression)"
-  todoimpl # TODO(add:CsArgument)
-method add*(parent: var CsArgument; item: CsInvocationExpression) =
-  echo "in method add*(parent: var CsArgument; item: CsInvocationExpression)"
-  todoimpl # TODO(add:CsArgument)
-
-method add*(parent: var CsArgument; item: CsBinaryExpression) =
-  echo "in method add*(parent: var CsArgument; item: CsBinaryExpression)"
-  todoimpl # TODO(add:CsArgument)
-
-method add*(parent: var CsArgument; item: CsAssignmentExpression) =
-  echo "in method add*(parent: var CsArgument; item: CsAssignmentExpression)"
-  todoimpl # TODO(add:CsArgument)
-
-method add*(parent: var CsTypeArgumentList; item: CsGenericName) =
-  echo "in method add*(parent: var CsTypeArgumentList; item: CsGenericName)"
-  todoimpl # TODO(add:CsTypeArgumentList, CsGenericName)
-
-method add*(parent: var CsBaseList; item: CsMemberAccessExpression) =
-  echo "in method add*(parent: var CsBaseList; item: CsMemberAccessExpression)"
-  todoimpl # TODO(add:CsBaseList, CsMemberAccessExpression)
-
-method add*(parent: var CsBaseList; item: CsConstructorInitializer) =
-  echo "in method add*(parent: var CsBaseList; item: CsConstructorInitializer)"
-  todoimpl # TODO(add:CsBaseList, CsConstructorInitializer)
-
-method add*(parent: var CsMemberAccessExpression; item: CsMemberAccessExpression) =
-  echo "in method add*(parent: var CsMemberAccessExpression; item: CsMemberAccessExpression)"
-  todoimpl # TODO(add:CsMemberAccessExpression, CsMemberAccessExpression)
-
-method add*(parent: var CsBinaryExpression; item: CsMemberAccessExpression) =
-  echo "in method add*(parent: var CsBinaryExpression; item: CsMemberAccessExpression)"
-  todoimpl # TODO(add:CsBinaryExpression, CsMemberAccessExpression)
-method add*(parent: var CsBinaryExpression; item: CsLiteralExpression) =
-  echo "in method add*(parent: var CsBinaryExpression; item: CsLiteralExpression)"
-  todoimpl # TODO(add:CsBinaryExpression, CsLiteralExpression)
-method add*(parent: var CsBinaryExpression; item: CsBinaryExpression) =
-  echo "in method add*(parent: var CsBinaryExpression; item: CsBinaryExpression)"
-  todoimpl # TODO(add:CsBinaryExpression, CsBinaryExpression)
-
-method add*(parent: var CsTypeParameterList; item: CsTypeParameter) =
-  echo "in method add*(parent: var CsTypeParameterList, item: CsTypeParameter)"
-  parent.theTypes.add item
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method genCs*(c: CsWithExpression): string =
   result = "[GENCS:CsWithExpression]"
@@ -5653,15 +4952,9 @@ method add*(parent: CsMethod; item: CsDoStatement) =
   echo "in method add*(parent: CsMethod; item: CsDoStatement)"
   parent.body.add item
 
-<<<<<<< HEAD
 method add*(parent: CsForStatement; item: CsBinaryExpression) =
   echo "in method add*(parent: CsForStatement; item: CsBinaryExpression)"
   parent.forPart2 = item
-=======
-method add*(parent: var CsEqualsValueClause; item: CsInitializerExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause; item: CsInitializerExpression)"
-  parent.rhsValue = item # TODO(add:CsEqualsValueClause, CsInitializerExpression)
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsForStatement; item: CsPostfixUnaryExpression) =
   echo "in method add*(parent: CsForStatement; item: CsPostfixUnaryExpression)"
@@ -5905,7 +5198,6 @@ method add*(parent: CsProperty; item: CsLocalDeclarationStatement) =
   echo "in method add*(parent: CsProperty; item: CsLocalDeclarationStatement)"
   todoimplAdd()# TODO(add:CsProperty, CsLocalDeclarationStatement)
 
-<<<<<<< HEAD
 method add*(parent: CsAssignmentExpression; item: CsBinaryExpression) =
   echo "in method add*(parent: CsAssignmentExpression; item: CsBinaryExpression)"
   parent.right = item
@@ -5913,11 +5205,6 @@ method add*(parent: CsAssignmentExpression; item: CsBinaryExpression) =
 method add*(parent: CsAssignmentExpression; item: CsInitializerExpression) =
   echo "in method add*(parent: CsAssignmentExpression; item: CsInitializerExpression)"
   parent.right = item
-=======
-method add*(parent: var CsEqualsValueClause; item: CsArrayCreationExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause; item: CsArrayCreationExpression)"
-  parent.rhsValue = item # TODO(add:CsEqualsValueClause, CsArrayCreationExpression)
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsAssignmentExpression; item: CsParenthesizedLambdaExpression) =
   echo "in method add*(parent: CsAssignmentExpression; item: CsParenthesizedLambdaExpression)"
@@ -6105,18 +5392,9 @@ method add*(parent: CsBinaryExpression; item: CsPrefixUnaryExpression) =
   echo "in method add*(parent: CsBinaryExpression; item: CsPrefixUnaryExpression)"
   parent.addBinExp(item)
 
-<<<<<<< HEAD
 method add*(parent: CsBinaryExpression; item: CsObjectCreationExpression) =
   echo "in method add*(parent: CsBinaryExpression; item: CsObjectCreationExpression)"
   parent.addBinExp(item)
-=======
-method add*(parent: var CsInitializerExpression; item: CsParenthesizedLambdaExpression) =
-  echo "in method add*(parent: var CsInitializerExpression; item: CsParenthesizedLambdaExpression)"
-  todoimpl # TODO(add:CsInitializerExpression, CsParenthesizedLambdaExpression)
-method add*(parent: var CsEqualsValueClause; item: CsParenthesizedLambdaExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause; item: CsParenthesizedLambdaExpression)"
-  parent.rhsValue = item # TODO(add:CsEqualsValueClause, CsParenthesizedLambdaExpression)
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsCastExpression; item: CsPredefinedType) =
   echo "in method add*(parent: CsCastExpression; item: CsPredefinedType)"
@@ -6215,279 +5493,9 @@ method add*(parent: CsMethod; item: CsTypeParameterConstraintClause) =
   echo "in method add*(parent: CsMethod; item: CsTypeParameterConstraintClause)"
   parent.typeParamConstraints = item
 
-<<<<<<< HEAD
 method add*(parent: CsEnum; item: CsBaseList) =
   echo "in method add*(parent: CsEnum; item: CsBaseList)"
   parent.underlyingType = item
-=======
-method add*(parent: var CsInterpolatedStringExpression; item: CsInterpolation) =
-  echo "in method add*(parent: var CsInterpolatedStringExpression; item: CsInterpolation)"
-  todoimpl # TODO(add:CsInterpolatedStringExpression, CsInterpolation)
-
-method add*(parent: var CsUsingStatement; item: CsMemberAccessExpression) =
-  echo "in method add*(parent: var CsUsingStatement; item: CsMemberAccessExpression)"
-  todoimpl # TODO(add:CsUsingStatement, CsMemberAccessExpression)
-
-method add*(parent: var CsParenthesizedLambdaExpression; item: CsAssignmentExpression) =
-  echo "in method add*(parent: var CsParenthesizedLambdaExpression; item: CsAssignmentExpression)"
-  todoimpl # TODO(add:CsParenthesizedLambdaExpression, CsAssignmentExpression)
-
-method add*(parent: var CsParenthesizedLambdaExpression; item: CsConditionalExpression) =
-  echo "in method add*(parent: var CsParenthesizedLambdaExpression; item: CsConditionalExpression)"
-  todoimpl # TODO(add:CsParenthesizedLambdaExpression, CsConditionalExpression)
-
-method add*(parent: var CsParenthesizedLambdaExpression; item: CsMemberAccessExpression) =
-  echo "in method add*(parent: var CsParenthesizedLambdaExpression; item: CsMemberAccessExpression)"
-  todoimpl # TODO(add:CsParenthesizedLambdaExpression, CsMemberAccessExpression)
-
-method add*(parent: var CsParenthesizedLambdaExpression; item: CsObjectCreationExpression) =
-  echo "in method add*(parent: var CsParenthesizedLambdaExpression; item: CsObjectCreationExpression)"
-  todoimpl # TODO(add:CsParenthesizedLambdaExpression, CsObjectCreationExpression)
-
-method add*(parent: var CsParenthesizedLambdaExpression; item: CsPostfixUnaryExpression) =
-  echo "in method add*(parent: var CsParenthesizedLambdaExpression; item: CsPostfixUnaryExpression)"
-  todoimpl # TODO(add:CsParenthesizedLambdaExpression, CsPostfixUnaryExpression)
-
-method add*(parent: var CsAccessor; item: CsArrowExpressionClause) =
-  echo "in method add*(parent: var CsAccessor; item: CsArrowExpressionClause)"
-  todoimpl # TODO(add:CsAccessor, CsArrowExpressionClause)
-
-method add*(parent: var CsAssignmentExpression; item: CsPrefixUnaryExpression) =
-  echo "in method add*(parent: var CsAssignmentExpression; item: CsPrefixUnaryExpression)"
-  todoimpl # TODO(add:CsAssignmentExpression, CsPrefixUnaryExpression)
-
-method add*(parent: var CsAssignmentExpression; item: CsArrayCreationExpression) =
-  echo "in method add*(parent: var CsAssignmentExpression; item: CsArrayCreationExpression)"
-  todoimpl # TODO(add:CsAssignmentExpression, CsArrayCreationExpression)
-
-method add*(parent: var CsInitializerExpression; item: CsInvocationExpression) =
-  echo "in method add*(parent: var CsInitializerExpression; item: CsInvocationExpression)"
-  todoimpl # TODO(add:CsInitializerExpression, CsInvocationExpression)
-
-method add*(parent: var CsInvocationExpression; item: CsElementAccessExpression) =
-  echo "in method add*(parent: var CsInvocationExpression; item: CsElementAccessExpression)"
-  todoimpl # TODO(add:CsInvocationExpression, CsElementAccessExpression)
-
-method add*(parent: var CsEqualsValueClause; item: CsConditionalExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause; item: CsConditionalExpression)"
-  parent.rhsValue = item # TODO(add:CsEqualsValueClause, CsConditionalExpression)
-
-method add*(parent: var CsArgument; item: CsElementAccessExpression) =
-  echo "in method add*(parent: var CsArgument; item: CsElementAccessExpression)"
-  todoimpl # TODO(add:CsArgument, CsElementAccessExpression)
-
-method add*(parent: var CsArgument; item: CsArrayCreationExpression) =
-  echo "in method add*(parent: var CsArgument; item: CsArrayCreationExpression)"
-  todoimpl # TODO(add:CsArgument, CsArrayCreationExpression)
-
-method add*(parent: var CsBinaryExpression; item: CsPrefixUnaryExpression) =
-  echo "in method add*(parent: var CsBinaryExpression; item: CsPrefixUnaryExpression)"
-  todoimpl # TODO(add:CsBinaryExpression, CsPrefixUnaryExpression)
-
-method add*(parent: var CsBinaryExpression; item: CsObjectCreationExpression) =
-  echo "in method add*(parent: var CsBinaryExpression; item: CsObjectCreationExpression)"
-  todoimpl # TODO(add:CsBinaryExpression, CsObjectCreationExpression)
-
-method add*(parent: var CsCastExpression; item: CsPredefinedType) =
-  echo "in method add*(parent: var CsCastExpression; item: CsPredefinedType)"
-  todoimpl # TODO(add:CsCastExpression, CsPredefinedType)
-
-method add*(parent: var CsArrowExpressionClause; item: CsCastExpression) =
-  echo "in method add*(parent: var CsArrowExpressionClause; item: CsCastExpression)"
-  todoimpl # TODO(add:CsArrowExpressionClause, CsCastExpression)
-
-method add*(parent: var CsArrowExpressionClause; item: CsLiteralExpression) =
-  echo "in method add*(parent: var CsArrowExpressionClause; item: CsLiteralExpression)"
-  todoimpl # TODO(add:CsArrowExpressionClause, CsLiteralExpression)
-
-method add*(parent: var CsForStatement; item: CsExpressionStatement) =
-  echo "in method add*(parent: var CsForStatement; item: CsExpressionStatement)"
-  todoimpl # TODO(add:CsForStatement, CsExpressionStatement)
-
-method add*(parent: var CsElementAccessExpression; item: CsInvocationExpression) =
-  echo "in method add*(parent: var CsElementAccessExpression; item: CsInvocationExpression)"
-  todoimpl # TODO(add:CsElementAccessExpression, CsInvocationExpression)
-
-method add*(parent: var CsElementAccessExpression; item: CsMemberAccessExpression) =
-  echo "in method add*(parent: var CsElementAccessExpression; item: CsMemberAccessExpression)"
-  todoimpl # TODO(add:CsElementAccessExpression, CsMemberAccessExpression)
-
-method add*(parent: var CsParenthesizedExpression; item: CsCastExpression) =
-  echo "in method add*(parent: var CsParenthesizedExpression; item: CsCastExpression)"
-  todoimpl # TODO(add:CsParenthesizedExpression, CsCastExpression)
-
-method add*(parent: var CsConditionalExpression; item: CsBinaryExpression) =
-  echo "in method add*(parent: var CsConditionalExpression; item: CsBinaryExpression)"
-  todoimpl # TODO(add:CsConditionalExpression, CsBinaryExpression)
-
-method add*(parent: var CsParenthesizedLambdaExpression; item: CsInvocationExpression) =
-  echo "in method add*(parent: var CsParenthesizedLambdaExpression; item: CsInvocationExpression)"
-  todoimpl # TODO(add:CsParenthesizedLambdaExpression, CsInvocationExpression)
-method add*(parent: var CsConstructorInitializer; item: CsArgumentList) =
-  echo "in method add*(parent: var CsConstructorInitializer; item: CsArgumentList)"
-  todoimpl # TODO(add:CsConstructorInitializer, CsArgumentList)
-method add*(parent: var CsEqualsValueClause; item: CsPrefixUnaryExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause; item: CsPrefixUnaryExpression)"
-  parent.rhsValue = item # TODO(add:CsEqualsValueClause, CsPrefixUnaryExpression)
-
-method add*(parent: var CsEqualsValueClause; item: CsCastExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause; item: CsCastExpression)"
-  parent.rhsValue = item # TODO(add:CsEqualsValueClause, CsCastExpression)
-
-method add*(parent: var CsPrefixUnaryExpression; item: CsMemberAccessExpression) =
-  echo "in method add*(parent: var CsPrefixUnaryExpression; item: CsMemberAccessExpression)"
-  todoimpl # TODO(add:CsPrefixUnaryExpression, CsMemberAccessExpression)
-
-method add*(parent: var CsCastExpression; item: CsMemberAccessExpression) =
-  echo "in method add*(parent: var CsCastExpression; item: CsMemberAccessExpression)"
-  todoimpl # TODO(add:CsCastExpression, CsMemberAccessExpression)
-
-method add*(parent: var CsArrowExpressionClause; item: CsInterpolatedStringExpression) =
-  echo "in method add*(parent: var CsArrowExpressionClause; item: CsInterpolatedStringExpression)"
-  todoimpl # TODO(add:CsArrowExpressionClause, CsInterpolatedStringExpression)
-
-method add*(parent: var CsForStatement; item: CsAssignmentExpression) =
-  echo "in method add*(parent: var CsForStatement; item: CsAssignmentExpression)"
-  todoimpl # TODO(add:CsForStatement, CsAssignmentExpression)
-method add*(parent: var CsParenthesizedExpression; item: CsConditionalExpression) =
-  echo "in method add*(parent: var CsParenthesizedExpression; item: CsConditionalExpression)"
-  todoimpl # TODO(add:CsParenthesizedExpression, CsConditionalExpression)
-method add*(parent: var CsConditionalExpression; item: CsCastExpression) =
-  echo "in method add*(parent: var CsConditionalExpression; item: CsCastExpression)"
-  todoimpl # TODO(add:CsConditionalExpression, CsCastExpression)
-method add*(parent: var CsInterpolation; item: CsMemberAccessExpression) =
-  echo "in method add*(parent: var CsInterpolation; item: CsMemberAccessExpression)"
-  todoimpl # TODO(add:CsInterpolation, CsMemberAccessExpression)
-
-method add*(parent: var CsNamespace; item: CsMethod) =
-  echo "in method add*(parent: var CsNamespace; item: CsMethod)"
-  todoimpl # TODO(add:CsNamespace, CsMethod)
-
-method add*(parent: var CsMethod; item: CsExplicitInterfaceSpecifier) =
-  echo "in method add*(parent: var CsMethod; item: CsExplicitInterfaceSpecifier)"
-  todoimpl # TODO(add:CsMethod, CsExplicitInterfaceSpecifier)
-
-method add*(parent: var CsMethod; item: CsTypeParameterConstraintClause) =
-  echo "in method add*(parent: var CsMethod; item: CsTypeParameterConstraintClause)"
-  todoimpl # TODO(add:CsMethod, CsTypeParameterConstraintClause)
-
-method add*(parent: var CsEnum; item: CsBaseList) =
-  echo "in method add*(parent: var CsEnum; item: CsBaseList)"
-  todoimpl # TODO(add:CsEnum, CsBaseList)
-
-method add*(parent: var CsReturnStatement; item: CsTypeOfExpression) =
-  echo "in method add*(parent: var CsReturnStatement; item: CsTypeOfExpression)"
-  todoimpl # TODO(add:CsReturnStatement, CsTypeOfExpression)
-method add*(parent: var CsReturnStatement; item: CsThisExpression) =
-  echo "in method add*(parent: var CsReturnStatement; item: CsThisExpression)"
-  todoimpl # TODO(add:CsReturnStatement, CsThisExpression)
-
-method add*(parent: var CsReturnStatement; item: CsSimpleLambdaExpression) =
-  echo "in method add*(parent: var CsReturnStatement; item: CsSimpleLambdaExpression)"
-  todoimpl # TODO(add:CsReturnStatement, CsSimpleLambdaExpression)
-method add*(parent: var CsReturnStatement; item: CsPrefixUnaryExpression) =
-  echo "in method add*(parent: var CsReturnStatement; item: CsPrefixUnaryExpression)"
-  todoimpl # TODO(add:CsReturnStatement, CsPrefixUnaryExpression)
-
-method add*(parent: var CsReturnStatement; item: CsParenthesizedLambdaExpression) =
-  echo "in method add*(parent: var CsReturnStatement; item: CsParenthesizedLambdaExpression)"
-  todoimpl # TODO(add:CsReturnStatement, CsParenthesizedLambdaExpression)
-
-method add*(parent: var CsReturnStatement; item: CsParenthesizedExpression) =
-  echo "in method add*(parent: var CsReturnStatement; item: CsParenthesizedExpression)"
-  todoimpl # TODO(add:CsReturnStatement, CsParenthesizedExpression)
-
-method add*(parent: var CsReturnStatement; item: CsArrayCreationExpression) =
-  echo "in method add*(parent: var CsReturnStatement; item: CsArrayCreationExpression)"
-  todoimpl # TODO(add:CsReturnStatement, CsArrayCreationExpression)
-
-method add*(parent: var CsExpressionStatement; item: CsObjectCreationExpression) =
-  echo "in method add*(parent: var CsExpressionStatement; item: CsObjectCreationExpression)"
-  todoimpl # TODO(add:CsExpressionStatement, CsObjectCreationExpression)
-
-method add*(parent: var CsExpressionStatement; item: CsPrefixUnaryExpression) =
-  echo "in method add*(parent: var CsExpressionStatement; item: CsPrefixUnaryExpression)"
-  todoimpl # TODO(add:CsExpressionStatement, CsPrefixUnaryExpression)
-method add*(parent: var CsAssignmentExpression; item: CsConditionalExpression) =
-  echo "in method add*(parent: var CsAssignmentExpression; item: CsConditionalExpression)"
-  todoimpl # TODO(add:CsAssignmentExpression, CsConditionalExpression)
-
-method add*(parent: var CsAssignmentExpression; item: CsElementAccessExpression) =
-  echo "in method add*(parent: var CsAssignmentExpression; item: CsElementAccessExpression)"
-  todoimpl # TODO(add:CsAssignmentExpression, CsElementAccessExpression)
-
-method add*(parent: var CsInitializerExpression; item: CsCastExpression) =
-  echo "in method add*(parent: var CsInitializerExpression; item: CsCastExpression)"
-  todoimpl # TODO(add:CsInitializerExpression, CsCastExpression)
-
-method add*(parent: var CsEqualsValueClause; item: CsElementAccessExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause; item: CsElementAccessExpression)"
-  parent.rhsValue = item # TODO(add:CsEqualsValueClause, CsElementAccessExpression)
-
-method add*(parent: var CsEqualsValueClause; item: CsTypeOfExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause; item: CsTypeOfExpression)"
-  parent.rhsValue = item # TODO(add:CsEqualsValueClause, CsTypeOfExpression)
-
-method add*(parent: var CsEqualsValueClause; item: CsInterpolatedStringExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause; item: CsInterpolatedStringExpression)"
-  parent.rhsValue = item # TODO(add:CsEqualsValueClause, CsInterpolatedStringExpression)
-
-method add*(parent: var CsEqualsValueClause; item: CsSimpleLambdaExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause; item: CsSimpleLambdaExpression)"
-  parent.rhsValue = item # TODO(add:CsEqualsValueClause, CsSimpleLambdaExpression)
-
-method add*(parent: var CsArgument; item: CsParenthesizedExpression) =
-  echo "in method add*(parent: var CsArgument; item: CsParenthesizedExpression)"
-  todoimpl # TODO(add:CsArgument, CsParenthesizedExpression)
-
-method add*(parent: var CsPrefixUnaryExpression; item: CsParenthesizedExpression) =
-  echo "in method add*(parent: var CsPrefixUnaryExpression; item: CsParenthesizedExpression)"
-  todoimpl # TODO(add:CsPrefixUnaryExpression, CsParenthesizedExpression)
-
-method add*(parent: var CsBinaryExpression; item: CsGenericName) =
-  echo "in method add*(parent: var CsBinaryExpression; item: CsGenericName)"
-  todoimpl # TODO(add:CsBinaryExpression, CsGenericName)
-
-method add*(parent: var CsBinaryExpression; item: CsPredefinedType) =
-  echo "in method add*(parent: var CsBinaryExpression; item: CsPredefinedType)"
-  todoimpl # TODO(add:CsBinaryExpression, CsPredefinedType)
-
-method add*(parent: var CsIfStatement; item: CsBreakStatement) =
-  echo "in method add*(parent: var CsIfStatement; item: CsBreakStatement)"
-  todoimpl # TODO(add:CsIfStatement, CsBreakStatement)
-
-method add*(parent: var CsCastExpression; item: CsArrayType) =
-  echo "in method add*(parent: var CsCastExpression; item: CsArrayType)"
-  todoimpl # TODO(add:CsCastExpression, CsArrayType)
-
-method add*(parent: var CsCastExpression; item: CsInvocationExpression) =
-  echo "in method add*(parent: var CsCastExpression; item: CsInvocationExpression)"
-  todoimpl # TODO(add:CsCastExpression, CsInvocationExpression)
-
-method add*(parent: var CsCastExpression; item: CsGenericName) =
-  echo "in method add*(parent: var CsCastExpression; item: CsGenericName)"
-  todoimpl # TODO(add:CsCastExpression, CsGenericName)
-
-method add*(parent: var CsCastExpression; item: CsLiteralExpression) =
-  echo "in method add*(parent: var CsCastExpression; item: CsLiteralExpression)"
-  todoimpl # TODO(add:CsCastExpression, CsLiteralExpression)
-
-method add*(parent: var CsArrayType; item: CsGenericName) =
-  echo "in method add*(parent: var CsArrayType; item: CsGenericName)"
-  todoimpl # TODO(add:CsArrayType, CsGenericName)
-
-method add*(parent: var CsArrayRankSpecifier; item: CsBinaryExpression) =
-  echo "in method add*(parent: var CsArrayRankSpecifier; item: CsBinaryExpression)"
-  todoimpl # TODO(add:CsArrayRankSpecifier, CsBinaryExpression)
-
-method add*(parent: var CsArrayRankSpecifier; item: CsLiteralExpression) =
-  echo "in method add*(parent: var CsArrayRankSpecifier; item: CsLiteralExpression)"
-  todoimpl # TODO(add:CsArrayRankSpecifier, CsLiteralExpression)
-
-method add*(parent: var CsArrowExpressionClause; item: CsTypeOfExpression) =
-  echo "in method add*(parent: var CsArrowExpressionClause; item: CsTypeOfExpression)"
-  todoimpl # TODO(add:CsArrowExpressionClause, CsTypeOfExpression)
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsReturnStatement; item: CsTypeOfExpression) =
   echo "in method add*(parent: CsReturnStatement; item: CsTypeOfExpression)"
@@ -6567,15 +5575,9 @@ method add*(parent: CsArgument; item: CsParenthesizedExpression) =
   echo "in method add*(parent: CsArgument; item: CsParenthesizedExpression)"
   parent.expr = item
 
-<<<<<<< HEAD
 method add*(parent: CsPrefixUnaryExpression; item: CsParenthesizedExpression) =
   echo "in method add*(parent: CsPrefixUnaryExpression; item: CsParenthesizedExpression)"
   parent.actingOn = item
-=======
-method add*(parent: var CsEqualsValueClause; item: CsParenthesizedExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause; item: CsParenthesizedExpression)"
-  parent.rhsValue = item # TODO(add: CsEqualsValueClause, CsParenthesizedExpression)
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsBinaryExpression; item: CsGenericName) =
   echo "in method add*(parent: CsBinaryExpression; item: CsGenericName)"
@@ -6653,15 +5655,9 @@ method add*(parent: CsParenthesizedExpression; item: CsPrefixUnaryExpression) =
   echo "in method add*(parent: CsParenthesizedExpression; item: CsPrefixUnaryExpression)"
   parent.body.add item
 
-<<<<<<< HEAD
 method add*(parent: CsParenthesizedExpression; item: CsPostfixUnaryExpression) =
   echo "in method add*(parent: CsParenthesizedExpression; item: CsPostfixUnaryExpression)"
   todoimplAdd()# TODO(add:CsParenthesizedExpression, CsPostfixUnaryExpression)
-=======
-method add*(parent: var CsEqualsValueClause; item: CsAssignmentExpression) =
-  echo "in method add*(parent: var CsEqualsValueClause; item: CsAssignmentExpression)"
-  parent.rhsValue = item # TODO(add: CsEqualsValueClause, CsAssignmentExpression)
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
 method add*(parent: CsParenthesizedExpression; item: CsParenthesizedLambdaExpression) =
   echo "in method add*(parent: CsParenthesizedExpression; item: CsParenthesizedLambdaExpression)"
@@ -12978,10 +11974,6 @@ method add*(parent: var CsLabeledStatement; item: CsUsingStatement) =
   echo "in method add*(parent: var CsLabeledStatement; item: CsUsingStatement)"
   todoimplAdd() # TODO(add: CsLabeledStatement, CsUsingStatement)
 
-<<<<<<< HEAD
 method add*(parent: var CsLocalFunctionStatement; item: CsTryStatement) =
   echo "in method add*(parent: var CsLocalFunctionStatement; item: CsTryStatement)"
   todoimplAdd() # TODO(add: CsLocalFunctionStatement, CsTryStatement)
-=======
-include "../missingAdds.nim"
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3

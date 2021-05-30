@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import system, os, osproc, strutils
-=======
-import system, os, osproc
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 import ../types, uuids, options, ../writer_utils,
     ../constructs/[cs_all_constructs,cs_root,justtypes]
 import sugar
@@ -40,42 +36,27 @@ proc normalizeCs(s:string) :string =
 
 # for tests, we assume we will only use one file as output. that is, a correct nim generated file.
 # i/o tests have the namespace to files test.
-<<<<<<< HEAD
 
 
 proc genTest*(file: string, hasDir=false, gl:GenLang = glNim): bool =
-=======
-proc genTest*(file: string, hasDir=false): bool =
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   var
     filename = ""
     dir = ""
     outp = ""
     src = ""
-<<<<<<< HEAD
   let ext = case gl
     of glNim: ".nim"
     of glCSharp: ".precs"
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
   if hasDir:
     dir = file.parentDir()
     filename = file.changeFileExt("")
     src = filename & ".csast"
-<<<<<<< HEAD
     outp = filename & ext
   else:
     let pwd = getCurrentDir()
     dir = pwd / "tests/samples"
     filename = file.changeFileExt("")
     # filename = file
-=======
-    outp = filename & ".nim"
-  else:
-    let pwd = getCurrentDir()
-    dir = pwd / "tests/samples"
-    filename = file
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
     src = dir / filename & ".csast"
     outp = dir / filename & ext
 
@@ -90,16 +71,10 @@ proc genTest*(file: string, hasDir=false): bool =
     discard execCmd("dotnet /home/kobi7/currentWork/CsDisplay/bin/Release/netcoreapp2.2/CsDisplay.dll " & src.changeFileExt(".cs"))
     # return false
   if not fileExists(outp):
-<<<<<<< HEAD
     echo "file `" & outp & "` does not exist, creating an empty one"
     discard execCmd("mkdir -p " & outp.parentDir)
     discard execCmd("touch " & outp)
     # return false
-=======
-    echo "file `" & outp & "` does not exist"
-    discard execCmd("touch " & outp)
-    return false
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 # lkj
   var contents = readFile(outp).strip
   var gen = handleFiles(@[src],gl).strip.replace("\r\n", "\n")

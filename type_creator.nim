@@ -1367,13 +1367,10 @@ proc createType*(info: Info; id: UUID; data: AllNeededData): Construct =
     var a = extract(CsJoinIntoClause, info)
     setMoreForObject(a, id, data, info)
     result = Construct(kind: ckJoinIntoClause, joinIntoClause: a)
-<<<<<<< HEAD
   of "ImplicitStackAllocArrayCreationExpression":
     var a = extract(CsImplicitStackAllocArrayCreationExpression, info)
     setMoreForObject(a, id, data, info)
     result = Construct(kind: ckImplicitStackAllocArrayCreationExpression, implicitStackAllocArrayCreationExpression: a)
-=======
->>>>>>> 54faa57b3a4cbaf076e4f54f43ef779823b548d3
 
   else: assert false, "still unsupported: of \"" & info.declName & "\" : maybe in handle_construct.nim"
   if not result.isNil:
