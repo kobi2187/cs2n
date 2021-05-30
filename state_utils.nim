@@ -7,6 +7,10 @@ import strutils, options
 import constructs/cs_root
 import tables, sets
 
+
+
+
+
 var parentTable* = initTable[int, string]()
 
 proc nsPathNS*(r: var CsRoot): seq[CsNamespace] =
@@ -44,10 +48,7 @@ proc nsPath*(r: var CsRoot): string = # SAME?
     "default"
 
 import common_utils
-# proc last*[T](s: seq[T]): T =
-#   result = s[s.len-1]
-# proc isEmpty*[T](s: seq[T]): bool =
-#   result = (s.len == 0)
+
 proc itemName*(b: Block): string =
   b.info.essentials[0]
 

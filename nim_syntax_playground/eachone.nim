@@ -57,15 +57,16 @@ proc fitsContent(file: string, newfits: string): string =
   try:
     fh = open(file)
     let lines = fh.readAll.splitLines
-    let exceptLast = lines[0..^2]
-    let output = exceptLast.join("\n")
+    let intro = lines[0..2].join("\n") & "\n"
+    let exceptLast = lines[3..^2]
+    let output = exceptLast.toHashSet().toSeq().join("\n")
     let last = "\n" & r"""  else: raise newException(Exception, "cfits is missing:  of \"" & $parent.kind & ", " & $item.kind & "\": true")"""
-    result &= output & "\n" & newfits & "\n" & last
+    result &= intro & output & "\n" & newfits & "\n" & last
   finally: fh.close
 
 proc genFits(newFits: string) =
   echo "in genFits"
-  let file = "/home/kobi7/currentWork/cs2nim/cfits.nim"
+  let file = "/home/kobi/cs2n/cfits.nim"
   let content = fitsContent(file, newFits)
   var fh2: File
   try:
@@ -452,3 +453,6 @@ proc main(): bool =
 
 when isMainModule:
   var isFinishedSuccessfully: bool = main()
+  # let cf = initHashSet[string](0)
+  # writeToFileCfits(cf)
+
