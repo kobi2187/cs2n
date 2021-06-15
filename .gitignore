@@ -1,0 +1,7 @@
+nim_code/
+.vscode/
+*.todo
+*.c
+# nim_syntax_playground/
+module_test/
+*.tar.*

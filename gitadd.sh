@@ -1,0 +1,13 @@
+git add nim.cfg
+git add *.nim
+git add constructs/*.nim
+git add nim_syntax_playground/*.nim
+git add tests/*.nim
+git add tests/**/*.nim
+git add tests/**/*.cs
+git add tests/**/*.csast
+git add tests/**/*.precs
+git add tests/samples/complex/*.csast
+git add tests/samples/monotests/**/*.csast
+git add tests/samples/monotests/tests/*.nim
+git add tests/samples/monotests/tests/*/*/*.csast
