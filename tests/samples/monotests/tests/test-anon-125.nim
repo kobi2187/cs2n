@@ -9,7 +9,7 @@ proc newHS(comparer: IEqualityComparer[T]): HS =
 type Test = ref object
 
 proc foo[T](c: IEqualityComparer[T]) =
-  var a : Func[HS[T]] = ()=>return newHS[T](c)
+  var a : Func[HS[T]] = ()=> return newHS[T](c)
 
 proc main*(): int =
   foo[object](nil)

@@ -8,10 +8,10 @@ proc runWriter(line:string): string =
   var res = ""
   var process :Process
   var outp :Stream
-  const cwd = "/home/kobi7/currentWork/cs2nim"
+  const cwd = "/home/kobi/cs2n"
   var ln = newStringOfCap(200)
   try:
-    process = startProcess("/home/kobi7/currentWork/cs2nim/writer", workingDir = cwd, args = [line], options = {poStdErrToStdOut, poUsePath})
+    process = startProcess("/home/kobi/cs2n/writer", workingDir = cwd, args = [line], options = {poStdErrToStdOut, poUsePath})
     outp= outputStream(process)
     while running(process):
       if outp.readLine(ln):

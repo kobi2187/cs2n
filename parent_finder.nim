@@ -42,7 +42,10 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
   case obj.kind
   of ckIdentifier:
     echo "got an identifier"
-    assert false, "TODO" #TODO!
+  # return the last construct that is not an identifier.
+    let b = getLastType((c) => c.name notin [ "BlockStarts", "IdentifierName","QualifiedName"], obj.id.get)
+    echo "-- finding a parent for ckIdentifier: is ok? " & b.get.name
+    res = b.get.id.some
 
   of ckClass:
     echo "obj is a class, returning the current namespace id"
@@ -82,8 +85,6 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
     of "IndexerDeclaration":
       assert data.lastClass.hasIndexer
       res = data.lastClass.indexer.id
-    # of ["VariableDeclaration", "Parameter", "IdentifierName", "TypeArgumentList"]:
-    #   discarded = true
     else:
       echo "in ckPredefinedType: not all cases were matched"
       if discarded == false:
@@ -643,8 +644,8 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
 
 proc determineByHint(obj:Construct) : FindParentResult =
   var discarded = false
-  var ignoredConstructs = @[ "QualifiedName", "BlockStarts", "AliasQualifiedName","GlobalStatement","IncompleteMember"] # had here also "IdentifierName",
-  var ckIgnoredConstructs = @[ ckAliasQualifiedName,ckGlobalStatement,ckIncompleteMember]
+  var ignoredConstructs = @[ "BlockStarts", "GlobalStatement","IncompleteMember", "IdentifierName"]
+  var ckIgnoredConstructs = @[ ckIdentifier, ckGlobalStatement,ckIncompleteMember]
   let phint = parentHint(obj)
   # try numerical first. # possibly it's the same?
   let tryMatch = getLastType(b=>b.info.rawKind == obj.parentRawKind, obj.id.get)
@@ -676,7 +677,7 @@ proc determineBySetID (obj:Construct): FindParentResult =
 proc determineParentId(root: var CsRoot; obj: Construct; data: AllNeededData): FindParentResult =
   echo "in determineParentId"
   # var discarded = false
-  let irrelevant = ["PredefinedType","IdentifierName", "QualifiedName", "GenericName","IncompleteMember"].toHashSet()
+  let irrelevant = ["PredefinedType", "QualifiedName", "GenericName","IncompleteMember"].toHashSet()
   # var res: Option[UUID]
   someInfo(data,irrelevant)
   if obj.parentId.isSome:
@@ -690,11 +691,14 @@ proc determineParentId(root: var CsRoot; obj: Construct; data: AllNeededData): F
   # get the actual parent:
   if result.parentId.isNone:
     result = determineParentSpecific(obj,data)
-  if result.parentId.isSome:
+  else:
     let p = root.infoCenter.fetch(result.parentId.get)
-    let fits = cfits(p.get,obj,data)
-    if not fits:
+    if p.isNone:
       result = determineParentSpecific(obj,data)
+    else:
+      let fits = cfits(p.get,obj,data)
+      if not fits:
+        result = determineParentSpecific(obj,data)
 
 proc getParent*(root: var CsRoot; newobj: Construct; allData: AllNeededData): (bool, Option[Construct]) =
   var res: Option[Construct]
@@ -717,9 +721,8 @@ proc getParent*(root: var CsRoot; newobj: Construct; allData: AllNeededData): (b
     echo "parent id found: ", $pid
     res = root.infoCenter.fetch(pid.get)
     if res.isNone:
-      echo "!!! couldn't find registered object for this id" ### NOTE: can happen for IdentifierName since we don't register it. it means the parent was wrongly identified as IdentifierName.
-      # assert false
-
+      echo "!!! couldn't find registered object for this id" 
+      assert false
     assert cfits(res.get,newobj,allData) # check again that parent fits, if not: likely cfits mapping is wrong or the specific matching needs tweaking
 
   # more validations after fetching the parent object construct.

@@ -60,7 +60,6 @@ proc updateState(root: var CsRoot; line: JsonNode; upcoming: seq[string]) =
 
 
     let info = Info(declName: decl, essentials: main, extras: extras, rawKind: objkind, parentRawKind: parentKind)
-
     let id = genUUID()
 
 

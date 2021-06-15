@@ -62,11 +62,12 @@ type CsArgument* = ref object of CsObject
 type CsArgumentList* = ref object of CsObject
   args*: seq[CsArgument]
   genericName*:CsGenericName
+
 type CsArrayCreationExpression* = ref object of BodyExpr
   theType*:CsArrayType
   initializer*:CsInitializerExpression
 
-type CsArrayRankSpecifier* = ref object of CsObject
+type CsArrayRankSpecifier* = ref object of BodyExpr
   gotType*:TypeNameDef
   omitted*:CsOmittedArraySizeExpression # what does it have?
   theRankValue*:BodyExpr# CsLiteralExpression # others?
@@ -439,6 +440,7 @@ type CsIncompleteMember* = ref object of CsObject
   attributeLists,modifiers:float64
 type CsPredefinedType* = ref object of TypeNameDef
   keyword*:string
+  genericName*:CsGenericName
 type CsPrefixUnaryExpression* = ref object of BooleanExpr # because can have the ! (not) operator.
   gotType*:TypeNameDef
   prefix*: string     # convert to Nim's meaning, sometimes the ops are the same, sometimes different. prepend it, without space if literal, and with - otherwise.
@@ -476,7 +478,7 @@ type CsInterpolatedStringExpression* = ref object of BodyExpr
 type CsInterpolationAlignmentClause* = ref object of CsObject
   number*:CsLiteralExpression
 type CsInterpolationFormatClause* = ref object of CsObject
-type CsInterpolation* = ref object of CsObject
+type CsInterpolation* = ref object of BodyExpr
   gotType*:TypeNameDef
   expr*:BodyExpr
   format*:CsInterpolationFormatClause
@@ -534,7 +536,7 @@ type CsReturnStatement* = ref object of BodyExpr # type:CsReturnStatement
   expr*: BodyExpr                 # can have one expr that can be nil
   value*: string
 type CsNameColon* = ref object of BodyExpr
-type CsNameEquals* = ref object of CsObject
+type CsNameEquals* = ref object of BodyExpr
   genericName*: CsGenericName
 type CsUsingDirective* = ref object of CsObject
   alias*: CsNameEquals
@@ -624,7 +626,6 @@ type CsPostfixUnaryExpression* = ref object of BodyExpr
   postfix*: string
   actingOn*: BodyExpr
 
-type CsIdentifier* = ref object of BodyExpr
 type CsRefExpression* = ref object of BodyExpr
   expr*:BodyExpr
 
@@ -717,6 +718,7 @@ type CsTypeConstraint* = ref object of Constraint
   gotType*:TypeNameDef
 type CsTypeOfExpression* = ref object of BodyExpr
   gotType*:TypeNameDef
+  
 type CsTypeParameterConstraintClause* = ref object of BodyExpr
   constraints*:seq[Constraint]
 

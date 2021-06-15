@@ -83,7 +83,7 @@ proc writeToFileCfits(cfits: HashSet[string]) =
 
 proc writeToFileStoreMapping(missingStore: HashSet[string]) =
   let newstores = missingStore.toSeq.sorted.join("\r\n")
-  let file = "/home/kobi7/currentWork/cs2nim" / "nim_syntax_playground" / "parentKidMapping.txt"
+  let file = "/home/kobi/cs2n" / "nim_syntax_playground" / "parentKidMapping.txt"
   var fh: File
   try:
     fh = open(file, fmAppend)
@@ -91,9 +91,10 @@ proc writeToFileStoreMapping(missingStore: HashSet[string]) =
     fh.write("\n" & newstores)
   finally:
     fh.close
+
 proc writeToFileStoreParent() =
   let gen = genStoreInParent()
-  let file = "/home/kobi7/currentWork/cs2nim" / "storeInParent.nim"
+  let file = "/home/kobi/cs2n" / "storeInParent.nim"
   var fh: File
   try:
     fh = open(file, fmWrite)
@@ -104,8 +105,8 @@ proc writeToFileStoreParent() =
 
 proc runAddRunner() =
   echo "trying to run add runner!"
-  # let cwd = "/home/kobi7/currentWork/cs2nim"
-  let res = execCmd("/home/kobi7/currentWork/cs2nim/addrunner")
+  # let cwd = "/home/kobi/cs2n"
+  let res = execCmd("/home/kobi/cs2n/addrunner")
   echo res
 
 proc appendTooLong(parentFolder, line : string) =
@@ -134,7 +135,6 @@ proc printEnding(cfits, missingStore, missingExtract, unsupp, tc: HashSet[string
   # echo nilDispatch
 proc main(): bool =
 
-  # var file = "/home/kobi7/More_CS_Libs_and_Apps/csast_files"
   var
     cfits = initHashSet[string]()
     missingStore = initHashSet[string]()
@@ -162,20 +162,21 @@ proc main(): bool =
 
   # start
 
-  let cwd = "/home/kobi7/currentWork/cs2nim"
+  let cwd = "/home/kobi/cs2n"
   # var file = cwd / "nim_syntax_playground" / "sizes_2_smallfirst.txt"
   # var file = cwd / "nim_syntax_playground" / "updated_sizes_smallfirst.txt"
 
-  # created with: find /home/kobi7/More_CS_Libs_and_Apps/ -name *.csast -size -2M
+  # created with: find /home/kobi/More_CS_Libs_and_Apps/ -name *.csast -size -2M
   # then run thru sizes.nim, and sort natural in a text editor, and remove (search&replace) ^\d+
-  # var file = "/home/kobi7/More_CS_Libs_and_Apps/more_updated_sorted.txt"
-  var file = "/home/kobi7/More_CS_Libs_and_Apps/all_of_them_sorted.txt"
+  # var file = "/home/kobi/More_CS_Libs_and_Apps/more_updated_sorted.txt"
+  var file = "/home/kobi/More_CS_Libs_and_Apps/new_installation_sorted.txt"
+  
 
   if os.commandLineParams().len > 0:
     file = os.commandLineParams()[0]
-  let parentFolder = file.splitPath.head # "/home/kobi7/More_CS_Libs_and_Apps"
+  let parentFolder = file.splitPath.head # "/home/kobi/More_CS_Libs_and_Apps"
   # let inhuge = parentFolder.contains(file)
-  let toobigfile = file.splitPath.head / "toobig.txt" # "/home/kobi7/More_CS_Libs_and_Apps/toobig.txt"
+  let toobigfile = file.splitPath.head / "toobig.txt" # "/home/kobi/More_CS_Libs_and_Apps/toobig.txt"
   let toolongfile = file.splitPath.head / "toolong.txt"
   let failedAfter = file.splitPath.head / "failed_after.txt"
   let failedBefore = file.splitPath.head / "failed_before.txt"
@@ -187,7 +188,8 @@ proc main(): bool =
   var assumedAfter = initHashSet[string]()
   var genfails = initCountTable[string]()
 
-  if not fileExists(toobigfile) or not fileExists(toolongfile) or not fileExists(f) or not fileExists(f2): quit("a file needed for operation does not exist!")
+  if not fileExists(toobigfile) or not fileExists(toolongfile) or not fileExists(failedAfter) or not fileExists(failedBefore) or not fileExists(f) or not fileExists(f2): 
+    quit("a file needed for operation does not exist!")
 
   var toolarge = open(toobigfile, fmRead).readAll.splitLines.toHashSet()
   var toolong = open(toolongfile, fmRead).readAll.splitLines.toHashSet()
@@ -213,16 +215,16 @@ proc main(): bool =
   const reverse = false
   const startAfterNum: Option[int] =none(int) #some(151_593)
   const startAfterPercent: Option[float] = none(float) # some((20.0).float) # in percent
-  const hasTimeLimit = false
+  const hasTimeLimit = true
   var timeLimit: int64 = 0.int64 + #sec
-    10 * 60 +                       #min
+    2 * 60 +                       #min
     0 * 60 * 60                    # hours
-  const iterLimit = none(int) #some(1.5) # float in seconds
+  const iterLimit = some(12.5) # float in seconds
   const hasCountLimit = false
   const limit = 15
   # just fixing up whatever is needed.
-  const earlyBreak = false # TODO: change to true and run with left_report, to quickly fix priority errors (picking libs first fruits).
-  const breakAfter = false
+  const earlyBreak = true # TODO: change to true and run with left_report, to quickly fix priority errors (picking libs first fruits).
+  const breakAfter = true
 
   const addTime = false
   const timeToAdd = 10 # seconds
@@ -295,7 +297,7 @@ proc main(): bool =
 
       # GC_fullCollect()
       # echo "file size: " & $line.getFileSize()
-      # let res = execProcess("/home/kobi7/currentWork/cs2nim/writer", workingDir = cwd, args = [line], options = {poStdErrToStdOut, poUsePath})
+      # let res = execProcess("/home/kobi/cs2n/writer", workingDir = cwd, args = [line], options = {poStdErrToStdOut, poUsePath})
 
       var res =""
       var process :Process
@@ -303,8 +305,8 @@ proc main(): bool =
       var outp :Stream
       var ln = newStringOfCap(1200)
       try:
-        # discard execCmd("dotnet /home/kobi7/currentWork/CsDisplay/bin/Release/netcoreapp2.2/CsDisplay.dll " & line.changeFileExt(".cs"))
-        process = startProcess("/home/kobi7/currentWork/cs2nim/writer", workingDir = cwd, args = [line], options = {poStdErrToStdOut, poUsePath})
+        # discard execCmd("dotnet /home/kobi/CsDisplay/bin/Release/netcoreapp2.2/CsDisplay.dll " & line.changeFileExt(".cs"))
+        process = startProcess("/home/kobi/cs2n/writer", workingDir = cwd, args = [line], options = {poStdErrToStdOut, poUsePath})
         outp= outputStream(process)
         while running(process):
           let elapsedIterationTime = now() - iterBeginTime
@@ -333,7 +335,7 @@ proc main(): bool =
         finToAdd.writeLine(line)
         # echo "had finish text!"
       else:
-        # discard execCmd("dotnet /home/kobi7/currentWork/CsDisplay/bin/Release/netcoreapp2.2/CsDisplay.dll " & line.changeFileExt(".cs"))
+        # discard execCmd("dotnet /home/kobi/CsDisplay/bin/Release/netcoreapp2.2/CsDisplay.dll " & line.changeFileExt(".cs"))
         if res.contains("Error:") or res.contains("Segmentation fault") or res.contains("SIGSEGV: Illegal storage access"):
 
           unfinished.add line
@@ -382,7 +384,7 @@ proc main(): bool =
           elif res.contains(likelyAnnotationProblemRe):
             likelyAnnotation.incl line
           # elif res.contains("`blocks.len == blockCount * 2`") or res.contains("`bs.name == \"BlockStarts\"`") or res.contains("unhandled exception: key not found:"):
-            # discard execCmd("dotnet /home/kobi7/currentWork/CsDisplay/bin/Release/netcoreapp2.2/CsDisplay.dll " & line.changeFileExt(".cs"))
+            # discard execCmd("dotnet /home/kobi/CsDisplay/bin/Release/netcoreapp2.2/CsDisplay.dll " & line.changeFileExt(".cs"))
             # continue
 
           elif res.contains(typeCreatorRe):
@@ -417,7 +419,7 @@ proc main(): bool =
               echo "Some other error occured!"
               echo line.changeFileExt(".cs")
               echo "reached " & $i & " --  Percent:  " & perc(finished.len+unfinished.len, count)
-              # discard execCmd("dotnet /home/kobi7/currentWork/CsDisplay/bin/Release/netcoreapp2.2/CsDisplay.dll " & line.changeFileExt(".cs"))
+              # discard execCmd("dotnet /home/kobi/CsDisplay/bin/Release/netcoreapp2.2/CsDisplay.dll " & line.changeFileExt(".cs"))
               assert false
         if (after and line notin failAfter) or (not after and line notin failBefore):
           addErrorToFile(parentFolder, line,after)
@@ -443,7 +445,7 @@ proc main(): bool =
       runAddRunner()
     if likelyAnnotation.len > 0:
       for ln in likelyAnnotation.toSeq:
-        discard execCmd("dotnet /home/kobi7/currentWork/CsDisplay/bin/Release/netcoreapp2.2/CsDisplay.dll " & ln)
+        discard execCmd("/home/kobi/CsDisplay/bin/Release/net5.0/CsDisplay " & ln)
 
     result = not metLimit
   finally:

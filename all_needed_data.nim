@@ -1,6 +1,6 @@
 import constructs/justtypes
 import types, state
-import options
+import options, stacks
 import state_utils
 import uuids
 
@@ -36,7 +36,7 @@ proc getBody(c: CsProperty): seq[BodyExpr] =
 
 proc getBody(c: CsMethod | CsConstructor): seq[BodyExpr] =
   result = c.body
-
+import common_utils
 proc lastBodyExpr*(c: CsMethod | CsConstructor | CsProperty): Option[BodyExpr] =
   let b = c.getBody()
   if not b.isEmpty:
@@ -72,7 +72,7 @@ import common_utils
 # import type_utils
 proc makeNeededData*(root: var CsRoot; info: Info; src: string; upcoming: seq[
     string]): AllNeededData =
-  # echo "in makeNeededData"
+  echo "in makeNeededData"
   result.sourceCode = src
   result.upcoming = upcoming
   echo "!! Source: ", src
@@ -93,8 +93,8 @@ proc makeNeededData*(root: var CsRoot; info: Info; src: string; upcoming: seq[
   if currentConstruct.len >= 3:
     result.previousPreviousConstruct = some(prevprevConstruct())
 
-
-  if previousBlock().isSome:
+  echo "BLOCKS LEN:" & $blocks.len()
+  if blocks.len > 3: #previousBlock().isSome:
     result.prevBlock = previousBlock().get
 
   var (_, ns) = getCurrentNs(root)

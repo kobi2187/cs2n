@@ -4,7 +4,7 @@ import ../types, uuids, options, ../writer_utils,
 import sugar
 
 proc getMonoTests*():seq[string] =
-  let dir= "/home/kobi7/currentWork/cs2nim/tests/samples/monotests/tests"
+  let dir= "/home/kobi/cs2n/tests/samples/monotests/tests"
   for a in walkDirRec(dir):
     if a.endsWith(".cs"):
       result.add a
@@ -61,14 +61,14 @@ proc genTest*(file: string, hasDir=false, gl:GenLang = glNim): bool =
     outp = dir / filename & ext
 
   echo dir
-  discard execCmd("dotnet /home/kobi7/currentWork/CsDisplay/bin/Release/netcoreapp2.2/CsDisplay.dll " & src.changeFileExt(".cs"))
+  # discard execCmd("/home/kobi/CsDisplay/bin/Release/net5.0/CsDisplay " & src.changeFileExt(".cs"))
 
   if not dirExists(dir):
     echo "directory `" & dir & "` does not exist"
     return false
   if not fileExists(src):
     echo "file `" & src & "` does not exist"
-    discard execCmd("dotnet /home/kobi7/currentWork/CsDisplay/bin/Release/netcoreapp2.2/CsDisplay.dll " & src.changeFileExt(".cs"))
+    discard execCmd("/home/kobi/CsDisplay/bin/Release/net5.0/CsDisplay " & src.changeFileExt(".cs"))
     # return false
   if not fileExists(outp):
     echo "file `" & outp & "` does not exist, creating an empty one"

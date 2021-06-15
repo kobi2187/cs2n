@@ -1,968 +1,92 @@
 import constructs/justtypes
 proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inner types to implement fits for these type arguments.
   result = case $parent.kind & ", " & $item.kind
+  of "ckLocalFunctionStatement, ckParameterList": true
+  # of "ckPostfixUnaryExpression, ckIdentifier": true
+  of "ckInterface, ckField": true
+  of "ckThisExpression, ckIdentifier": true
+  of "ckInterpolation, ckPrefixUnaryExpression": true
+  of "ckSwitchExpressionArm, ckThisExpression": true
+  of "ckAssignmentExpression, ckElementAccessExpression": true
   of "ckArrowExpressionClause, ckImplicitObjectCreationExpression": true
   of "ckTryStatement, ckCatchClause": true
+  of "ckEvent, ckAccessorList": true
+  of "ckCasePatternSwitchLabel, ckBinaryPattern": true
+  of "ckPointerType, ckTupleType": true
+  of "ckArgumentList, ckGenericName": true
+  # of "ckOperator, ckIdentifier": true
+  of "ckOperator, ckIdentifier": true
+  of "ckBinaryExpression, ckLiteralExpression": true
   of "ckWithExpression, ckInvocationExpression": true
   of "ckLocalFunctionStatement, ckTupleType": true
   of "ckQueryBody, ckFromClause": true
   of "ckReturnStatement, ckThisExpression": true
   of "ckParenthesizedLambdaExpression, ckCheckedStatement": true
+  of "ckParenthesizedLambdaExpression, ckAwaitExpression": true
   of "ckConditionalExpression, ckAwaitExpression": true
   of "ckBinaryExpression, ckAnonymousMethodExpression": true
+  of "ckFinallyClause, ckForEachStatement": true
+  of "ckStackAllocArrayCreationExpression, ckInitializerExpression": true
+  # of "ckProperty, ckIdentifier": true
+  of "ckCatch, ckIdentifier": true
+  of "ckBracketedParameterList, ckParameter": true
+  of "ckUsingDirective, ckAliasQualifiedName": true
+  of "ckAssignmentExpression, ckRangeExpression": true
   of "ckAccessor, ckLockStatement": true
+  of "ckNameColon, ckIdentifier": true
+  of "ckParenthesizedLambdaExpression, ckThrowExpression": true
+  of "ckDeclarationExpression, ckNullableType": true
+  of "ckSimpleLambdaExpression, ckCheckedExpression": true
   of "ckCastExpression, ckPointerType": true
   of "ckMethod, ckReturnStatement": true
   of "ckOperator, ckIfStatement": true
   of "ckSimpleLambdaExpression, ckUnsafeStatement": true
+  of "ckConditionalExpression, ckGenericName": true
   of "ckForEachStatement, ckLockStatement": true
+  of "ckParenthesizedLambdaExpression, ckRefExpression": true
+  # of "ckGotoStatement, ckIdentifier": true
   of "ckThrowStatement, ckPostfixUnaryExpression": true
+  of "ckTypeArgumentList, ckRefType": true
   of "ckForEachStatement, ckParenthesizedExpression": true
   of "ckProperty, ckUnsafeStatement": true
-  of "ckYieldStatement, ckParenthesizedLambdaExpression": true
-  of "ckBinaryPattern, ckTypePattern": true
-  of "ckParenthesizedLambdaExpression, ckAnonymousObjectCreationExpression": true
-  of "ckInitializerExpression, ckAssignmentExpression": true
-  of "ckEqualsValueClause, ckInterpolatedStringExpression": true
-  of "ckForStatement, ckForEachVariableStatement": true
-  of "ckForStatement, ckMemberAccessExpression": true
-  of "ckInitializerExpression, ckAwaitExpression": true
-  of "ckForStatement, ckRangeExpression": true
-  of "ckSwitchStatement, ckSwitchSection": true
-  of "ckSimpleLambdaExpression, ckMemberAccessExpression": true
-  of "ckYieldStatement, ckMemberAccessExpression": true
-  of "ckSwitchStatement, ckAssignmentExpression": true
-  of "ckConversionOperator, ckUnsafeStatement": true
-  of "ckNamespace, ckIncompleteMember": true
-  of "ckAnonymousObjectMemberDeclarator, ckSimpleLambdaExpression": true
-  of "ckArrowExpressionClause, ckSimpleLambdaExpression": true
-  of "ckSwitchSection, ckForEachStatement": true
-  of "ckPointerType, ckPredefinedType": true
-  of "ckForEachStatement, ckAnonymousMethodExpression": true
-  of "ckParenthesizedLambdaExpression, ckLiteralExpression": true
-  of "ckEqualsValueClause, ckRangeExpression": true
-  of "ckUsingStatement, ckTryStatement": true
-  of "ckConstructor, ckLocalFunctionStatement": true
-  of "ckMemberAccessExpression, ckAliasQualifiedName": true
-  of "ckParenthesizedLambdaExpression, ckLabeledStatement": true
-  of "ckSimpleLambdaExpression, ckWhileStatement": true
-  of "ckRefType, ckGenericName": true
-  of "ckIsPatternExpression, ckAwaitExpression": true
-  of "ckReturnStatement, ckIsPatternExpression": true
-  of "ckConditionalAccessExpression, ckTypeOfExpression": true
-  of "ckConstructor, ckLiteralExpression": true
-  of "ckSwitchExpressionArm, ckRelationalPattern": true
-  of "ckEnum, ckLiteralExpression": true
-  of "ckRangeExpression, ckMemberAccessExpression": true
-  of "ckUsingStatement, ckConditionalExpression": true
-  of "ckUsingStatement, ckMemberAccessExpression": true
-  of "ckForEachStatement, ckRefType": true
-  of "ckFromClause, ckNullableType": true
-  of "ckReturnStatement, ckArgumentList": true
-  of "ckDefaultExpression, ckTupleType": true
-  of "ckRangeExpression, ckElementAccessExpression": true
-  of "ckUnaryPattern, ckRecursivePattern": true
-  of "ckLetClause, ckConditionalExpression": true
-  of "ckLockStatement, ckEmptyStatement": true
-  of "ckParenthesizedLambdaExpression, ckImplicitArrayCreationExpression": true
-  of "ckAnonymousObjectMemberDeclarator, ckConditionalAccessExpression": true
-  of "ckSwitchExpression, ckInvocationExpression": true
-  of "ckBinaryExpression, ckAwaitExpression": true
-  of "ckSimpleBaseType, ckAliasQualifiedName": true
-  of "ckIsPatternExpression, ckThisExpression": true
-  of "ckWhenClause, ckBinaryExpression": true
-  of "ckCastExpression, ckObjectCreationExpression": true
-  of "ckFinallyClause, ckThrowStatement": true
-  of "ckAccessor, ckContinueStatement": true
-  of "ckDeclarationExpression, ckDiscardDesignation": true
-  of "ckQueryExpression, ckQueryBody": true
-  of "ckArgument, ckThisExpression": true
-  of "ckNamespace, ckClass": true
-  of "ckTryStatement, ckYieldStatement": true
-  of "ckClass, ckDelegate": true
-  of "ckTypeParameterConstraintClause, ckConstructorConstraint": true
-  of "ckIsPatternExpression, ckConditionalAccessExpression": true
-  of "ckCheckedExpression, ckImplicitArrayCreationExpression": true
-  of "ckUsingStatement, ckEmptyStatement": true
-  of "ckStruct, ckEnum": true
-  of "ckArgument, ckAnonymousObjectCreationExpression": true
-  of "ckFromClause, ckInvocationExpression": true
-  of "ckElementBindingExpression, ckBracketedArgumentList": true
-  of "ckParenthesizedExpression, ckThisExpression": true
-  of "ckDestructor, ckExpressionStatement": true
-  of "ckEqualsValueClause, ckPrefixUnaryExpression": true
-  of "ckConstructor, ckThrowStatement": true
-  of "ckParameter, ckFunctionPointerType": true
-  of "ckForStatement, ckReturnStatement": true
-  of "ckWhileStatement, ckForStatement": true
-  of "ckRefExpression, ckMemberAccessExpression": true
-  of "ckIndexer, ckAccessorList": true
-  of "ckGlobalStatement, ckBreakStatement": true
-  of "ckAnonymousObjectMemberDeclarator, ckConditionalExpression": true
-  of "ckLocalDeclarationStatement, ckVariableDeclarator": true
-  of "ckStruct, ckProperty": true
-  of "ckDestructor, ckUsingStatement": true
-  of "ckObjectCreationExpression, ckNullableType": true
-  of "ckRefValueExpression, ckPredefinedType": true
-  of "ckWhileStatement, ckContinueStatement": true
-  of "ckArrowExpressionClause, ckRefExpression": true
-  of "ckArgument, ckParenthesizedLambdaExpression": true
-  of "ckConditionalExpression, ckTypeOfExpression": true
-  of "ckInvocationExpression, ckParenthesizedLambdaExpression": true
-  of "ckVariable, ckRefType": true
-  of "ckTypeArgumentList, ckGenericName": true
-  of "ckMethod, ckTryStatement": true
-  of "ckTryStatement, ckFixedStatement": true
-  of "ckPointerType, ckGenericName": true
-  of "ckPrefixUnaryExpression, ckPostfixUnaryExpression": true
-  of "ckSubpattern, ckRecursivePattern": true
-  of "ckArrowExpressionClause, ckTypeOfExpression": true
-  of "ckElementAccessExpression, ckParenthesizedLambdaExpression": true
-  of "ckArrayRankSpecifier, ckCastExpression": true
-  of "ckMethod, ckArrayType": true
-  of "ckIsPatternExpression, ckInvocationExpression": true
-  of "ckExpressionStatement, ckArgumentList": true
-  of "ckStackAllocArrayCreationExpression, ckPredefinedType": true
-  of "ckIndexer, ckGenericName": true
-  of "ckArrayType, ckPointerType": true
-  of "ckOperator, ckThrowStatement": true
-  of "ckSwitchSection, ckTryStatement": true
-  of "ckArgument, ckSimpleLambdaExpression": true
-  of "ckLabeledStatement, ckSwitchStatement": true
-  of "ckIfStatement, ckLocalDeclarationStatement": true
-  of "ckInitializerExpression, ckSizeOfExpression": true
-  of "ckLabeledStatement, ckForEachVariableStatement": true
-  of "ckBinaryExpression, ckArrayCreationExpression": true
-  of "ckYieldStatement, ckThisExpression": true
-  of "ckInitializerExpression, ckPostfixUnaryExpression": true
-  of "ckForEachStatement, ckConditionalExpression": true
-  of "ckNamespace, ckConstructor": false
-  of "ckSimpleLambdaExpression, ckObjectCreationExpression": true
-  of "ckConditionalExpression, ckLiteralExpression": true
-  of "ckForStatement, ckPredefinedType": true
-  of "ckYieldStatement, ckCastExpression": true
-  of "ckArgument, ckGenericName": true
-  of "ckIfStatement, ckUsingStatement": true
-  of "ckVariable, ckArrayType": true
-  of "ckElementAccessExpression, ckMemberBindingExpression": true
-  of "ckConversionOperator, ckPredefinedType": true
-  of "ckCatchFilterClause, ckMemberAccessExpression": true
-  of "ckFunctionPointerType, ckParameter": true
-  of "ckDestructor, ckLocalDeclarationStatement": true
-  of "ckJoinClause, ckMemberAccessExpression": true
-  of "ckTryStatement, ckLabeledStatement": true
-  of "ckLockStatement, ckAssignmentExpression": true
-  of "ckParenthesizedLambdaExpression, ckForStatement": true
-  of "ckElseClause, ckIfStatement": true
-  of "ckRefType, ckPredefinedType": true
-  of "ckForEachVariableStatement, ckBaseExpression": true
-  of "ckStruct, ckStruct": true
-  of "ckThrowExpression, ckPostfixUnaryExpression": true
-  of "ckInterpolation, ckSizeOfExpression": true
-  of "ckMemberAccessExpression, ckMemberAccessExpression": true
-  of "ckInvocationExpression, ckParenthesizedExpression": true
-  of "ckLockStatement, ckUnsafeStatement": true
-  of "ckClass, ckIncompleteMember": true
-  of "ckGlobalStatement, ckExpressionStatement": true
-  of "ckMethod, ckForStatement": true
-  of "ckArrayCreationExpression, ckArrayType": true
-  of "ckDoStatement, ckMemberAccessExpression": true
-  of "ckLockStatement, ckIfStatement": true
-  of "ckElseClause, ckUsingStatement": true
-  of "ckMethod, ckWhileStatement": true
-  of "ckInitializerExpression, ckTypeOfExpression": true
-  of "ckOperator, ckArrowExpressionClause": true
-  of "ckWhileStatement, ckInvocationExpression": true
-  of "ckRelationalPattern, ckParenthesizedExpression": true
-  of "ckAssignmentExpression, ckQueryExpression": true
-  of "ckPostfixUnaryExpression, ckElementAccessExpression": true
-  of "ckInterpolatedStringExpression, ckInterpolation": true
-  of "ckSwitchStatement, ckPrefixUnaryExpression": true
-  of "ckIndexer, ckLiteralExpression": true
-  of "ckUsingDirective, ckGenericName": true
-  of "ckConditionalAccessExpression, ckMemberAccessExpression": true
-  of "ckParenthesizedExpression, ckInterpolatedStringExpression": true
-  of "ckMethod, ckExplicitInterfaceSpecifier": true
-  of "ckArrowExpressionClause, ckQueryExpression": true
-  of "ckLockStatement, ckElementAccessExpression": true
-  of "ckBinaryExpression, ckPostfixUnaryExpression": true
-  of "ckTryStatement, ckThrowStatement": true
-  of "ckLockStatement, ckPostfixUnaryExpression": true
-  of "ckBinaryExpression, ckTypeOfExpression": true
-  of "ckGenericName, ckTypeArgumentList": true
-  of "ckUsingStatement, ckElementAccessExpression": true
-  of "ckAssignmentExpression, ckArgumentList": true
-  of "ckSimpleLambdaExpression, ckThrowStatement": true
-  of "ckConversionOperator, ckParameterList": true
-  of "ckConstructorInitializer, ckArgumentList": true
-  of "ckRefType, ckPointerType": true
-  of "ckThrowStatement, ckConditionalExpression": true
-  of "ckClass, ckIndexer": true
-  of "ckSimpleLambdaExpression, ckAssignmentExpression": true
-  of "ckParenthesizedLambdaExpression, ckArrayCreationExpression": true
-  of "ckForEachVariableStatement, ckIfStatement": true
-  of "ckWhileStatement, ckCheckedExpression": true
-  of "ckArrowExpressionClause, ckAnonymousMethodExpression": true
-  of "ckWhileStatement, ckCheckedStatement": true
-  of "ckSimpleLambdaExpression, ckQueryExpression": true
-  of "ckMethod, ckRefType": true
-  of "ckNamespace, ckUsingDirective": true
-  of "ckInterpolation, ckBinaryExpression": true
-  of "ckParenthesizedLambdaExpression, ckAnonymousMethodExpression": true
-  of "ckReturnStatement, ckTupleExpression": true
-  of "ckForStatement, ckAwaitExpression": true
-  of "ckForStatement, ckIfStatement": true
-  of "ckProperty, ckTryStatement": true
-  of "ckEqualsValueClause, ckInvocationExpression": true
-  of "ckGlobalStatement, ckLocalFunctionStatement": true
-  of "ckNamespace, ckOperator": true
-  of "ckEqualsValueClause, ckImplicitArrayCreationExpression": true
-  of "ckFromClause, ckConditionalAccessExpression": true
-  of "ckInitializerExpression, ckAnonymousObjectCreationExpression": true
-  of "ckConstantPattern, ckBinaryExpression": true
-  of "ckCheckedExpression, ckPrefixUnaryExpression": true
-  of "ckElseClause, ckGotoStatement": true
-  of "ckWhileStatement, ckTryStatement": true
-  of "ckConstructor, ckWhileStatement": true
-  of "ckJoinClause, ckJoinIntoClause": true
-  of "ckEvent, ckExplicitInterfaceSpecifier": true
-  of "ckForEachStatement, ckForEachStatement": true
-  of "ckUsingStatement, ckWhileStatement": true
-  of "ckInitializerExpression, ckSimpleLambdaExpression": true
-  of "ckEnumMember, ckEqualsValueClause": true
-  of "ckSimpleBaseType, ckNullableType": true
-  of "ckSwitchSection, ckSwitchStatement": true
-  of "ckImplicitArrayCreationExpression, ckInitializerExpression": true
-  of "ckIfStatement, ckReturnStatement": true
-  of "ckArgument, ckNameColon": true
-  of "ckAccessor, ckDoStatement": true
-  of "ckTryStatement, ckUsingStatement": true
-  of "ckParenthesizedLambdaExpression, ckDoStatement": true
-  of "ckDeclarationExpression, ckSingleVariableDesignation": true
-  of "ckArgument, ckElementAccessExpression": true
-  of "ckAwaitExpression, ckParenthesizedExpression": true
-  of "ckParenthesizedExpression, ckSwitchExpression": true
-  of "ckWhereClause, ckPrefixUnaryExpression": true
-  of "ckSwitchStatement, ckThisExpression": true
-  of "ckTryStatement, ckForStatement": true
-  of "ckCastExpression, ckNullableType": true
-  of "ckForEachStatement, ckThrowStatement": true
-  of "ckAccessor, ckForStatement": true
-  of "ckParenthesizedLambdaExpression, ckInterpolatedStringExpression": true
-  of "ckMethod, ckArrowExpressionClause": true
-  of "ckBinaryPattern, ckConstantPattern": true
-  of "ckNameColon, ckLiteralExpression": true
-  of "ckArrowExpressionClause, ckAnonymousObjectCreationExpression": true
-  of "ckNameEquals, ckLiteralExpression": true
-  of "ckIndexer, ckNullableType": true
-  of "ckDestructor, ckForStatement": true
-  of "ckRefValueExpression, ckParenthesizedExpression": true
-  of "ckCastExpression, ckFunctionPointerType": true
-  of "ckWhenClause, ckParenthesizedExpression": true
-  of "ckIndexer, ckTupleType": true
-  of "ckSwitchExpressionArm, ckDiscardPattern": true
-  of "ckAwaitExpression, ckLiteralExpression": true
-  of "ckConstantPattern, ckElementAccessExpression": true
-  of "ckDelegate, ckTupleType": true
-  of "ckDeclarationExpression, ckPredefinedType": true
-  of "ckParenthesizedExpression, ckSimpleLambdaExpression": true
-  of "ckProperty, ckWhileStatement": true
-  of "ckRangeExpression, ckParenthesizedExpression": true
-  of "ckMethod, ckPointerType": true
-  of "ckAwaitExpression, ckCheckedExpression": true
-  of "ckConditionalExpression, ckPrefixUnaryExpression": true
-  of "ckPostfixUnaryExpression, ckLiteralExpression": true
-  of "ckArrayType, ckGenericName": true
-  of "ckTypeOfExpression, ckPredefinedType": true
-  of "ckThrowStatement, ckBinaryExpression": true
-  of "ckParenthesizedExpression, ckAnonymousMethodExpression": true
-  of "ckArrowExpressionClause, ckInvocationExpression": true
-  of "ckLocalFunctionStatement, ckTypeParameterList": true
-  of "ckGlobalStatement, ckSwitchStatement": true
-  of "ckForStatement, ckLabeledStatement": true
-  of "ckArrayRankSpecifier, ckSizeOfExpression": true
-  of "ckBinaryExpression, ckArrayType": true
-  of "ckElseClause, ckSwitchStatement": true
-  of "ckIfStatement, ckAssignmentExpression": true
-  of "ckConditionalExpression, ckInvocationExpression": true
-  of "ckIfStatement, ckMemberAccessExpression": true
-  of "ckIfStatement, ckSwitchStatement": true
-  of "ckOperator, ckNullableType": true
-  of "ckSelectClause, ckImplicitArrayCreationExpression": true
-  of "ckAssignmentExpression, ckAwaitExpression": true
-  of "ckReturnStatement, ckInvocationExpression": true
-  of "ckSwitchSection, ckExpressionStatement": true
-  of "ckCastExpression, ckInterpolatedStringExpression": true
-  of "ckWhileStatement, ckExpressionStatement": true
-  of "ckMethod, ckLocalDeclarationStatement": true
-  of "ckPrefixUnaryExpression, ckMemberAccessExpression": true
-  of "ckProperty, ckTupleType": true
-  of "ckParenthesizedExpression, ckObjectCreationExpression": true
-  of "ckMethod, ckLiteralExpression": true
-  of "ckBinaryExpression, ckCheckedExpression": true
-  of "ckCatch, ckGenericName": true
-  of "ckAssignmentExpression, ckStackAllocArrayCreationExpression": true
-  of "ckEqualsValueClause, ckStackAllocArrayCreationExpression": true
-  of "ckMemberAccessExpression, ckMemberBindingExpression": true
-  of "ckPrefixUnaryExpression, ckPrefixUnaryExpression": true
-  of "ckCasePatternSwitchLabel, ckDeclarationPattern": true
-  of "ckSwitchSection, ckDoStatement": true
-  of "ckElseClause, ckUnsafeStatement": true
-  of "ckQueryBody, ckQueryContinuation": true
-  of "ckSwitchExpressionArm, ckThrowExpression": true
-  of "ckDoStatement, ckIsPatternExpression": true
-  of "ckObjectCreationExpression, ckTupleType": true
-  of "ckEqualsValueClause, ckRefExpression": true
-  of "ckVariable, ckPointerType": true
-  of "ckConstructor, ckForStatement": true
-  of "ckArrayRankSpecifier, ckAssignmentExpression": true
-  of "ckFinallyClause, ckUsingStatement": true
-  of "ckConstructor, ckIfStatement": true
-  of "ckFromClause, ckParenthesizedExpression": true
-  of "ckReturnStatement, ckLiteralExpression": true
-  of "ckSimpleLambdaExpression, ckAnonymousObjectCreationExpression": true
-  of "ckField, ckVariable": true
-  of "ckCatchFilterClause, ckAwaitExpression": true
-  of "ckTryStatement, ckLockStatement": true
-  of "ckGroupClause, ckLiteralExpression": true
-  of "ckIsPatternExpression, ckDeclarationPattern": true
-  of "ckForEachStatement, ckLocalDeclarationStatement": true
-  of "ckInitializerExpression, ckPredefinedType": true
-  of "ckMemberAccessExpression, ckStackAllocArrayCreationExpression": true
-  of "ckForEachStatement, ckSwitchStatement": true
-  of "ckAnonymousObjectMemberDeclarator, ckCastExpression": true
-  of "ckAssignmentExpression, ckTupleExpression": true
-  of "ckSwitchExpressionArm, ckUnaryPattern": true
-  of "ckDestructor, ckThrowStatement": true
-  of "ckPostfixUnaryExpression, ckInvocationExpression": true
-  of "ckRangeExpression, ckLiteralExpression": true
-  of "ckArrowExpressionClause, ckCastExpression": true
-  of "ckIsPatternExpression, ckVarPattern": true
-  of "ckNamespace, ckDelegate": true
-  of "ckUsingStatement, ckLockStatement": true
-  of "ckElementAccessExpression, ckElementAccessExpression": true
-  of "ckConversionOperator, ckIfStatement": true
-  of "ckEqualsValueClause, ckBinaryExpression": true
-  of "ckEqualsValueClause, ckThisExpression": true
-  of "ckEqualsValueClause, ckConditionalExpression": true
-  of "ckLocalFunctionStatement, ckLockStatement": true
-  of "ckMethod, ckDoStatement": true
-  of "ckTupleElement, ckPredefinedType": true
-  of "ckAnonymousMethodExpression, ckSwitchStatement": true
-  of "ckRefValueExpression, ckMakeRefExpression": true
-  of "ckThrowExpression, ckMemberAccessExpression": true
-  of "ckArgument, ckInvocationExpression": true
-  of "ckIsPatternExpression, ckParenthesizedExpression": true
-  of "ckConversionOperator, ckArrowExpressionClause": true
-  of "ckConditionalExpression, ckConditionalExpression": true
-  of "ckProperty, ckNullableType": true
-  of "ckIfStatement, ckParenthesizedLambdaExpression": true
-  of "ckSubpattern, ckBinaryPattern": true
-  of "ckThrowStatement, ckCastExpression": true
-  of "ckArgument, ckAssignmentExpression": true
-  of "ckDestructor, ckParameterList": true
-  of "ckFinallyClause, ckLabeledStatement": true
-  of "ckTryStatement, ckExpressionStatement": true
-  of "ckTupleElement, ckTupleType": true
-  of "ckStruct, ckMethod": true
-  of "ckLetClause, ckImplicitArrayCreationExpression": true
-  of "ckElseClause, ckWhileStatement": true
-  of "ckSimpleLambdaExpression, ckImplicitObjectCreationExpression": true
-  of "ckAnonymousObjectMemberDeclarator, ckImplicitArrayCreationExpression": true
-  of "ckProperty, ckGotoStatement": true
-  of "ckJoinClause, ckPredefinedType": true
-  of "ckParenthesizedLambdaExpression, ckSwitchStatement": true
-  of "ckLockStatement, ckCheckedStatement": true
-  of "ckLocalFunctionStatement, ckYieldStatement": true
-  of "ckVarPattern, ckDiscardDesignation": true
-  of "ckOperator, ckSwitchStatement": true
-  of "ckLetClause, ckMemberAccessExpression": true
-  of "ckGlobalStatement, ckForEachStatement": true
-  of "ckSwitchExpressionArm, ckParenthesizedExpression": true
-  of "ckClass, ckLocalDeclarationStatement": true
-  of "ckMemberAccessExpression, ckInvocationExpression": true
-  of "ckSwitchExpressionArm, ckImplicitArrayCreationExpression": true
-  of "ckElseClause, ckTryStatement": true
-  of "ckBinaryExpression, ckThisExpression": true
-  of "ckSwitchExpressionArm, ckInvocationExpression": true
-  of "ckArrayRankSpecifier, ckLiteralExpression": true
-  of "ckSwitchExpressionArm, ckArrayCreationExpression": true
-  of "ckDoStatement, ckElementAccessExpression": true
-  of "ckClass, ckConstructor": true
-  of "ckFixedStatement, ckUsingStatement": true
-  of "ckTypeOfExpression, ckAliasQualifiedName": true
-  of "ckSelectClause, ckInvocationExpression": true
-  of "ckBinaryExpression, ckBinaryExpression": true
-  of "ckImplicitObjectCreationExpression, ckInitializerExpression": true
-  of "ckGlobalStatement, ckForEachVariableStatement": true
-  of "ckCatchClause, ckContinueStatement": true
-  of "ckPostfixUnaryExpression, ckParenthesizedExpression": true
-  of "ckSelectClause, ckQueryExpression": true
-  of "ckEqualsValueClause, ckMemberAccessExpression": true
-  of "ckWhileStatement, ckYieldStatement": true
-  of "ckAssignmentExpression, ckPostfixUnaryExpression": true
-  of "ckEqualsValueClause, ckImplicitObjectCreationExpression": true
-  of "ckFromClause, ckMemberAccessExpression": true
-  of "ckBinaryExpression, ckBaseExpression": true
-  of "ckClass, ckTypeParameterConstraintClause": true
-  of "ckForEachStatement, ckPredefinedType": true
-  of "ckProperty, ckLockStatement": true
-  of "ckForEachStatement, ckUnsafeStatement": true
-  of "ckStruct, ckField": true
-  of "ckSwitchExpressionArm, ckTupleExpression": true
-  of "ckCastExpression, ckArrayCreationExpression": true
-  of "ckWhileStatement, ckMemberAccessExpression": true
-  of "ckOperator, ckPointerType": true
-  of "ckWhereClause, ckParenthesizedExpression": true
-  of "ckExpressionStatement, ckCastExpression": true
-  of "ckParenthesizedExpression, ckCheckedExpression": true
-  of "ckOrdering, ckMemberAccessExpression": true
-  of "ckLetClause, ckElementAccessExpression": true
-  of "ckParenthesizedExpression, ckAnonymousObjectCreationExpression": true
-  of "ckArgument, ckThrowExpression": true
-  of "ckClass, ckGenericName": true
-  of "ckAssignmentExpression, ckInvocationExpression": true
-  of "ckParameter, ckPredefinedType": true
-  of "ckIndexer, ckForStatement": true
-  of "ckNamespace, ckEvent": true
-  of "ckProperty, ckLocalDeclarationStatement": true
-  of "ckArgument, ckSwitchExpression": true
-  of "ckConstructor, ckForEachStatement": true
-  of "ckLocalFunctionStatement, ckLocalDeclarationStatement": true
-  of "ckWhenClause, ckIsPatternExpression": true
-  of "ckRangeExpression, ckInvocationExpression": true
-  of "ckExpressionStatement, ckParenthesizedExpression": true
-  of "ckParenthesizedExpression, ckElementAccessExpression": true
-  of "ckPredefinedType, ckGenericName": true
-  of "ckAssignmentExpression, ckThisExpression": true
-  of "ckAssignmentExpression, ckConditionalAccessExpression": true
-  of "ckProperty, ckArrayType": true
-  of "ckIfStatement, ckDoStatement": true
-  of "ckBinaryExpression, ckInterpolatedStringExpression": true
-  of "ckForStatement, ckInvocationExpression": true
-  of "ckCatch, ckArrayType": true
-  of "ckEqualsValueClause, ckTupleExpression": true
-  of "ckForEachStatement, ckThisExpression": true
-  of "ckElseClause, ckCheckedStatement": true
-  of "ckSwitchStatement, ckElementAccessExpression": true
-  of "ckForEachStatement, ckGenericName": true
-  of "ckNullableType, ckGenericName": true
-  of "ckConstructor, ckLabeledStatement": true
-  of "ckIsPatternExpression, ckRecursivePattern": true
-  of "ckBinaryExpression, ckSwitchExpression": true
-  of "ckCastExpression, ckInvocationExpression": true
-  of "ckLetClause, ckObjectCreationExpression": true
-  of "ckParenthesizedLambdaExpression, ckObjectCreationExpression": true
-  of "ckMethod, ckIfStatement": true
-  of "ckClass, ckOperator": true
-  of "ckArgument, ckBaseExpression": true
-  of "ckVariableDeclarator, ckBinaryExpression": true
-  of "ckReturnStatement, ckTypeOfExpression": true
-  of "ckBinaryExpression, ckRefExpression": true
-  of "ckSwitchStatement, ckConditionalExpression": true
-  of "ckLocalFunctionStatement, ckTypeParameterConstraintClause": true
-  of "ckMethod, ckCastExpression": true
-  of "ckLocalFunctionStatement, ckIfStatement": true
-  of "ckDefaultExpression, ckPredefinedType": true
-  of "ckThrowStatement, ckInvocationExpression": true
-  of "ckUsingStatement, ckUnsafeStatement": true
-  of "ckCastExpression, ckPrefixUnaryExpression": true
-  of "ckEqualsValueClause, ckIsPatternExpression": true
-  of "ckIfStatement, ckFixedStatement": true
-  of "ckNamespace, ckInterface": true
-  of "ckParenthesizedExpression, ckQueryExpression": true
-  of "ckIfStatement, ckContinueStatement": true
-  of "ckEvent, ckTupleType": true
-  of "ckRefExpression, ckElementAccessExpression": true
-  of "ckIndexer, ckFixedStatement": true
-  of "ckAccessor, ckUsingStatement": true
-  of "ckAnonymousObjectMemberDeclarator, ckArrayCreationExpression": true
-  of "ckWhileStatement, ckWhileStatement": true
-  of "ckTupleType, ckTupleElement": true
-  of "ckExplicitInterfaceSpecifier, ckAliasQualifiedName": true
-  of "ckInterface, ckInterface": true
-  of "ckParenthesizedLambdaExpression, ckSizeOfExpression": true
-  of "ckLabeledStatement, ckLockStatement": true
-  of "ckAwaitExpression, ckPostfixUnaryExpression": true
-  of "ckConditionalExpression, ckRefExpression": true
-  of "ckConversionOperator, ckPointerType": true
-  of "ckEqualsValueClause, ckArrayCreationExpression": true
-  of "ckCatch, ckPredefinedType": true
-  of "ckInitializerExpression, ckThisExpression": true
-  of "ckMemberAccessExpression, ckRefValueExpression": true
-  of "ckLetClause, ckCastExpression": true
-  of "ckYieldStatement, ckElementAccessExpression": true
-  of "ckAnonymousMethodExpression, ckForEachStatement": true
-  of "ckIfStatement, ckWhileStatement": true
-  of "ckStruct, ckEvent": true
-  of "ckSelectClause, ckArrayCreationExpression": true
-  of "ckInvocationExpression, ckPostfixUnaryExpression": true
-  of "ckArgument, ckImplicitObjectCreationExpression": true
-  of "ckSwitchExpressionArm, ckInterpolatedStringExpression": true
-  of "ckEqualsValueClause, ckMakeRefExpression": true
-  of "ckOrdering, ckBinaryExpression": true
-  of "ckParenthesizedExpression, ckCastExpression": true
-  of "ckSwitchSection, ckFixedStatement": true
-  of "ckForStatement, ckCastExpression": true
-  of "ckArrowExpressionClause, ckThisExpression": true
-  of "ckParenthesizedExpression, ckAwaitExpression": true
-  of "ckCastExpression, ckTupleExpression": true
-  of "ckInterface, ckStruct": true
-  of "ckAnonymousMethodExpression, ckDoStatement": true
-  of "ckInitializerExpression, ckDefaultExpression": true
-  of "ckElseClause, ckForStatement": true
-  of "ckSimpleLambdaExpression, ckPostfixUnaryExpression": true
-  of "ckAliasQualifiedName, ckGenericName": true
-  of "ckStruct, ckClass": true
-  of "ckVariable, ckVariableDeclarator": true
-  of "ckParenthesizedExpression, ckLiteralExpression": true
-  of "ckArrowExpressionClause, ckAssignmentExpression": true
-  of "ckInvocationExpression, ckPredefinedType": true
-  of "ckYieldStatement, ckInterpolatedStringExpression": true
-  of "ckRefValueExpression, ckInvocationExpression": true
-  of "ckLocalFunctionStatement, ckArrayType": true
-  of "ckUsingStatement, ckBinaryExpression": true
-  of "ckOperator, ckGenericName": true
-  of "ckAssignmentExpression, ckAssignmentExpression": true
-  of "ckDefaultExpression, ckGenericName": true
-  of "ckRangeExpression, ckCastExpression": true
-  of "ckLocalFunctionStatement, ckDoStatement": true
-  of "ckProperty, ckCheckedStatement": true
-  of "ckCatchFilterClause, ckPrefixUnaryExpression": true
-  of "ckYieldStatement, ckDefaultExpression": true
-  of "ckEvent, ckNullableType": true
-  of "ckTypeArgumentList, ckPredefinedType": true
-  of "ckSwitchExpression, ckParenthesizedExpression": true
-  of "ckMemberAccessExpression, ckObjectCreationExpression": true
-  of "ckEqualsValueClause, ckDefaultExpression": true
-  of "ckMethod, ckForEachStatement": true
-  of "ckWhileStatement, ckCastExpression": true
-  of "ckGotoStatement, ckCastExpression": true
-  of "ckBracketedArgumentList, ckArgument": true
-  of "ckDestructor, ckLockStatement": true
-  of "ckLockStatement, ckLockStatement": true
-  of "ckWhileStatement, ckSwitchStatement": true
-  of "ckConstructor, ckDoStatement": true
-  of "ckAnonymousMethodExpression, ckThrowStatement": true
-  of "ckForStatement, ckImplicitArrayCreationExpression": true
-  of "ckParenthesizedLambdaExpression, ckLockStatement": true
-  of "ckOperator, ckForStatement": true
-  of "ckExpressionStatement, ckConditionalExpression": true
-  of "ckOperator, ckCheckedStatement": true
-  of "ckSimpleBaseType, ckArrayType": true
-  of "ckStruct, ckInterface": true
-  of "ckWithExpression, ckInitializerExpression": true
-  of "ckIfStatement, ckUnsafeStatement": true
-  of "ckCheckedExpression, ckAnonymousMethodExpression": true
-  of "ckForEachStatement, ckNullableType": true
-  of "ckConditionalExpression, ckMakeRefExpression": true
-  of "ckMemberAccessExpression, ckPredefinedType": true
-  of "ckSimpleLambdaExpression, ckImplicitArrayCreationExpression": true
-  of "ckIfStatement, ckBinaryExpression": true
-  of "ckParenthesizedLambdaExpression, ckThisExpression": true
-  of "ckTypePattern, ckPredefinedType": true
-  of "ckElseClause, ckReturnStatement": true
-  of "ckForEachStatement, ckImplicitArrayCreationExpression": true
-  of "ckConstructor, ckAssignmentExpression": true
-  of "ckAssignmentExpression, ckBinaryExpression": true
-  of "ckInterpolation, ckTypeOfExpression": true
-  of "ckSwitchSection, ckGotoStatement": true
-  of "ckProperty, ckExplicitInterfaceSpecifier": true
-  of "ckProperty, ckYieldStatement": true
-  of "ckAssignmentExpression, ckDeclarationExpression": true
-  of "ckYieldStatement, ckArrayCreationExpression": true
-  of "ckTypeParameterConstraintClause, ckClassOrStructConstraint": true
-  of "ckArrowExpressionClause, ckLiteralExpression": true
-  of "ckObjectCreationExpression, ckAliasQualifiedName": true
-  of "ckArrayType, ckTupleType": true
-  of "ckExpressionStatement, ckPrefixUnaryExpression": true
-  of "ckTypeArgumentList, ckOmittedTypeArgument": true
-  of "ckCaseSwitchLabel, ckCheckedExpression": true
-  of "ckAnonymousObjectMemberDeclarator, ckAnonymousObjectCreationExpression": true
-  of "ckAnonymousMethodExpression, ckGotoStatement": true
-  of "ckCheckedExpression, ckBinaryExpression": true
-  of "ckInvocationExpression, ckAliasQualifiedName": true
-  of "ckExpressionStatement, ckBinaryExpression": true
-  of "ckReturnStatement, ckBaseExpression": true
-  of "ckOperator, ckYieldStatement": true
-  of "ckParameter, ckLiteralExpression": true
-  of "ckProperty, ckDoStatement": true
-  of "ckElseClause, ckForEachVariableStatement": true
-  of "ckUnaryPattern, ckParenthesizedPattern": true
-  of "ckSubpattern, ckDiscardPattern": true
-  of "ckTypeParameterConstraintClause, ckTypeConstraint": true
-  of "ckAssignmentExpression, ckPredefinedType": true
-  of "ckGroupClause, ckParenthesizedExpression": true
-  of "ckSimpleLambdaExpression, ckLockStatement": true
-  of "ckForEachStatement, ckDoStatement": true
-  of "ckSimpleLambdaExpression, ckReturnStatement": true
-  of "ckDelegate, ckLiteralExpression": true
-  of "ckIfStatement, ckLabeledStatement": true
-  of "ckBinaryExpression, ckGenericName": true
-  of "ckIncompleteMember, ckPredefinedType": true
-  of "ckEqualsValueClause, ckQueryExpression": true
-  of "ckAwaitExpression, ckDefaultExpression": true
-  of "ckForEachStatement, ckLabeledStatement": true
-  of "ckInitializerExpression, ckIsPatternExpression": true
-  of "ckSimpleLambdaExpression, ckConditionalAccessExpression": true
-  of "ckUsingStatement, ckAssignmentExpression": true
-  of "ckRefExpression, ckDefaultExpression": true
-  of "ckElementAccessExpression, ckImplicitArrayCreationExpression": true
-  of "ckLocalFunctionStatement, ckTryStatement": true
-  of "ckCheckedExpression, ckPostfixUnaryExpression": true
-  of "ckExpressionStatement, ckMemberAccessExpression": true
-  of "ckYieldStatement, ckConditionalExpression": true
-  of "ckConstructor, ckYieldStatement": true
-  of "ckDoStatement, ckExpressionStatement": true
-  of "ckConversionOperator, ckThrowStatement": true
-  of "ckDelegate, ckGenericName": true
-  of "ckSwitchStatement, ckCastExpression": true
-  of "ckElementAccessExpression, ckRefValueExpression": true
-  of "ckAwaitExpression, ckObjectCreationExpression": true
-  of "ckSimpleLambdaExpression, ckForStatement": true
-  of "ckCastExpression, ckAnonymousMethodExpression": true
-  of "ckElseClause, ckLockStatement": true
-  of "ckAnonymousObjectMemberDeclarator, ckCheckedExpression": true
-  of "ckSelectClause, ckAnonymousObjectCreationExpression": true
-  of "ckRefExpression, ckPostfixUnaryExpression": true
-  of "ckPostfixUnaryExpression, ckObjectCreationExpression": true
-  of "ckReturnStatement, ckParenthesizedLambdaExpression": true
-  of "ckConditionalAccessExpression, ckLiteralExpression": true
-  of "ckAnonymousObjectMemberDeclarator, ckLiteralExpression": true
-  of "ckExplicitInterfaceSpecifier, ckGenericName": true
-  of "ckEqualsValueClause, ckGenericName": true
-  of "ckConstructor, ckReturnStatement": true
-  of "ckBinaryExpression, ckRefValueExpression": true
-  of "ckParenthesizedLambdaExpression, ckDefaultExpression": true
-  of "ckArrayType, ckAliasQualifiedName": true
-  of "ckArgument, ckInterpolatedStringExpression": true
-  of "ckMethod, ckTypeParameterConstraintClause": true
-  of "ckInvocationExpression, ckElementAccessExpression": true
-  of "ckMethod, ckAliasQualifiedName": true
-  of "ckBinaryExpression, ckRangeExpression": true
-  of "ckArrowExpressionClause, ckAwaitExpression": true
-  of "ckWhileStatement, ckAwaitExpression": true
-  of "ckSimpleBaseType, ckPointerType": true
-  of "ckVariableDeclarator, ckObjectCreationExpression": true
-  of "ckSimpleLambdaExpression, ckConditionalExpression": true
-  of "ckEnumMember, ckLiteralExpression": true
-  of "ckFromClause, ckThisExpression": true
-  of "ckProperty, ckForEachVariableStatement": true
-  of "ckAssignmentExpression, ckDefaultExpression": true
-  of "ckIndexer, ckIfStatement": true
-  of "ckArgument, ckMakeRefExpression": true
-  of "ckBinaryExpression, ckPrefixUnaryExpression": true
-  of "ckInterpolationAlignmentClause, ckPrefixUnaryExpression": true
-  of "ckSwitchExpressionArm, ckLiteralExpression": true
-  of "ckSwitchStatement, ckParenthesizedExpression": true
-  of "ckAnonymousMethodExpression, ckParameterList": true
-  of "ckElementAccessExpression, ckInvocationExpression": true
-  of "ckOperator, ckWhileStatement": true
-  of "ckAnonymousObjectMemberDeclarator, ckNameEquals": true
-  of "ckForEachStatement, ckReturnStatement": true
-  of "ckRefType, ckNullableType": true
-  of "ckLockStatement, ckTryStatement": true
-  of "ckForStatement, ckTryStatement": true
-  of "ckTryStatement, ckSwitchStatement": true
-  of "ckNamespace, ckAliasQualifiedName": true
-  of "ckIndexer, ckBracketedParameterList": true
-  of "ckConstructor, ckExpressionStatement": true
-  of "ckInterpolation, ckObjectCreationExpression": true
-  of "ckArgument, ckObjectCreationExpression": true
-  of "ckInterpolation, ckPostfixUnaryExpression": true
-  of "ckForStatement, ckUnsafeStatement": true
-  of "ckAnonymousObjectMemberDeclarator, ckParenthesizedExpression": true
-  of "ckArgument, ckTypeOfExpression": true
-  of "ckEvent, ckGenericName": true
-  of "ckMemberAccessExpression, ckPostfixUnaryExpression": true
-  of "ckArrowExpressionClause, ckSwitchExpression": true
-  of "ckProperty, ckLabeledStatement": true
-  of "ckSwitchStatement, ckAwaitExpression": true
-  of "ckEqualsValueClause, ckSwitchExpression": true
-  of "ckEqualsValueClause, ckCheckedExpression": true
-  of "ckReturnStatement, ckAssignmentExpression": true
-  of "ckForStatement, ckForEachStatement": true
-  of "ckCatchFilterClause, ckLiteralExpression": true
-  of "ckLabeledStatement, ckTryStatement": true
-  of "ckBinaryExpression, ckElementAccessExpression": true
-  of "ckSimpleLambdaExpression, ckParameter": true
-  of "ckElementAccessExpression, ckMemberAccessExpression": true
-  of "ckArgument, ckQueryExpression": true
-  of "ckArrowExpressionClause, ckParenthesizedLambdaExpression": true
-  of "ckLocalFunctionStatement, ckSwitchStatement": true
-  of "ckProperty, ckFixedStatement": true
-  of "ckSwitchExpressionArm, ckConditionalAccessExpression": true
-  of "ckReturnStatement, ckSwitchExpression": true
-  of "ckIndexer, ckReturnStatement": true
-  of "ckPostfixUnaryExpression, ckDefaultExpression": true
-  of "ckTypeOfExpression, ckNullableType": true
-  of "ckElementAccessExpression, ckPostfixUnaryExpression": true
-  of "ckParenthesizedLambdaExpression, ckInvocationExpression": true
-  of "ckAccessor, ckSwitchStatement": true
-  of "ckLockStatement, ckLabeledStatement": true
-  of "ckInitializerExpression, ckObjectCreationExpression": true
-  of "ckMethod, ckVariableDeclarator": true
-  of "ckGlobalStatement, ckLocalDeclarationStatement": true
-  of "ckTryStatement, ckForEachStatement": true
-  of "ckForEachVariableStatement, ckBinaryExpression": true
-  of "ckInitializerExpression, ckArrayCreationExpression": true
-  of "ckCheckedExpression, ckAwaitExpression": true
-  of "ckInterpolation, ckAssignmentExpression": true
-  of "ckDoStatement, ckContinueStatement": true
-  of "ckInterpolation, ckParenthesizedExpression": true
-  of "ckMethod, ckGotoStatement": true
-  of "ckIndexer, ckSwitchStatement": true
-  of "ckVariable, ckPredefinedType": true
-  of "ckConditionalExpression, ckSwitchExpression": true
-  of "ckInitializerExpression, ckInvocationExpression": true
-  of "ckIfStatement, ckTryStatement": true
-  of "ckLiteralExpression, ckBinaryExpression": true
-  of "ckBaseList, ckSimpleBaseType": true
-  of "ckForEachStatement, ckContinueStatement": true
-  of "ckForEachStatement, ckCheckedStatement": true
-  of "ckSwitchStatement, ckMemberAccessExpression": true
-  of "ckFromClause, ckQueryExpression": true
-  of "ckParenthesizedExpression, ckPredefinedType": true
-  of "ckGlobalStatement, ckThrowStatement": true
-  of "ckAwaitExpression, ckCastExpression": true
-  of "ckArgument, ckCastExpression": true
-  of "ckWhileStatement, ckElementAccessExpression": true
-  of "ckExpressionStatement, ckAssignmentExpression": true
-  of "ckForEachStatement, ckConditionalAccessExpression": true
-  of "ckParenthesizedExpression, ckPostfixUnaryExpression": true
-  of "ckAccessor, ckArrowExpressionClause": true
-  of "ckInterface, ckEventField": true
-  of "ckVariableDeclarator, ckEqualsValueClause": true
-  of "ckSwitchSection, ckBreakStatement": true
-  of "ckArrayRankSpecifier, ckAwaitExpression": true
-  of "ckIndexer, ckPredefinedType": true
-  of "ckBinaryExpression, ckCastExpression": true
-  of "ckIfStatement, ckGotoStatement": true
-  of "ckLockStatement, ckTypeOfExpression": true
-  of "ckAssignmentExpression, ckInitializerExpression": true
-  of "ckRefTypeExpression, ckThisExpression": true
-  of "ckUsingStatement, ckCastExpression": true
-  of "ckFinallyClause, ckTryStatement": true
-  of "ckFromClause, ckAwaitExpression": true
-  of "ckInterface, ckLiteralExpression": true
-  of "ckUsingStatement, ckAwaitExpression": true
-  of "ckSwitchSection, ckLabeledStatement": true
-  of "ckForEachStatement, ckTryStatement": true
-  of "ckConstructor, ckLocalDeclarationStatement": true
-  of "ckSwitchExpressionArm, ckElementAccessExpression": true
-  of "ckConstantPattern, ckLiteralExpression": true
-  of "ckInitializerExpression, ckMemberAccessExpression": true
-  of "ckAccessor, ckTryStatement": true
-  of "ckSwitchSection, ckLockStatement": true
-  of "ckExpressionStatement, ckRangeExpression": true
-  of "ckReturnStatement, ckQueryExpression": true
-  of "ckLetClause, ckParenthesizedExpression": true
-  of "ckSwitchSection, ckThrowStatement": true
-  of "ckForEachVariableStatement, ckYieldStatement": true
-  of "ckCasePatternSwitchLabel, ckRecursivePattern": true
-  of "ckLabeledStatement, ckThrowStatement": true
-  of "ckExpressionStatement, ckParenthesizedLambdaExpression": true
-  of "ckEqualsValueClause, ckAnonymousObjectCreationExpression": true
-  of "ckOperator, ckExpressionStatement": true
-  of "ckConditionalExpression, ckDefaultExpression": true
-  of "ckInterpolation, ckInterpolationAlignmentClause": true
-  of "ckAccessor, ckYieldStatement": true
-  of "ckIfStatement, ckElseClause": true
-  of "ckCastExpression, ckCheckedExpression": true
-  of "ckParenthesizedLambdaExpression, ckConditionalExpression": true
-  of "ckTypeArgumentList, ckPointerType": true
-  of "ckClass, ckInterface": true # ?
-  of "ckInterpolatedStringExpression, ckInterpolatedStringText": true
-  of "ckParenthesizedExpression, ckParenthesizedExpression": true
-  of "ckConstructor, ckContinueStatement": true
-  of "ckReturnStatement, ckConditionalAccessExpression": true
-  of "ckThrowExpression, ckObjectCreationExpression": true
-  of "ckStruct, ckTypeParameterList": true
-  of "ckForEachStatement, ckElementAccessExpression": true
-  of "ckSimpleBaseType, ckPredefinedType": true
-  of "ckStruct, ckIndexer": true
-  of "ckEqualsValueClause, ckSimpleLambdaExpression": true
-  of "ckParenthesizedExpression, ckInvocationExpression": true
-  of "ckForEachStatement, ckQueryExpression": true
-  of "ckDeclarationExpression, ckGenericName": true
-  of "ckPrefixUnaryExpression, ckThisExpression": true
-  of "ckInterpolation, ckAwaitExpression": true
-  of "ckFinallyClause, ckIfStatement": true
-  of "ckCasePatternSwitchLabel, ckVarPattern": true
-  of "ckStruct, ckConstructor": true
-  of "ckIfStatement, ckExpressionStatement": true
-  of "ckAnonymousMethodExpression, ckReturnStatement": true
-  of "ckArgument, ckPredefinedType": true
-  of "ckExpressionStatement, ckBaseExpression": true
-  of "ckConstantPattern, ckMemberAccessExpression": true
-  of "ckFromClause, ckPredefinedType": true
-  of "ckSwitchStatement, ckInvocationExpression": true
-  of "ckThrowStatement, ckObjectCreationExpression": true
-  of "ckGlobalStatement, ckContinueStatement": true
-  of "ckArrowExpressionClause, ckInterpolatedStringExpression": true
-  of "ckInterface, ckTypeParameterConstraintClause": true
-  of "ckSimpleLambdaExpression, ckParenthesizedLambdaExpression": true
-  of "ckForStatement, ckIsPatternExpression": true
-  of "ckWhereClause, ckIsPatternExpression": true
-  of "ckOrderByClause, ckOrdering": true
-  of "ckLockStatement, ckForEachStatement": true
-  of "ckTypeConstraint, ckNullableType": true
-  of "ckForStatement, ckLiteralExpression": true
-  of "ckInvocationExpression, ckThisExpression": true
-  of "ckParenthesizedLambdaExpression, ckLocalDeclarationStatement": true
-  of "ckInvocationExpression, ckMemberAccessExpression": true
-  of "ckAnonymousMethodExpression, ckExpressionStatement": true
-  of "ckUsingStatement, ckVariable": true
-  of "ckElseClause, ckLocalDeclarationStatement": true
-  of "ckConstructor, ckUsingStatement": true
-  of "ckDeclarationExpression, ckArrayType": true
-  of "ckOperator, ckReturnStatement": true
-  of "ckSwitchSection, ckContinueStatement": true
-  of "ckAssignmentExpression, ckRefValueExpression": true
-  of "ckForEachVariableStatement, ckTryStatement": true
-  of "ckIsPatternExpression, ckDefaultExpression": true
-  of "ckAssignmentExpression, ckImplicitArrayCreationExpression": true
-  of "ckTryStatement, ckFinallyClause": true
-  of "ckSwitchExpressionArm, ckRecursivePattern": true
-  of "ckInterface, ckBaseList": true
-  of "ckSimpleLambdaExpression, ckForEachStatement": true
-  of "ckExpressionStatement, ckImplicitArrayCreationExpression": true
-  of "ckSimpleLambdaExpression, ckTupleExpression": true
-  of "ckCastExpression, ckBaseExpression": true
-  of "ckProperty, ckInvocationExpression": true
-  of "ckParenthesizedLambdaExpression, ckParenthesizedLambdaExpression": true
-  of "ckPostfixUnaryExpression, ckTupleExpression": true
-  of "ckConditionalExpression, ckAssignmentExpression": true
-  of "ckLocalDeclarationStatement, ckArgumentList": true
-  of "ckReturnStatement, ckAnonymousObjectCreationExpression": true
-  of "ckBinaryExpression, ckSizeOfExpression": true
-  of "ckElseClause, ckDoStatement": true
-  of "ckEqualsValueClause, ckCastExpression": true
-  of "ckProperty, ckThrowStatement": true
-  of "ckFromClause, ckImplicitArrayCreationExpression": true
-  of "ckClass, ckDestructor": true
-  of "ckFixedStatement, ckVariable": true
-  of "ckIncompleteMember, ckTupleType": true
-  of "ckMemberAccessExpression, ckThisExpression": true
-  of "ckTryStatement, ckGotoStatement": true
-  of "ckLocalFunctionStatement, ckForEachStatement": true
-  of "ckArgument, ckConditionalExpression": true
-  of "ckLocalFunctionStatement, ckUsingStatement": true
-  of "ckThrowStatement, ckMemberAccessExpression": true
-  of "ckWhereClause, ckBinaryExpression": true
-  of "ckIfStatement, ckPrefixUnaryExpression": true
-  of "ckAssignmentExpression, ckMakeRefExpression": true
-  of "ckConditionalExpression, ckConditionalAccessExpression": true
-  of "ckAccessor, ckReturnStatement": true
-  of "ckDelegate, ckPointerType": true
-  of "ckElementAccessExpression, ckParenthesizedExpression": true
-  of "ckConstructor, ckArgumentList": true # likely for initializer
-  of "ckReturnStatement, ckMemberAccessExpression": true
-  of "ckMemberBindingExpression, ckGenericName": true
-  of "ckReturnStatement, ckSizeOfExpression": true
-  of "ckFixedStatement, ckFixedStatement": true
-  of "ckMethod, ckContinueStatement": true
-  of "ckArgument, ckRangeExpression": true
-  of "ckInterface, ckClass": true
-  of "ckReturnStatement, ckRefValueExpression": true
-  of "ckInterpolationAlignmentClause, ckInvocationExpression": true
-  of "ckSizeOfExpression, ckGenericName": true
-  of "ckYieldStatement, ckSimpleLambdaExpression": true
-  of "ckStackAllocArrayCreationExpression, ckArrayType": true
-  of "ckDoStatement, ckInvocationExpression": true
-  of "ckInterpolation, ckInterpolatedStringExpression": true
-  of "ckLockStatement, ckInvocationExpression": true
-  of "ckPrefixUnaryExpression, ckAwaitExpression": true
-  of "ckArgumentList, ckArgument": true
-  of "ckArrayRankSpecifier, ckConditionalExpression": true
-  of "ckEqualsValueClause, ckParenthesizedExpression": true
-  of "ckForEachStatement, ckUsingStatement": true
-  of "ckIfStatement, ckCheckedStatement": true
-  of "ckInvocationExpression, ckMemberBindingExpression": true
-  of "ckDelegate, ckTypeParameterConstraintClause": true
-  of "ckWhereClause, ckMemberAccessExpression": true
-  of "ckElementAccessExpression, ckLiteralExpression": true
-  of "ckDoStatement, ckCheckedExpression": true
-  of "ckInitializerExpression, ckRangeExpression": true
-  of "ckAwaitExpression, ckMemberAccessExpression": true
-  of "ckStruct, ckTypeParameterConstraintClause": true
-  of "ckAnonymousObjectMemberDeclarator, ckInvocationExpression": true
-  of "ckInterpolation, ckMemberAccessExpression": true
-  of "ckConstructor, ckCheckedStatement": true
-  of "ckUsingStatement, ckFixedStatement": true
-  of "ckConstructor, ckInvocationExpression": true
-  of "ckEqualsValueClause, ckConditionalAccessExpression": true
-  of "ckInitializerExpression, ckImplicitArrayCreationExpression": true
-  of "ckLabeledStatement, ckForEachStatement": true
-  of "ckCastExpression, ckThisExpression": true
-  of "ckFinallyClause, ckSwitchStatement": true
-  of "ckIfStatement, ckYieldStatement": true
-  of "ckElementAccessExpression, ckBracketedArgumentList": true
-  of "ckExpressionStatement, ckTupleExpression": true
-  of "ckParenthesizedLambdaExpression, ckExpressionStatement": true
-  of "ckWhileStatement, ckPrefixUnaryExpression": true
-  of "ckReturnStatement, ckParenthesizedExpression": true
-  of "ckLiteralExpression, ckGenericName": true
-  of "ckIsPatternExpression, ckBinaryPattern": true
-  of "ckInitializerExpression, ckConditionalAccessExpression": true
-  of "ckField, ckVariableDeclarator": true
-  of "ckWhileStatement, ckReturnStatement": true
-  of "ckSwitchSection, ckDefaultSwitchLabel": true
-  of "ckWhereClause, ckInvocationExpression": true
-  of "ckTupleExpression, ckArgument": true
-  of "ckParenthesizedLambdaExpression, ckUnsafeStatement": true
-  of "ckOperator, ckUnsafeStatement": true
-  of "ckParameterList, ckParameter": true
-  of "ckCastExpression, ckSizeOfExpression": true
-  of "ckEqualsValueClause, ckParenthesizedLambdaExpression": true
-  of "ckEqualsValueClause, ckSizeOfExpression": true
-  of "ckRecursivePattern, ckSingleVariableDesignation": true
-  of "ckCastExpression, ckArrayType": true
-  of "ckLocalFunctionStatement, ckParameterList": true
-  of "ckInterface, ckField": true
-  of "ckInterpolation, ckPrefixUnaryExpression": true
-  of "ckSwitchExpressionArm, ckThisExpression": true
-  of "ckAssignmentExpression, ckElementAccessExpression": true
-  of "ckEvent, ckAccessorList": true
-  of "ckCasePatternSwitchLabel, ckBinaryPattern": true
-  of "ckPointerType, ckTupleType": true
-  of "ckArgumentList, ckGenericName": true
-  of "ckBinaryExpression, ckLiteralExpression": true
-  of "ckParenthesizedLambdaExpression, ckAwaitExpression": true
-  of "ckFinallyClause, ckForEachStatement": true
-  of "ckStackAllocArrayCreationExpression, ckInitializerExpression": true
-  of "ckBracketedParameterList, ckParameter": true
-  of "ckUsingDirective, ckAliasQualifiedName": true
-  of "ckAssignmentExpression, ckRangeExpression": true
-  of "ckParenthesizedLambdaExpression, ckThrowExpression": true
-  of "ckDeclarationExpression, ckNullableType": true
-  of "ckSimpleLambdaExpression, ckCheckedExpression": true
-  of "ckConditionalExpression, ckGenericName": true
-  of "ckParenthesizedLambdaExpression, ckRefExpression": true
-  of "ckTypeArgumentList, ckRefType": true
   of "ckConditionalExpression, ckAnonymousMethodExpression": true
+  of "ckYieldStatement, ckParenthesizedLambdaExpression": true
   of "ckSizeOfExpression, ckPointerType": true
   of "ckReturnStatement, ckAnonymousMethodExpression": true
   of "ckConditionalExpression, ckParenthesizedExpression": true
   of "ckClass, ckSimpleBaseType": true
+  of "ckBinaryPattern, ckTypePattern": true
+  of "ckParenthesizedLambdaExpression, ckAnonymousObjectCreationExpression": true
   of "ckInterface, ckProperty": true
   of "ckForEachStatement, ckFixedStatement": true
   of "ckConstructor, ckCastExpression": true
+  of "ckInitializerExpression, ckAssignmentExpression": true
   of "ckAssignmentExpression, ckParenthesizedLambdaExpression": true
+  of "ckEqualsValueClause, ckInterpolatedStringExpression": true
+  of "ckForStatement, ckForEachVariableStatement": true
+  of "ckForStatement, ckMemberAccessExpression": true
+  of "ckInitializerExpression, ckAwaitExpression": true
   of "ckSubpattern, ckConstantPattern": true
   of "ckMemberAccessExpression, ckElementBindingExpression": true
   of "ckTryStatement, ckUnsafeStatement": true
   of "ckWhileStatement, ckBreakStatement": true
+  of "ckArgumentList, ckIdentifier": true
+  of "ckForStatement, ckRangeExpression": true
   of "ckSwitchExpression, ckTypeOfExpression": true
   of "ckParenthesizedLambdaExpression, ckWhileStatement": true
   of "ckObjectCreationExpression, ckArgumentList": true
 
   of "ckRecursivePattern, ckPositionalPatternClause": true
+  of "ckSwitchStatement, ckSwitchSection": true
   of "ckDeclarationPattern, ckDiscardDesignation": true
   of "ckParameter, ckEqualsValueClause": true
+  of "ckSimpleLambdaExpression, ckMemberAccessExpression": true
   of "ckInterface, ckEnum": true
+  of "ckYieldStatement, ckMemberAccessExpression": true
   of "ckAssignmentExpression, ckSizeOfExpression": true
+  of "ckSwitchStatement, ckAssignmentExpression": true
   of "ckDeclarationExpression, ckPointerType": true
+  of "ckConversionOperator, ckUnsafeStatement": true
   of "ckReturnStatement, ckConditionalExpression": true
   of "ckUnaryPattern, ckDeclarationPattern": true
   of "ckRefType, ckArrayType": true
@@ -971,46 +95,98 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckInvocationExpression, ckGenericName": true
   of "ckLocalFunctionStatement, ckForStatement": true
   of "ckMemberAccessExpression, ckDefaultExpression": true
+  of "ckNamespace, ckIncompleteMember": true
   of "ckInterface, ckTypeParameterList": true
+  of "ckPointerType, ckIdentifier": true
   of "ckDeclarationExpression, ckParenthesizedVariableDesignation": true
   of "ckMethod, ckCheckedStatement": true
   of "ckForStatement, ckCheckedStatement": true
   of "ckArgument, ckStackAllocArrayCreationExpression": true
   of "ckObjectCreationExpression, ckPredefinedType": true
+  of "ckAnonymousObjectMemberDeclarator, ckSimpleLambdaExpression": true
+  of "ckArrowExpressionClause, ckSimpleLambdaExpression": true
+  of "ckSwitchSection, ckForEachStatement": true
+  of "ckPointerType, ckPredefinedType": true
+  of "ckForEachStatement, ckAnonymousMethodExpression": true
   of "ckForStatement, ckThrowStatement": true
   of "ckSwitchExpression, ckCheckedExpression": true
+  of "ckParenthesizedLambdaExpression, ckLiteralExpression": true
   of "ckForEachVariableStatement, ckLiteralExpression": true
   of "ckSwitchStatement, ckTupleExpression": true
   of "ckYieldStatement, ckImplicitArrayCreationExpression": true
   of "ckSwitchSection, ckCaseSwitchLabel": true
+  of "ckEqualsValueClause, ckRangeExpression": true
+  of "ckUsingStatement, ckTryStatement": true
+  of "ckConstructor, ckLocalFunctionStatement": true
   of "ckProperty, ckGenericName": true
   of "ckSelectClause, ckTupleExpression": true
   of "ckArrayCreationExpression, ckInitializerExpression": true
+  of "ckMemberAccessExpression, ckAliasQualifiedName": true
+  of "ckParenthesizedLambdaExpression, ckLabeledStatement": true
   of "ckIndexer, ckPointerType": true
   of "ckForEachStatement, ckGotoStatement": true
   of "ckLockStatement, ckSwitchStatement": true
+  of "ckSimpleLambdaExpression, ckWhileStatement": true
   of "ckIndexer, ckExplicitInterfaceSpecifier": true
   of "ckForStatement, ckParenthesizedExpression": true
+  of "ckRefType, ckGenericName": true
+  of "ckIsPatternExpression, ckAwaitExpression": true
   of "ckIfStatement, ckLiteralExpression": true
+  of "ckReturnStatement, ckIsPatternExpression": true
+  of "ckConditionalAccessExpression, ckTypeOfExpression": true
+  of "ckConstructor, ckLiteralExpression": true
   of "ckNamespace, ckIndexer": false
+  of "ckSwitchExpressionArm, ckRelationalPattern": true
+  of "ckEnum, ckLiteralExpression": true
+  of "ckRangeExpression, ckMemberAccessExpression": true
+  of "ckUsingStatement, ckConditionalExpression": true
   of "ckIfStatement, ckInvocationExpression": true
+  of "ckUsingStatement, ckMemberAccessExpression": true
   of "ckNamespace, ckField": false
+  of "ckForEachStatement, ckRefType": true
   of "ckPredefinedType, ckLiteralExpression": true
+  of "ckFromClause, ckNullableType": true
   of "ckSwitchSection, ckYieldStatement": true
   of "ckAccessor, ckLiteralExpression": true
   of "ckArrowExpressionClause, ckMemberAccessExpression": true
   of "ckDelegate, ckTypeParameterList": true
+  of "ckDeclarationPattern, ckIdentifier": true
+  of "ckReturnStatement, ckArgumentList": true
+  of "ckDefaultExpression, ckTupleType": true
+  of "ckRangeExpression, ckElementAccessExpression": true
+  of "ckUnaryPattern, ckRecursivePattern": true
   of "ckArrayRankSpecifier, ckMemberAccessExpression": true
+  of "ckLetClause, ckConditionalExpression": true
   of "ckElseClause, ckYieldStatement": true
+  of "ckLockStatement, ckEmptyStatement": true
+  of "ckParenthesizedLambdaExpression, ckImplicitArrayCreationExpression": true
   of "ckArgument, ckRefValueExpression": true
+  of "ckAnonymousObjectMemberDeclarator, ckConditionalAccessExpression": true
+  of "ckSwitchExpression, ckInvocationExpression": true
+  of "ckBinaryExpression, ckAwaitExpression": true
+  of "ckSimpleBaseType, ckAliasQualifiedName": true
+  of "ckIsPatternExpression, ckThisExpression": true
   of "ckAwaitExpression, ckThisExpression": true
   of "ckGlobalStatement, ckIfStatement": true
+  of "ckWhenClause, ckBinaryExpression": true
   of "ckConditionalAccessExpression, ckElementAccessExpression": true
+  of "ckCastExpression, ckObjectCreationExpression": true
+  of "ckFinallyClause, ckThrowStatement": true
+  of "ckAccessor, ckContinueStatement": true
+  of "ckDeclarationExpression, ckDiscardDesignation": true
+  of "ckQueryExpression, ckQueryBody": true
+  of "ckArgument, ckThisExpression": true
   of "ckConversionOperator, ckSwitchStatement": true
   of "ckLocalFunctionStatement, ckExpressionStatement": true
+  of "ckNamespace, ckClass": true
+  of "ckTryStatement, ckYieldStatement": true
   of "ckEqualsValueClause, ckPredefinedType": true
+  of "ckClass, ckDelegate": true
+  of "ckTypeParameterConstraintClause, ckConstructorConstraint": true
   of "ckIndexer, ckWhileStatement": true
   of "ckArgument, ckDefaultExpression": true
+  of "ckIsPatternExpression, ckConditionalAccessExpression": true
+  of "ckCheckedExpression, ckImplicitArrayCreationExpression": true
   of "ckArrowExpressionClause, ckThrowExpression": true
   of "ckLocalFunctionStatement, ckForEachVariableStatement": true
   of "ckNullableType, ckPredefinedType": true
@@ -1018,324 +194,654 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckInterpolation, ckElementAccessExpression": true
   of "ckMethod, ckNullableType": true
   of "ckProperty, ckEqualsValueClause": true
+  of "ckUsingStatement, ckEmptyStatement": true
   of "ckAwaitExpression, ckInterpolatedStringExpression": true
   of "ckIfStatement, ckBreakStatement": true
   of "ckParenthesizedExpression, ckDefaultExpression": true
   of "ckStruct, ckDestructor": true
   of "ckCheckedExpression, ckParenthesizedExpression": true
+  of "ckStruct, ckEnum": true
+  of "ckArgument, ckAnonymousObjectCreationExpression": true
   of "ckParenthesizedExpression, ckMemberAccessExpression": true
+  of "ckFromClause, ckInvocationExpression": true
+  of "ckElementBindingExpression, ckBracketedArgumentList": true
   of "ckSimpleLambdaExpression, ckInvocationExpression": true
   of "ckArrowExpressionClause, ckDefaultExpression": true
   of "ckSwitchSection, ckCasePatternSwitchLabel": true
+  of "ckParenthesizedExpression, ckThisExpression": true
   of "ckUsingStatement, ckUsingStatement": true
+  of "ckDestructor, ckExpressionStatement": true
   of "ckDelegate, ckNullableType": true
   of "ckEqualsValueClause, ckTypeOfExpression": true
   of "ckExpressionStatement, ckElementAccessExpression": true
   of "ckGroupClause, ckAnonymousObjectCreationExpression": true
   of "ckSimpleLambdaExpression, ckLiteralExpression": true
   of "ckSwitchExpression, ckConditionalAccessExpression": true
+  of "ckEqualsValueClause, ckPrefixUnaryExpression": true
   of "ckPropertyPatternClause, ckSubpattern": true
   of "ckAnonymousObjectMemberDeclarator, ckAwaitExpression": true
+  of "ckConstructor, ckThrowStatement": true
   of "ckMemberAccessExpression, ckBaseExpression": true
+  of "ckParameter, ckFunctionPointerType": true
   of "ckSubpattern, ckRelationalPattern": true
   of "ckTryStatement, ckDoStatement": true
+  of "ckObjectCreationExpression, ckIdentifier": true
   of "ckCastExpression, ckElementAccessExpression": true
   of "ckMethod, ckParameterList": true
+  of "ckForStatement, ckReturnStatement": true
   of "ckThrowStatement, ckLiteralExpression": true
   of "ckSwitchSection, ckWhileStatement": true
+  of "ckCheckedExpression, ckIdentifier": true
   of "ckAssignmentExpression, ckCastExpression": true
   of "ckDeclarationExpression, ckTupleType": true
+  of "ckWhileStatement, ckForStatement": true
+  of "ckTypeParameter, ckIdentifier": true
+  of "ckRefExpression, ckMemberAccessExpression": true
+  of "ckIndexer, ckAccessorList": true
+  of "ckGlobalStatement, ckBreakStatement": true
+  of "ckAnonymousObjectMemberDeclarator, ckConditionalExpression": true
   of "ckEqualsValueClause, ckRefValueExpression": true
+  of "ckLocalDeclarationStatement, ckVariableDeclarator": true
+  of "ckStruct, ckProperty": true
+  of "ckDestructor, ckUsingStatement": true
   of "ckTryStatement, ckCheckedStatement": true
   of "ckArrowExpressionClause, ckConditionalExpression": true
   of "ckSwitchExpression, ckSwitchExpressionArm": true
+  of "ckExpressionStatement, ckIdentifier": true
+  of "ckObjectCreationExpression, ckNullableType": true
+  # of "ckObjectCreationExpression, ckIdentifier": true
+  of "ckRefValueExpression, ckPredefinedType": true
+  of "ckWhileStatement, ckContinueStatement": true
   of "ckIfStatement, ckCheckedExpression": true
+  of "ckArrowExpressionClause, ckRefExpression": true
   of "ckForEachStatement, ckObjectCreationExpression": true
+  of "ckArgument, ckParenthesizedLambdaExpression": true
+  of "ckConditionalExpression, ckTypeOfExpression": true
   of "ckForEachStatement, ckCastExpression": true
   of "ckAnonymousMethodExpression, ckTryStatement": true
+  of "ckInvocationExpression, ckParenthesizedLambdaExpression": true
+  of "ckVariable, ckRefType": true
   of "ckField, ckLiteralExpression": true
+  of "ckTypeArgumentList, ckGenericName": true
   of "ckIfStatement, ckRefExpression": true
+  of "ckMethod, ckTryStatement": true
+  of "ckTryStatement, ckFixedStatement": true
   of "ckParenthesizedExpression, ckConditionalAccessExpression": true
+  of "ckPointerType, ckGenericName": true
   of "ckConditionalAccessExpression, ckElementBindingExpression": true
   of "ckIndexer, ckParameter": true
+  of "ckPrefixUnaryExpression, ckPostfixUnaryExpression": true
+  of "ckSubpattern, ckRecursivePattern": true
   of "ckSelectClause, ckBinaryExpression": true
   of "ckForEachVariableStatement, ckQueryExpression": true
   of "ckForEachVariableStatement, ckThisExpression": true
   of "ckLockStatement, ckExpressionStatement": true
+  of "ckArrowExpressionClause, ckTypeOfExpression": true
+  of "ckElementAccessExpression, ckParenthesizedLambdaExpression": true
+  of "ckArrayRankSpecifier, ckCastExpression": true
+  of "ckMethod, ckArrayType": true
   of "ckVariableDeclarator, ckMemberAccessExpression": true
+  of "ckIsPatternExpression, ckInvocationExpression": true
+  of "ckParameterList, ckIdentifier": true
+  of "ckExpressionStatement, ckArgumentList": true
+  of "ckStackAllocArrayCreationExpression, ckPredefinedType": true
   of "ckAccessor, ckCastExpression": true
   of "ckBinaryExpression, ckPredefinedType": true
+  of "ckIndexer, ckGenericName": true
+  of "ckArrayType, ckPointerType": true
+  of "ckOperator, ckThrowStatement": true
   of "ckConditionalExpression, ckQueryExpression": true
   of "ckArgument, ckCheckedExpression": true
+  of "ckSwitchSection, ckTryStatement": true
   of "ckArrayRankSpecifier, ckOmittedArraySizeExpression": true
+  of "ckArgument, ckSimpleLambdaExpression": true
+  of "ckLabeledStatement, ckSwitchStatement": true
   of "ckSimpleLambdaExpression, ckInterpolatedStringExpression": true
   of "ckElementAccessExpression, ckInterpolatedStringExpression": true
   of "ckSwitchSection, ckForEachVariableStatement": true
+  of "ckIfStatement, ckLocalDeclarationStatement": true
   of "ckReturnStatement, ckInterpolatedStringExpression": true
   of "ckPrefixUnaryExpression, ckElementAccessExpression": true
   of "ckParenthesizedLambdaExpression, ckCheckedExpression": true
   of "ckParenthesizedLambdaExpression, ckTryStatement": true
   of "ckAnonymousObjectMemberDeclarator, ckTupleExpression": true
+  of "ckInitializerExpression, ckSizeOfExpression": true
+  of "ckLabeledStatement, ckForEachVariableStatement": true
+  of "ckBinaryExpression, ckArrayCreationExpression": true
+  of "ckYieldStatement, ckThisExpression": true
   of "ckExpressionStatement, ckPostfixUnaryExpression": true
+  of "ckInitializerExpression, ckPostfixUnaryExpression": true
   of "ckDeclarationPattern, ckSingleVariableDesignation": true
+  of "ckForEachStatement, ckConditionalExpression": true
   of "ckInterpolation, ckInvocationExpression": true
   of "ckConversionOperator, ckGenericName": true
   of "ckForStatement, ckLockStatement": true
+  of "ckNamespace, ckConstructor": false
+  of "ckSimpleLambdaExpression, ckObjectCreationExpression": true
   of "ckParenthesizedLambdaExpression, ckBinaryExpression": true
   of "ckArrowExpressionClause, ckSizeOfExpression": true
+  of "ckConditionalExpression, ckLiteralExpression": true
   of "ckArgument, ckWithExpression": true
+  of "ckForStatement, ckPredefinedType": true
+  of "ckYieldStatement, ckCastExpression": true
   of "ckArgument, ckOmittedArraySizeExpression": true
   of "ckTypeOfExpression, ckTupleType": true
+  of "ckArgument, ckGenericName": true
+  of "ckIfStatement, ckUsingStatement": true
   of "ckVariable, ckAliasQualifiedName": true
   of "ckLocalFunctionStatement, ckReturnStatement": true
   of "ckElementAccessExpression, ckPredefinedType": true
   of "ckWhileStatement, ckParenthesizedExpression": true
   of "ckRefValueExpression, ckArrayType": true
   of "ckForEachVariableStatement, ckExpressionStatement": true
+  of "ckVariable, ckArrayType": true
+  of "ckElementAccessExpression, ckMemberBindingExpression": true
+  of "ckConversionOperator, ckPredefinedType": true
+  # of "ckLiteralExpression, ckIdentifier": true
+  of "ckCatchFilterClause, ckMemberAccessExpression": true
+  of "ckFunctionPointerType, ckParameter": true
+  of "ckDestructor, ckLocalDeclarationStatement": true
   of "ckOrdering, ckInvocationExpression": true
   of "ckSubpattern, ckNameColon": true
   of "ckConversionOperator, ckTupleType": true
+  of "ckJoinClause, ckMemberAccessExpression": true
   of "ckExpressionStatement, ckThisExpression": true
   of "ckMemberAccessExpression, ckGenericName": true
+  of "ckTryStatement, ckLabeledStatement": true
   of "ckQueryExpression, ckFromClause": true
+  of "ckLockStatement, ckAssignmentExpression": true
+  of "ckParenthesizedLambdaExpression, ckForStatement": true
+  of "ckElseClause, ckIfStatement": true
   of "ckIndexer, ckForEachStatement": true
   of "ckProperty, ckAccessorList": true
+  of "ckRefType, ckPredefinedType": true
+  of "ckForEachVariableStatement, ckBaseExpression": true
   of "ckArgument, ckConditionalAccessExpression": true
+  of "ckStruct, ckStruct": true
   of "ckRecursivePattern, ckPropertyPatternClause": true
   of "ckArrayRankSpecifier, ckBinaryExpression": true
+  of "ckThrowExpression, ckPostfixUnaryExpression": true
   of "ckVarPattern, ckSingleVariableDesignation": true
+  of "ckOmittedArraySizeExpression, ckIdentifier": true
+  of "ckInterpolation, ckSizeOfExpression": true
   of "ckReturnStatement, ckElementAccessExpression": true
+  of "ckMemberAccessExpression, ckMemberAccessExpression": true
   of "ckAnonymousObjectMemberDeclarator, ckQueryExpression": true
   of "ckYieldStatement, ckPostfixUnaryExpression": true
   of "ckLockStatement, ckThisExpression": true
+  of "ckInvocationExpression, ckParenthesizedExpression": true
   of "ckLockStatement, ckUsingStatement": true
+  of "ckMakeRefExpression, ckIdentifier": true
+  of "ckLockStatement, ckUnsafeStatement": true
+  of "ckClass, ckIncompleteMember": true
+  of "ckGlobalStatement, ckExpressionStatement": true
+  of "ckMethod, ckForStatement": true
   of "ckLockStatement, ckReturnStatement": true
+  of "ckArrayCreationExpression, ckArrayType": true
   of "ckAssignmentExpression, ckCheckedExpression": true
   of "ckForStatement, ckEmptyStatement": true
   of "ckWhileStatement, ckConditionalExpression": true
+  of "ckDoStatement, ckMemberAccessExpression": true
   of "ckParenthesizedLambdaExpression, ckElementAccessExpression": true
   of "ckArrowExpressionClause, ckCheckedExpression": true
   of "ckCastExpression, ckPostfixUnaryExpression": true
+  of "ckLockStatement, ckIfStatement": true
   of "ckExpressionStatement, ckObjectCreationExpression": true
   of "ckReturnStatement, ckSimpleLambdaExpression": true
   of "ckParenthesizedLambdaExpression, ckParenthesizedExpression": true
   of "ckQueryContinuation, ckQueryBody": true
   of "ckIfStatement, ckConditionalExpression": true
+  of "ckThrowStatement, ckIdentifier": true
   of "ckBinaryExpression, ckNullableType": true
+  of "ckElseClause, ckUsingStatement": true
   of "ckAssignmentExpression, ckParenthesizedExpression": true
+  of "ckMethod, ckWhileStatement": true
   of "ckSimpleLambdaExpression, ckPrefixUnaryExpression": true
+  of "ckInitializerExpression, ckTypeOfExpression": true
+  of "ckOperator, ckArrowExpressionClause": true
+  of "ckWhileStatement, ckInvocationExpression": true
   of "ckNullableType, ckTupleType": true
+  of "ckRelationalPattern, ckParenthesizedExpression": true
+  of "ckAssignmentExpression, ckQueryExpression": true
+  of "ckPostfixUnaryExpression, ckElementAccessExpression": true
   of "ckYieldStatement, ckAnonymousObjectCreationExpression": true
   of "ckAssignmentExpression, ckIsPatternExpression": true
+  of "ckInterpolatedStringExpression, ckInterpolation": true
   of "ckSwitchExpressionArm, ckBinaryExpression": true
   of "ckParenthesizedLambdaExpression, ckTypeOfExpression": true
   of "ckThrowStatement, ckThisExpression": true
+  of "ckSwitchStatement, ckPrefixUnaryExpression": true
   of "ckIfStatement, ckParenthesizedExpression": true
   of "ckQueryBody, ckLetClause": true
   of "ckLocalDeclarationStatement, ckTypeArgumentList": true
   of "ckForEachStatement, ckForEachVariableStatement": true
   of "ckMakeRefExpression, ckElementAccessExpression": true
   of "ckNamespace, ckStruct": true
+  of "ckIndexer, ckLiteralExpression": true
   of "ckTypeParameter, ckLiteralExpression": true
   of "ckTypeArgumentList, ckAliasQualifiedName": true
   of "ckParenthesizedVariableDesignation, ckSingleVariableDesignation": true
   of "ckAnonymousMethodExpression, ckLabeledStatement": true
+  of "ckUsingDirective, ckGenericName": true
   of "ckCastExpression, ckAwaitExpression": true
   of "ckLockStatement, ckFixedStatement": true
   of "ckArrayRankSpecifier, ckElementAccessExpression": true
+  of "ckConditionalAccessExpression, ckMemberAccessExpression": true
   of "ckSwitchStatement, ckCheckedExpression": true
   of "ckBinaryExpression, ckIsPatternExpression": true
+  of "ckParenthesizedExpression, ckInterpolatedStringExpression": true
+  of "ckBaseExpression, ckIdentifier": true
+  of "ckMethod, ckExplicitInterfaceSpecifier": true
   of "ckForEachStatement, ckIfStatement": true
+  of "ckArrowExpressionClause, ckQueryExpression": true
+  of "ckLockStatement, ckElementAccessExpression": true
+  of "ckBinaryExpression, ckPostfixUnaryExpression": true
+  of "ckTryStatement, ckThrowStatement": true
   of "ckLocalFunctionStatement, ckRefType": true
   of "ckSwitchStatement, ckDefaultExpression": true
+  # of "ckArrayType, ckIdentifier": true
+  of "ckLockStatement, ckPostfixUnaryExpression": true
+  of "ckBinaryExpression, ckTypeOfExpression": true
+  of "ckGenericName, ckTypeArgumentList": true
   of "ckAnonymousObjectMemberDeclarator, ckBinaryExpression": true
   of "ckSwitchExpressionArm, ckBinaryPattern": true
+  of "ckUsingStatement, ckElementAccessExpression": true
   of "ckFinallyClause, ckWhileStatement": true
   of "ckMethod, ckExpressionStatement": true
+  of "ckAssignmentExpression, ckArgumentList": true
+  of "ckSimpleLambdaExpression, ckThrowStatement": true
   of "ckFixedStatement, ckForStatement": true
+  of "ckConversionOperator, ckParameterList": true
   of "ckUnaryPattern, ckConstantPattern": true
+  of "ckConstructorInitializer, ckArgumentList": true
+  of "ckRefType, ckPointerType": true
+  of "ckThrowStatement, ckConditionalExpression": true
+  of "ckClass, ckIndexer": true
   of "ckLockStatement, ckObjectCreationExpression": true
   of "ckNamespace, ckEnum": true
+  of "ckSimpleLambdaExpression, ckAssignmentExpression": true
+  of "ckParenthesizedLambdaExpression, ckArrayCreationExpression": true
   of "ckLetClause, ckBinaryExpression": true
   of "ckAnonymousMethodExpression, ckLockStatement": true
   of "ckIfStatement, ckForEachVariableStatement": true
   of "ckCaseSwitchLabel, ckMemberAccessExpression": true
+  of "ckForEachVariableStatement, ckIfStatement": true
   of "ckIfStatement, ckIfStatement": true
   of "ckParenthesizedLambdaExpression, ckForEachVariableStatement": true
+  of "ckWhileStatement, ckCheckedExpression": true
+  of "ckArrowExpressionClause, ckAnonymousMethodExpression": true
   of "ckPostfixUnaryExpression, ckPostfixUnaryExpression": true
+  # of "ckNameEquals, ckIdentifier": true
   of "ckElementAccessExpression, ckThisExpression": true
   of "ckSimpleLambdaExpression, ckSimpleLambdaExpression": true
   of "ckMemberAccessExpression, ckRefTypeExpression": true
+  of "ckWhileStatement, ckCheckedStatement": true
   of "ckPrefixUnaryExpression, ckConditionalAccessExpression": true
+  of "ckSimpleLambdaExpression, ckQueryExpression": true
   of "ckParenthesizedExpression, ckConditionalExpression": true
   of "ckSwitchStatement, ckPostfixUnaryExpression": true
   of "ckOperator, ckForEachStatement": true
+  of "ckMethod, ckRefType": true
   of "ckUsingStatement, ckReturnStatement": true
+  of "ckNamespace, ckUsingDirective": true
   of "ckSimpleLambdaExpression, ckCastExpression": true
   of "ckReturnStatement, ckCheckedExpression": true
   of "ckIndexer, ckTryStatement": true
+  of "ckInitializerExpression, ckIdentifier": true
   of "ckForEachStatement, ckYieldStatement": true
   of "ckArgument, ckPostfixUnaryExpression": true
+  of "ckInterpolation, ckBinaryExpression": true
+  of "ckParenthesizedLambdaExpression, ckAnonymousMethodExpression": true
   of "ckLocalFunctionStatement, ckGenericName": true
+  of "ckReturnStatement, ckTupleExpression": true
+  of "ckForStatement, ckAwaitExpression": true
+  of "ckForStatement, ckIfStatement": true
+  of "ckProperty, ckTryStatement": true
+  of "ckPostfixUnaryExpression, ckIdentifier": true
+  of "ckEqualsValueClause, ckInvocationExpression": true
+  of "ckGlobalStatement, ckLocalFunctionStatement": true
+  of "ckNamespace, ckOperator": true
   of "ckPostfixUnaryExpression, ckMemberAccessExpression": true
   of "ckAnonymousMethodExpression, ckCheckedStatement": true
   of "ckLocalDeclarationStatement, ckGenericName": true
+  of "ckEqualsValueClause, ckImplicitArrayCreationExpression": true
+  of "ckProperty, ckIdentifier": true
+  of "ckFromClause, ckConditionalAccessExpression": true
   of "ckArgument, ckDeclarationExpression": true
   of "ckParenthesizedLambdaExpression, ckFixedStatement": true
   of "ckYieldStatement, ckParenthesizedExpression": true
   of "ckLetClause, ckInvocationExpression": true
   of "ckEventField, ckVariable": true
+  of "ckInitializerExpression, ckAnonymousObjectCreationExpression": true
+  of "ckConstantPattern, ckBinaryExpression": true
+  of "ckCheckedExpression, ckPrefixUnaryExpression": true
+  of "ckElseClause, ckGotoStatement": true
+  of "ckWhileStatement, ckTryStatement": true
   of "ckParameter, ckNullableType": true
   of "ckThrowExpression, ckInvocationExpression": true
+  of "ckConstructor, ckWhileStatement": true
+  of "ckJoinClause, ckJoinIntoClause": true
   of "ckLockStatement, ckWhileStatement": true
   of "ckConversionOperator, ckLockStatement": true
+  of "ckEvent, ckExplicitInterfaceSpecifier": true
   of "ckIsPatternExpression, ckObjectCreationExpression": true
   of "ckConversionOperator, ckFixedStatement": true
+  of "ckJoinClause, ckIdentifier": true
   of "ckAccessorList, ckAccessor": true
   of "ckStruct, ckConversionOperator": true
   of "ckParenthesizedLambdaExpression, ckReturnStatement": true
+  of "ckForEachStatement, ckForEachStatement": true
+  of "ckUsingStatement, ckWhileStatement": true
+  of "ckInitializerExpression, ckSimpleLambdaExpression": true
   of "ckLabeledStatement, ckYieldStatement": true
   of "ckLetClause, ckTypeOfExpression": true
   of "ckForEachStatement, ckBinaryExpression": true
   of "ckParameter, ckTupleType": true
+  # of "ckEqualsValueClause, ckIdentifier": true
+  of "ckEnumMember, ckEqualsValueClause": true
+  of "ckSimpleBaseType, ckNullableType": true
+  of "ckSwitchSection, ckSwitchStatement": true
+  of "ckImplicitArrayCreationExpression, ckInitializerExpression": true
   of "ckIndexer, ckRefType": true
+  of "ckIfStatement, ckReturnStatement": true
   of "ckInitializerExpression, ckInterpolatedStringExpression": true
   of "ckElseClause, ckLabeledStatement": true
   of "ckOperator, ckArrayType": true
+  of "ckArgument, ckNameColon": true
+  of "ckAccessor, ckDoStatement": true
   of "ckThrowExpression, ckParenthesizedExpression": true
   of "ckIfStatement, ckEmptyStatement": true
   of "ckAnonymousObjectMemberDeclarator, ckAnonymousMethodExpression": true
+  of "ckTryStatement, ckUsingStatement": true
   of "ckGroupClause, ckBinaryExpression": true
   of "ckParenthesizedLambdaExpression, ckAssignmentExpression": true
+  of "ckParenthesizedLambdaExpression, ckDoStatement": true
+  of "ckDeclarationExpression, ckSingleVariableDesignation": true
+  of "ckArgument, ckElementAccessExpression": true
+  of "ckAwaitExpression, ckParenthesizedExpression": true
+  of "ckParenthesizedExpression, ckSwitchExpression": true
+  of "ckWhereClause, ckPrefixUnaryExpression": true
   of "ckDefaultExpression, ckArrayType": true
+  of "ckSwitchStatement, ckThisExpression": true
+  of "ckTryStatement, ckForStatement": true
   of "ckUsingStatement, ckForEachStatement": true
+  of "ckCastExpression, ckNullableType": true
+  of "ckForEachStatement, ckThrowStatement": true
+  of "ckAccessor, ckForStatement": true
   of "ckForEachStatement, ckWhileStatement": true
   of "ckClass, ckTypeParameterList": true
+  of "ckParenthesizedLambdaExpression, ckInterpolatedStringExpression": true
   of "ckInvocationExpression, ckBaseExpression": true
+  of "ckMethod, ckArrowExpressionClause": true
+  of "ckBinaryPattern, ckConstantPattern": true
+  of "ckNameColon, ckLiteralExpression": true
+  of "ckArrowExpressionClause, ckAnonymousObjectCreationExpression": true
+  of "ckExplicitInterfaceSpecifier, ckIdentifier": true
+  of "ckNameEquals, ckLiteralExpression": true
+  of "ckIndexer, ckNullableType": true
+  of "ckDestructor, ckForStatement": true
+  of "ckRefValueExpression, ckParenthesizedExpression": true
+  of "ckCastExpression, ckFunctionPointerType": true
+  of "ckWhenClause, ckParenthesizedExpression": true
   of "ckReturnStatement, ckCastExpression": true
+  of "ckIndexer, ckTupleType": true
   of "ckProperty, ckForStatement": true
+  of "ckSwitchExpressionArm, ckDiscardPattern": true
   of "ckFinallyClause, ckExpressionStatement": true
+  of "ckAwaitExpression, ckLiteralExpression": true
   of "ckConditionalAccessExpression, ckMemberBindingExpression": true
   of "ckTryStatement, ckBreakStatement": true
   of "ckExpressionStatement, ckArrayCreationExpression": true
   of "ckConstructor, ckLockStatement": true
   of "ckSimpleLambdaExpression, ckDefaultExpression": true
+  of "ckConstantPattern, ckElementAccessExpression": true
   of "ckTypeArgumentList, ckArrayType": true
   of "ckArrayRankSpecifier, ckParenthesizedExpression": true
   of "ckInterpolationAlignmentClause, ckLiteralExpression": true
+  of "ckDelegate, ckTupleType": true
+  of "ckUsingStatement, ckIdentifier": true
   of "ckTypeArgumentList, ckTupleType": true
   of "ckSimpleLambdaExpression, ckUsingStatement": true
+  of "ckInvocationExpression, ckIdentifier": true
+  of "ckDeclarationExpression, ckPredefinedType": true
+  of "ckParenthesizedExpression, ckSimpleLambdaExpression": true
   of "ckTryStatement, ckWhileStatement": true
+  of "ckProperty, ckWhileStatement": true
   of "ckLabeledStatement, ckWhileStatement": true
+  # of "ckBinaryExpression, ckIdentifier": true
+  # of "ckRefExpression, ckIdentifier": true
+  of "ckRangeExpression, ckParenthesizedExpression": true
+  of "ckMethod, ckPointerType": true
   of "ckAnonymousObjectMemberDeclarator, ckPrefixUnaryExpression": true
   of "ckConditionalExpression, ckInterpolatedStringExpression": true
+  of "ckAwaitExpression, ckCheckedExpression": true
+  of "ckConditionalExpression, ckPrefixUnaryExpression": true
+  of "ckPostfixUnaryExpression, ckLiteralExpression": true
   of "ckArrayRankSpecifier, ckInvocationExpression": true
   of "ckJoinClause, ckLiteralExpression": true
   of "ckAnonymousObjectMemberDeclarator, ckInterpolatedStringExpression": true
   of "ckLiteralExpression, ckPrefixUnaryExpression": true
   of "ckWhileStatement, ckThrowStatement": true
+  of "ckArrayType, ckGenericName": true
+  of "ckTypeOfExpression, ckPredefinedType": true
   of "ckRefExpression, ckBinaryExpression": false # TODO, maybe there are valid cases.
   of "ckAccessor, ckGotoStatement": true
+  of "ckThrowStatement, ckBinaryExpression": true
+  of "ckParenthesizedExpression, ckAnonymousMethodExpression": true
+  of "ckArrowExpressionClause, ckInvocationExpression": true
+  of "ckLocalFunctionStatement, ckTypeParameterList": true
+  of "ckGlobalStatement, ckSwitchStatement": true
+  # of "ckTypeParameterConstraintClause, ckIdentifier": true
   of "ckInterpolationAlignmentClause, ckMemberAccessExpression": true
   of "ckLabeledStatement, ckForStatement": true
+  of "ckForStatement, ckLabeledStatement": true
   of "ckWhenClause, ckInvocationExpression": true
   of "ckClass, ckEvent": true
   of "ckInvocationExpression, ckArgumentList": true
   of "ckIndexer, ckArrayType": true
+  of "ckArrayRankSpecifier, ckSizeOfExpression": true
+  of "ckBinaryExpression, ckArrayType": true
+  # of "ckNullableType, ckIdentifier": true
   of "ckAccessor, ckLocalDeclarationStatement": true
+  of "ckElseClause, ckSwitchStatement": true
+  of "ckIfStatement, ckAssignmentExpression": true
+  of "ckConditionalExpression, ckInvocationExpression": true
+  of "ckIfStatement, ckMemberAccessExpression": true
   of "ckArrayRankSpecifier, ckPredefinedType": true
+  of "ckIfStatement, ckSwitchStatement": true
   of "ckParenthesizedExpression, ckIsPatternExpression": true
+  of "ckOperator, ckNullableType": true
   of "ckClass, ckEnum": true # forwards to parent namespace.
   of "ckArrowExpressionClause, ckIsPatternExpression": true
   of "ckMethod, ckGenericName": true
   of "ckPositionalPatternClause, ckSubpattern": true
+  of "ckSelectClause, ckImplicitArrayCreationExpression": true
+  of "ckAssignmentExpression, ckAwaitExpression": true
   of "ckArgument, ckSizeOfExpression": true
   of "ckConstructor, ckGotoStatement": true
+  of "ckIfStatement, ckIdentifier": true
   of "ckAnonymousObjectMemberDeclarator, ckTypeOfExpression": true
   of "ckExpressionStatement, ckIsPatternExpression": true
   of "ckFixedStatement, ckExpressionStatement": true
   of "ckForStatement, ckContinueStatement": true
   of "ckDestructor, ckReturnStatement": true
+  of "ckReturnStatement, ckInvocationExpression": true
+  of "ckSwitchSection, ckExpressionStatement": true
   of "ckConstantPattern, ckIsPatternExpression": true
   of "ckFromClause, ckArrayCreationExpression": true
+  of "ckCastExpression, ckInterpolatedStringExpression": true
   of "ckSubpattern, ckDeclarationPattern": true
+  of "ckWhileStatement, ckExpressionStatement": true
+  of "ckMethod, ckLocalDeclarationStatement": true
+  of "ckPrefixUnaryExpression, ckMemberAccessExpression": true
   of "ckForEachStatement, ckExpressionStatement": true
+  of "ckProperty, ckTupleType": true
   of "ckParenthesizedLambdaExpression, ckConditionalAccessExpression": true
   of "ckArrowExpressionClause, ckObjectCreationExpression": true
+  of "ckParenthesizedExpression, ckObjectCreationExpression": true
+  of "ckMethod, ckLiteralExpression": true
+  of "ckBinaryExpression, ckCheckedExpression": true
   of "ckAssignmentExpression, ckObjectCreationExpression": true
   of "ckWithExpression, ckMemberAccessExpression": true
   of "ckIfStatement, ckForEachStatement": true
+  of "ckCatch, ckGenericName": true
+  of "ckAssignmentExpression, ckStackAllocArrayCreationExpression": true
+  of "ckEqualsValueClause, ckStackAllocArrayCreationExpression": true
+  of "ckEqualsValueClause, ckIdentifier": true
   of "ckDoStatement, ckLiteralExpression": true
+  of "ckMemberAccessExpression, ckMemberBindingExpression": true
   of "ckLabeledStatement, ckBreakStatement": true
+  of "ckPrefixUnaryExpression, ckPrefixUnaryExpression": true
+  of "ckCasePatternSwitchLabel, ckDeclarationPattern": true
+  of "ckSwitchSection, ckDoStatement": true
+  of "ckOrdering, ckIdentifier": true
   of "ckInitializerExpression, ckCheckedExpression": true
+  of "ckElseClause, ckUnsafeStatement": true
   of "ckSwitchExpression, ckCastExpression": true
   of "ckCheckedExpression, ckArrayCreationExpression": true
   of "ckInterpolation, ckInterpolationFormatClause": true
   of "ckProperty, ckPredefinedType": true
   of "ckMethod, ckTypeParameterList": true
+  of "ckSimpleBaseType, ckIdentifier": true
   of "ckCaseSwitchLabel, ckPrefixUnaryExpression": true
   of "ckTryStatement, ckContinueStatement": true
   of "ckSwitchStatement, ckObjectCreationExpression": true
+  of "ckQueryBody, ckQueryContinuation": true
+  of "ckSwitchExpressionArm, ckThrowExpression": true
+  of "ckAwaitExpression, ckIdentifier": true
+  of "ckDoStatement, ckIsPatternExpression": true
   of "ckParenthesizedLambdaExpression, ckIsPatternExpression": true
+  of "ckObjectCreationExpression, ckTupleType": true
   of "ckAwaitExpression, ckAwaitExpression": true
   of "ckParenthesizedLambdaExpression, ckCastExpression": true
+  of "ckEqualsValueClause, ckRefExpression": true
   of "ckDeclarationPattern, ckArrayType": true
+  # of "ckThisExpression, ckIdentifier": true
+  of "ckVariable, ckPointerType": true
   of "ckElementAccessExpression, ckDefaultExpression": true
+  of "ckConstructor, ckForStatement": true
   of "ckEnum, ckBaseList": true
+  of "ckParameter, ckIdentifier": true
+  of "ckArrayRankSpecifier, ckAssignmentExpression": true
   of "ckIfStatement, ckObjectCreationExpression": true
   of "ckProperty, ckLiteralExpression": true
   of "ckNamespace, ckExternAliasDirective": true
   of "ckJoinClause, ckArrayCreationExpression": true
   of "ckAwaitExpression, ckElementAccessExpression": true
   of "ckVariable, ckTupleType": true
+  of "ckFinallyClause, ckUsingStatement": true
+  of "ckConstructor, ckIfStatement": true
+  of "ckFromClause, ckParenthesizedExpression": true
+  of "ckReturnStatement, ckLiteralExpression": true
   of "ckUsingStatement, ckLocalDeclarationStatement": true
+  of "ckForEachStatement, ckIdentifier": true
+  of "ckSimpleLambdaExpression, ckAnonymousObjectCreationExpression": true
   of "ckJoinClause, ckAnonymousObjectCreationExpression": true
   of "ckTryStatement, ckForEachVariableStatement": true
+  # of "ckVariable, ckIdentifier": true
+  of "ckField, ckVariable": true
+  of "ckCatchFilterClause, ckAwaitExpression": true
+  of "ckTryStatement, ckLockStatement": true
+  of "ckPrefixUnaryExpression, ckIdentifier": true
   of "ckSwitchStatement, ckConditionalAccessExpression": true
+  of "ckGotoStatement, ckIdentifier": true
   of "ckForEachVariableStatement, ckObjectCreationExpression": true
+  of "ckRecursivePattern, ckIdentifier": true
+  of "ckGroupClause, ckLiteralExpression": true
   of "ckAssignmentExpression, ckImplicitElementAccess": true
+  of "ckIsPatternExpression, ckDeclarationPattern": true
   of "ckMethod, ckUsingStatement": true
+  of "ckForEachStatement, ckLocalDeclarationStatement": true
   of "ckCaseSwitchLabel, ckInvocationExpression": true
+  of "ckInitializerExpression, ckPredefinedType": true
   of "ckCastExpression, ckPredefinedType": true
+  of "ckMemberAccessExpression, ckStackAllocArrayCreationExpression": true
   of "ckSwitchExpressionArm, ckSwitchExpression": true
+  of "ckForEachStatement, ckSwitchStatement": true
   of "ckIfStatement, ckElementAccessExpression": true
   of "ckOmittedTypeArgument, ckGenericName": true
+  of "ckAnonymousObjectMemberDeclarator, ckCastExpression": true
   of "ckForStatement, ckBreakStatement": true
+  of "ckAssignmentExpression, ckTupleExpression": true
+  of "ckSwitchExpressionArm, ckUnaryPattern": true
   of "ckUsingStatement, ckConditionalAccessExpression": true
   of "ckQueryBody, ckGroupClause": true
+  of "ckDestructor, ckThrowStatement": true
+  of "ckPostfixUnaryExpression, ckInvocationExpression": true
+  of "ckRangeExpression, ckLiteralExpression": true
   of "ckGroupClause, ckObjectCreationExpression": true
+  of "ckArrowExpressionClause, ckCastExpression": true
   of "ckCastExpression, ckCastExpression": true
   of "ckElementAccessExpression, ckBaseExpression": true
+  # of "ckSwitchStatement, ckIdentifier": true
+  of "ckIsPatternExpression, ckVarPattern": true
   of "ckSimpleBaseType, ckGenericName": true
+  of "ckNamespace, ckDelegate": true
+  of "ckUsingStatement, ckLockStatement": true
   of "ckExpressionStatement, ckLiteralExpression": true
   of "ckLockStatement, ckYieldStatement": true
+  of "ckMemberAccessExpression, ckIdentifier": true
+  of "ckElementAccessExpression, ckElementAccessExpression": true
+  of "ckConversionOperator, ckIfStatement": true
+  of "ckEqualsValueClause, ckBinaryExpression": true
+  of "ckEqualsValueClause, ckThisExpression": true
   of "ckSelectClause, ckInterpolatedStringExpression": true
+  # of "ckExplicitInterfaceSpecifier, ckIdentifier": true
+  of "ckEqualsValueClause, ckConditionalExpression": true
+  of "ckLocalFunctionStatement, ckLockStatement": true
+  of "ckMethod, ckDoStatement": true
+  of "ckTupleElement, ckPredefinedType": true
   of "ckAnonymousObjectMemberDeclarator, ckDefaultExpression": true
+  of "ckRefValueExpression, ckIdentifier": true
   of "ckArgument, ckAnonymousMethodExpression": true
   of "ckDeclarationPattern, ckPredefinedType": true
   of "ckCaseSwitchLabel, ckLiteralExpression": true
   of "ckWhileStatement, ckIfStatement": true
+  of "ckDelegate, ckIdentifier": true
+  of "ckAnonymousMethodExpression, ckSwitchStatement": true
   of "ckEqualsValueClause, ckLiteralExpression": true
   of "ckDelegate, ckParameterList": true
+  of "ckRefValueExpression, ckMakeRefExpression": true
+  of "ckThrowExpression, ckMemberAccessExpression": true
+  of "ckArgument, ckInvocationExpression": true
   of "ckForStatement, ckElementAccessExpression": true
   of "ckArrowExpressionClause, ckConditionalAccessExpression": true
   of "ckTryStatement, ckIfStatement": true
+  of "ckIsPatternExpression, ckParenthesizedExpression": true
+  # of "ckBaseExpression, ckIdentifier": true
+  of "ckConversionOperator, ckArrowExpressionClause": true
+  of "ckConditionalExpression, ckConditionalExpression": true
+  of "ckProperty, ckNullableType": true
   of "ckAssignmentExpression, ckInterpolatedStringExpression": true
   of "ckDelegate, ckRefType": true
+  of "ckIfStatement, ckParenthesizedLambdaExpression": true
   of "ckThrowStatement, ckSwitchExpression": true
+  of "ckSubpattern, ckBinaryPattern": true
   of "ckElseClause, ckThrowStatement": true
+  of "ckThrowStatement, ckCastExpression": true
   of "ckFromClause, ckArrayType": true
+  of "ckArgument, ckAssignmentExpression": true
+  of "ckDestructor, ckParameterList": true
+  of "ckFinallyClause, ckLabeledStatement": true
   of "ckBinaryExpression, ckConditionalAccessExpression": true
+  of "ckTryStatement, ckExpressionStatement": true
   of "ckLocalFunctionStatement, ckFixedStatement": true
   of "ckArrowExpressionClause, ckArrayCreationExpression": true
+  of "ckTupleElement, ckTupleType": true
   of "ckSwitchExpressionArm, ckAwaitExpression": true
   of "ckElementAccessExpression, ckObjectCreationExpression": true
   of "ckInitializerExpression, ckTupleExpression": true
+  of "ckStruct, ckMethod": true
   of "ckPostfixUnaryExpression, ckConditionalAccessExpression": true
   of "ckMemberAccessExpression, ckAnonymousObjectCreationExpression": true
   of "ckGroupClause, ckCastExpression": true
+  of "ckSelectClause, ckIdentifier": true
+  of "ckLetClause, ckImplicitArrayCreationExpression": true
   of "ckForEachStatement, ckLiteralExpression": true
+  of "ckElseClause, ckWhileStatement": true
+  of "ckSimpleLambdaExpression, ckImplicitObjectCreationExpression": true
   of "ckDoStatement, ckParenthesizedExpression": true
+  # of "ckConditionalAccessExpression, ckIdentifier": true
   of "ckMethod, ckUnsafeStatement": true
   of "ckSelectClause, ckLiteralExpression": true
   of "ckForStatement, ckFixedStatement": true
@@ -1344,454 +850,971 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckSelectClause, ckParenthesizedExpression": true
   of "ckSwitchStatement, ckLiteralExpression": true
   of "ckDelegate, ckArrayType": true
+  of "ckAnonymousObjectMemberDeclarator, ckImplicitArrayCreationExpression": true
+  of "ckProperty, ckGotoStatement": true
   of "ckArgument, ckImplicitArrayCreationExpression": true
+  of "ckJoinClause, ckPredefinedType": true
   of "ckForEachVariableStatement, ckElementAccessExpression": true
+  of "ckParenthesizedLambdaExpression, ckSwitchStatement": true
   of "ckTupleElement, ckNullableType": true
   of "ckSimpleLambdaExpression, ckThrowExpression": true
+  of "ckLockStatement, ckCheckedStatement": true
+  of "ckLocalFunctionStatement, ckYieldStatement": true
   of "ckMethod, ckForEachVariableStatement": true
   of "ckRefExpression, ckThisExpression": true
+  of "ckBinaryExpression, ckIdentifier": true
+  of "ckVarPattern, ckDiscardDesignation": true
   of "ckSimpleLambdaExpression, ckAwaitExpression": true
   of "ckInitializerExpression, ckBaseExpression": true
+  of "ckOperator, ckSwitchStatement": true
   of "ckLocalDeclarationStatement, ckLocalFunctionStatement": true
+  of "ckLetClause, ckMemberAccessExpression": true
+  of "ckGlobalStatement, ckForEachStatement": true
+  of "ckSwitchExpressionArm, ckParenthesizedExpression": true
   of "ckBinaryPattern, ckDeclarationPattern": true
+  of "ckClass, ckLocalDeclarationStatement": true
+  of "ckMemberAccessExpression, ckInvocationExpression": true
+  of "ckSwitchExpressionArm, ckImplicitArrayCreationExpression": true
+  of "ckElseClause, ckTryStatement": true
   of "ckAccessor, ckLabeledStatement": true
   of "ckForEachStatement, ckEmptyStatement": true
+  of "ckBinaryExpression, ckThisExpression": true
   of "ckInterface, ckIncompleteMember": true
   of "ckLocalDeclarationStatement, ckLiteralExpression": true
+  of "ckSwitchExpressionArm, ckInvocationExpression": true
   of "ckBinaryExpression, ckTupleExpression": true
   of "ckConditionalExpression, ckSimpleLambdaExpression": true
   of "ckEqualsValueClause, ckAssignmentExpression": true
   of "ckElseClause, ckForEachStatement": true
+  of "ckArrayRankSpecifier, ckLiteralExpression": true
+  of "ckRefTypeExpression, ckIdentifier": true
+  of "ckSwitchExpressionArm, ckArrayCreationExpression": true
+  of "ckDoStatement, ckElementAccessExpression": true
   of "ckSimpleLambdaExpression, ckSwitchExpression": true
   of "ckEvent, ckLiteralExpression": true
+  of "ckClass, ckConstructor": true
+  of "ckFixedStatement, ckUsingStatement": true
   of "ckCheckedExpression, ckCheckedExpression": true
+  of "ckTypeOfExpression, ckAliasQualifiedName": true
+  of "ckSelectClause, ckInvocationExpression": true
+  of "ckBinaryExpression, ckBinaryExpression": true
+  of "ckImplicitObjectCreationExpression, ckInitializerExpression": true
   of "ckMethod, ckAssignmentExpression": true
   of "ckConditionalExpression, ckThisExpression": true
+  of "ckGlobalStatement, ckForEachVariableStatement": true
   of "ckForEachStatement, ckAwaitExpression": true
+  of "ckCatchClause, ckContinueStatement": true
   of "ckInvocationExpression, ckCheckedExpression": true
   of "ckForEachVariableStatement, ckCastExpression": true
+  of "ckFromClause, ckIdentifier": true
+  of "ckPostfixUnaryExpression, ckParenthesizedExpression": true
   of "ckIncompleteMember, ckRefType": true
+  of "ckSelectClause, ckQueryExpression": true
   of "ckConditionalExpression, ckObjectCreationExpression": true
+  of "ckEqualsValueClause, ckMemberAccessExpression": true
+  of "ckWhileStatement, ckYieldStatement": true
   of "ckMemberAccessExpression, ckElementAccessExpression": true
   of "ckSwitchSection, ckLocalDeclarationStatement": true
   of "ckImplicitElementAccess, ckBracketedArgumentList": true
+  of "ckAssignmentExpression, ckPostfixUnaryExpression": true
+  of "ckEqualsValueClause, ckImplicitObjectCreationExpression": true
+  of "ckFromClause, ckMemberAccessExpression": true
   of "ckNameEquals, ckPrefixUnaryExpression": true
+  of "ckBinaryExpression, ckBaseExpression": true
   of "ckInitializerExpression, ckPrefixUnaryExpression": true
   of "ckYieldStatement, ckObjectCreationExpression": true
   of "ckWhileStatement, ckBinaryExpression": true
   of "ckAliasQualifiedName, ckLiteralExpression": true
+  of "ckClass, ckTypeParameterConstraintClause": true
+  of "ckSwitchStatement, ckIdentifier": true
+  of "ckForEachStatement, ckPredefinedType": true
+  of "ckProperty, ckLockStatement": true
+  of "ckForEachStatement, ckUnsafeStatement": true
   of "ckMemberAccessExpression, ckTupleExpression": true
+  of "ckStruct, ckField": true
   of "ckLockStatement, ckForEachVariableStatement": true
+  of "ckSwitchExpressionArm, ckTupleExpression": true
   of "ckIndexer, ckLockStatement": true
+  of "ckCastExpression, ckArrayCreationExpression": true
   of "ckRefType, ckTupleType": true
+  of "ckWhileStatement, ckMemberAccessExpression": true
+  of "ckOperator, ckPointerType": true
   of "ckMethod, ckTupleType": true
   of "ckFinallyClause, ckLockStatement": true
+  of "ckWhereClause, ckParenthesizedExpression": true
+  of "ckExpressionStatement, ckCastExpression": true
+  of "ckParenthesizedExpression, ckCheckedExpression": true
   of "ckCatchFilterClause, ckInvocationExpression": true
   of "ckThrowStatement, ckParenthesizedExpression": true
   of "ckArrowExpressionClause, ckPostfixUnaryExpression": true
   of "ckAssignmentExpression, ckConditionalExpression": true
   of "ckSwitchExpressionArm, ckObjectCreationExpression": true
+  of "ckOrdering, ckMemberAccessExpression": true
+  of "ckNamespace, ckIdentifier": true
   of "ckElseClause, ckContinueStatement": true
+  of "ckLetClause, ckElementAccessExpression": true
+  of "ckParenthesizedExpression, ckAnonymousObjectCreationExpression": true
+  of "ckArgument, ckThrowExpression": true
+  of "ckClass, ckGenericName": true
   of "ckUsingStatement, ckIfStatement": true
+  of "ckAssignmentExpression, ckInvocationExpression": true
   of "ckAccessor, ckLocalFunctionStatement": true
+  of "ckParameter, ckPredefinedType": true
+  of "ckIndexer, ckForStatement": true
+  of "ckNamespace, ckEvent": true
+  of "ckProperty, ckLocalDeclarationStatement": true
   of "ckProperty, ckIfStatement": true
+  of "ckArgument, ckSwitchExpression": true
   of "ckSwitchSection, ckEmptyStatement": true
   of "ckAccessor, ckIfStatement": true
   of "ckElseClause, ckEmptyStatement": true
   of "ckPostfixUnaryExpression, ckThisExpression": true
+  of "ckConstructor, ckForEachStatement": true
+  of "ckLocalFunctionStatement, ckLocalDeclarationStatement": true
   of "ckNamespace, ckConversionOperator": true
   of "ckSwitchSection, ckReturnStatement": true
+  of "ckWhenClause, ckIsPatternExpression": true
+  of "ckRangeExpression, ckInvocationExpression": true
+  of "ckExpressionStatement, ckParenthesizedExpression": true
   of "ckAssignmentExpression, ckTypeArgumentList": true
   of "ckLocalFunctionStatement, ckArrowExpressionClause": true
   of "ckEnum, ckEnumMember": true
   of "ckArgument, ckPrefixUnaryExpression": true
+  of "ckParenthesizedExpression, ckElementAccessExpression": true
+  of "ckPredefinedType, ckGenericName": true
   of "ckLetClause, ckLiteralExpression": true
+  of "ckAssignmentExpression, ckThisExpression": true
   of "ckAssignmentExpression, ckSwitchExpression": true
+  of "ckAssignmentExpression, ckConditionalAccessExpression": true
   of "ckParenthesizedExpression, ckImplicitArrayCreationExpression": true
+  of "ckProperty, ckArrayType": true
   of "ckYieldStatement, ckBinaryExpression": true
+  of "ckIfStatement, ckDoStatement": true
+  of "ckBinaryExpression, ckInterpolatedStringExpression": true
+  of "ckForStatement, ckInvocationExpression": true
+  of "ckCatch, ckArrayType": true
+  of "ckEqualsValueClause, ckTupleExpression": true
   of "ckCatchClause, ckCatch": true
+  of "ckForEachStatement, ckThisExpression": true
   of "ckConditionalExpression, ckParenthesizedLambdaExpression": true
+  of "ckElseClause, ckCheckedStatement": true
   of "ckCastExpression, ckParenthesizedExpression": true
+  of "ckDeclarationExpression, ckIdentifier": true
+  of "ckSwitchStatement, ckElementAccessExpression": true
   of "ckAssignmentExpression, ckAnonymousObjectCreationExpression": true
   of "ckConditionalExpression, ckIsPatternExpression": true
   of "ckReturnStatement, ckArrayCreationExpression": true
   of "ckInitializerExpression, ckParenthesizedLambdaExpression": true
   of "ckNamespace, ckProperty": true #?
+  of "ckDefaultExpression, ckIdentifier": true
   of "ckParenthesizedLambdaExpression, ckQueryExpression": true
   of "ckMemberAccessExpression, ckParenthesizedExpression": true
+  of "ckForEachStatement, ckGenericName": true
+  of "ckNullableType, ckGenericName": true
   of "ckParameter, ckGenericName": true
   of "ckParenthesizedLambdaExpression, ckForEachStatement": true
+  of "ckConstructor, ckLabeledStatement": true
+  of "ckIsPatternExpression, ckRecursivePattern": true
+  of "ckBinaryExpression, ckSwitchExpression": true
+  of "ckCastExpression, ckInvocationExpression": true
+  of "ckLetClause, ckObjectCreationExpression": true
   of "ckSwitchExpression, ckTupleExpression": true
   of "ckStruct, ckDelegate": true
+  # of "ckConversionOperator, ckIdentifier": true
+  of "ckParenthesizedLambdaExpression, ckObjectCreationExpression": true
   of "ckIsPatternExpression, ckLiteralExpression": true
+  of "ckMethod, ckIfStatement": true
+  of "ckClass, ckOperator": true
+  of "ckTypeConstraint, ckIdentifier": true
+  of "ckArgument, ckBaseExpression": true
+  of "ckVariableDeclarator, ckBinaryExpression": true
   of "ckQueryBody, ckJoinClause": true
+  of "ckReturnStatement, ckTypeOfExpression": true
+  of "ckBinaryExpression, ckRefExpression": true
   of "ckJoinClause, ckInvocationExpression": true
+  of "ckAnonymousObjectMemberDeclarator, ckIdentifier": true
   of "ckIsPatternExpression, ckBinaryExpression": true
+  of "ckSwitchStatement, ckConditionalExpression": true
+  of "ckLocalFunctionStatement, ckTypeParameterConstraintClause": true
   of "ckMethod, ckInvocationExpression": true
   of "ckCastExpression, ckConditionalAccessExpression": true
   of "ckInterface, ckMethod": true
+  of "ckMethod, ckCastExpression": true
   of "ckAssignmentExpression, ckMemberAccessExpression": true
   of "ckConversionOperator, ckExpressionStatement": true
+  of "ckLocalFunctionStatement, ckIfStatement": true
+  of "ckDefaultExpression, ckPredefinedType": true
   of "ckConstructor, ckConstructorInitializer": true
+  of "ckThrowStatement, ckInvocationExpression": true
   of "ckWhileStatement, ckIsPatternExpression": true
+  of "ckUsingStatement, ckUnsafeStatement": true
+  of "ckTypeParameterConstraintClause, ckIdentifier": true
   of "ckBinaryExpression, ckDefaultExpression": true
   of "ckConditionalExpression, ckStackAllocArrayCreationExpression": true
+  of "ckCastExpression, ckPrefixUnaryExpression": true
   of "ckProperty, ckAliasQualifiedName": true
+  of "ckEqualsValueClause, ckIsPatternExpression": true
   of "ckFinallyClause, ckForStatement": true
   of "ckFinallyClause, ckDoStatement": true
+  of "ckIfStatement, ckFixedStatement": true
+  of "ckCatchFilterClause, ckIdentifier": true
+  of "ckNamespace, ckInterface": true
+  of "ckParenthesizedExpression, ckQueryExpression": true
   of "ckFromClause, ckCastExpression": true
   of "ckSimpleLambdaExpression, ckDoStatement": true
+  of "ckIfStatement, ckContinueStatement": true
+  of "ckEvent, ckTupleType": true
   of "ckClass, ckMethod": true
   of "ckSimpleLambdaExpression, ckArrayCreationExpression": true
+  of "ckRefExpression, ckElementAccessExpression": true
   of "ckAccessor, ckWhileStatement": true
   of "ckConstructor, ckSwitchStatement": true
   of "ckForStatement, ckVariable": true
+  of "ckIndexer, ckFixedStatement": true
+  of "ckAccessor, ckUsingStatement": true
   of "ckArgument, ckLiteralExpression": true
   of "ckConditionalExpression, ckCheckedExpression": true
+  of "ckAnonymousObjectMemberDeclarator, ckArrayCreationExpression": true
   of "ckEqualsValueClause, ckAnonymousMethodExpression": true
+  of "ckWhileStatement, ckWhileStatement": true
   of "ckCaseSwitchLabel, ckSizeOfExpression": true
+  of "ckTupleType, ckTupleElement": true
+  of "ckExplicitInterfaceSpecifier, ckAliasQualifiedName": true
   of "ckIsPatternExpression, ckCastExpression": true
   of "ckRefExpression, ckLiteralExpression": true
+  of "ckInterface, ckInterface": true
+  of "ckParenthesizedLambdaExpression, ckSizeOfExpression": true
   of "ckDoStatement, ckBinaryExpression": true
   of "ckBinaryPattern, ckUnaryPattern": true
+  of "ckLabeledStatement, ckLockStatement": true
+  of "ckAwaitExpression, ckPostfixUnaryExpression": true
+  of "ckConditionalExpression, ckRefExpression": true
+  of "ckAssignmentExpression, ckIdentifier": true
+  of "ckConversionOperator, ckPointerType": true
+  of "ckEqualsValueClause, ckArrayCreationExpression": true
   of "ckVariable, ckGenericName": true
   of "ckCaseSwitchLabel, ckCastExpression": true
   of "ckParenthesizedExpression, ckSizeOfExpression": true
   of "ckDestructor, ckTryStatement": true
   of "ckMemberAccessExpression, ckTypeOfExpression": true
   of "ckForStatement, ckPostfixUnaryExpression": true
+  of "ckNameEquals, ckIdentifier": true
+  of "ckCatch, ckPredefinedType": true
   of "ckGlobalStatement, ckWhileStatement": true
+  # of "ckAssignmentExpression, ckIdentifier": true
   of "ckFromClause, ckBinaryExpression": true
   of "ckOmittedArraySizeExpression, ckGenericName": true
+  # of "ckMemberAccessExpression, ckIdentifier": true
+  of "ckLetClause, ckIdentifier": true
   of "ckAnonymousObjectMemberDeclarator, ckElementAccessExpression": true
+  of "ckInitializerExpression, ckThisExpression": true
+  of "ckMemberAccessExpression, ckRefValueExpression": true
   of "ckClass, ckConversionOperator": true
+  of "ckLetClause, ckCastExpression": true
   of "ckInvocationExpression, ckInvocationExpression": true
   of "ckSimpleLambdaExpression, ckBinaryExpression": true
+  of "ckYieldStatement, ckElementAccessExpression": true
+  of "ckAnonymousMethodExpression, ckForEachStatement": true
+  of "ckIfStatement, ckWhileStatement": true
+  of "ckStruct, ckEvent": true
+  of "ckSelectClause, ckArrayCreationExpression": true
   of "ckFixedStatement, ckReturnStatement": true
+  of "ckInvocationExpression, ckPostfixUnaryExpression": true
+  of "ckArgument, ckImplicitObjectCreationExpression": true
+  of "ckSwitchExpressionArm, ckInterpolatedStringExpression": true
   of "ckForEachStatement, ckPrefixUnaryExpression": true
   of "ckCheckedExpression, ckCastExpression": true
   of "ckParenthesizedLambdaExpression, ckMemberAccessExpression": true
+  of "ckEqualsValueClause, ckMakeRefExpression": true
+  of "ckOrdering, ckBinaryExpression": true
   of "ckInvocationExpression, ckSimpleLambdaExpression": true
+  of "ckParenthesizedExpression, ckCastExpression": true
   of "ckPointerType, ckPointerType": true
+  of "ckSwitchSection, ckFixedStatement": true
+  of "ckForStatement, ckCastExpression": true
   of "ckAccessor, ckExpressionStatement": true
   of "ckArrowExpressionClause, ckWithExpression": true
   of "ckParenthesizedExpression, ckAssignmentExpression": true
+  of "ckArrowExpressionClause, ckThisExpression": true
+  of "ckParenthesizedExpression, ckAwaitExpression": true
   of "ckInterface, ckEvent": true
   of "ckLocalFunctionStatement, ckNullableType": true
+  of "ckGroupClause, ckIdentifier": true
+  of "ckCastExpression, ckTupleExpression": true
+  of "ckInterface, ckStruct": true
   of "ckLetClause, ckConditionalAccessExpression": true
+  of "ckAnonymousMethodExpression, ckDoStatement": true
+  of "ckInitializerExpression, ckDefaultExpression": true
   of "ckInitializerExpression, ckThrowExpression": true
   of "ckDoStatement, ckConditionalExpression": true
+  of "ckElseClause, ckForStatement": true
+  of "ckSimpleLambdaExpression, ckPostfixUnaryExpression": true
+  of "ckAliasQualifiedName, ckGenericName": true
+  of "ckStruct, ckClass": true
   of "ckPrefixUnaryExpression, ckPredefinedType": true
   of "ckSwitchStatement, ckBaseExpression": true
+  of "ckVariable, ckVariableDeclarator": true
+  of "ckParenthesizedExpression, ckLiteralExpression": true
   of "ckBinaryPattern, ckRecursivePattern": true
+  of "ckArrowExpressionClause, ckAssignmentExpression": true
+  of "ckInvocationExpression, ckPredefinedType": true
+  of "ckYieldStatement, ckInterpolatedStringExpression": true
   of "ckInitializerExpression, ckInitializerExpression": true
   of "ckYieldStatement, ckTupleExpression": true
+  of "ckRefValueExpression, ckInvocationExpression": true
+  of "ckLocalFunctionStatement, ckArrayType": true
+  of "ckUsingStatement, ckBinaryExpression": true
+  of "ckOperator, ckGenericName": true
   of "ckForEachVariableStatement, ckDeclarationExpression": true
+  # of "ckSimpleBaseType, ckIdentifier": true
+  of "ckAssignmentExpression, ckAssignmentExpression": true
+  of "ckDefaultExpression, ckGenericName": true
+  of "ckRangeExpression, ckCastExpression": true
+  of "ckLocalFunctionStatement, ckDoStatement": true
+  of "ckProperty, ckCheckedStatement": true
+  of "ckCatchFilterClause, ckPrefixUnaryExpression": true
   of "ckSwitchSection, ckCheckedStatement": true
+  # of "ckInterpolation, ckIdentifier": true
+  of "ckYieldStatement, ckDefaultExpression": true
   of "ckTypeParameterList, ckTypeParameter": true
+  of "ckEvent, ckNullableType": true
+  of "ckTypeArgumentList, ckPredefinedType": true
   of "ckTupleElement, ckGenericName": true
+  of "ckVariable, ckIdentifier": true
   of "ckAccessor, ckThrowStatement": true
   of "ckParenthesizedVariableDesignation, ckDiscardDesignation": true
+  of "ckSwitchExpression, ckParenthesizedExpression": true
+  of "ckMemberAccessExpression, ckObjectCreationExpression": true
   of "ckPrefixUnaryExpression, ckLiteralExpression": true
+  of "ckEqualsValueClause, ckDefaultExpression": true
+  of "ckMethod, ckForEachStatement": true
+  of "ckWhileStatement, ckCastExpression": true
   of "ckForStatement, ckExpressionStatement": true
+  of "ckGotoStatement, ckCastExpression": true
+  of "ckBracketedArgumentList, ckArgument": true
+  of "ckDestructor, ckLockStatement": true
+  of "ckLockStatement, ckLockStatement": true
+  of "ckWhileStatement, ckSwitchStatement": true
+  of "ckConstructor, ckDoStatement": true
   of "ckTryStatement, ckReturnStatement": true
+  of "ckAnonymousMethodExpression, ckThrowStatement": true
+  of "ckForStatement, ckImplicitArrayCreationExpression": true
   of "ckMemberAccessExpression, ckArrayCreationExpression": true
   of "ckMethod, ckLabeledStatement": true
+  of "ckParenthesizedLambdaExpression, ckLockStatement": true
   of "ckParenthesizedExpression, ckStackAllocArrayCreationExpression": true
+  of "ckOperator, ckForStatement": true
   of "ckSwitchExpressionArm, ckDeclarationPattern": true
   of "ckCheckedExpression, ckLiteralExpression": true
   of "ckIfStatement, ckThrowStatement": true
+  of "ckExpressionStatement, ckConditionalExpression": true
   of "ckLabeledStatement, ckUsingStatement": true
+  of "ckOperator, ckCheckedStatement": true
+  of "ckArrayType, ckIdentifier": true
+  of "ckSimpleBaseType, ckArrayType": true
+  of "ckStruct, ckInterface": true
+  of "ckWithExpression, ckInitializerExpression": true
   of "ckExpressionStatement, ckAnonymousMethodExpression": true
   of "ckSwitchExpressionArm, ckPostfixUnaryExpression": true
+  of "ckIfStatement, ckUnsafeStatement": true
+  of "ckCheckedExpression, ckAnonymousMethodExpression": true
   of "ckDoStatement, ckCastExpression": true
   of "ckLockStatement, ckMemberAccessExpression": true
+  of "ckForEachStatement, ckNullableType": true
   of "ckConversionOperator, ckNullableType": true
   of "ckQueryBody, ckSelectClause": true
+  # of "ckPredefinedType, ckIdentifier": true
+  of "ckConditionalExpression, ckMakeRefExpression": true
   of "ckSwitchExpression, ckMemberAccessExpression": true
   of "ckForStatement, ckLocalDeclarationStatement": true
   of "ckGlobalStatement, ckUsingStatement": true
+  of "ckMemberAccessExpression, ckPredefinedType": true
   of "ckAnonymousObjectMemberDeclarator, ckObjectCreationExpression": true
   of "ckSwitchExpression, ckPostfixUnaryExpression": true
+  of "ckSimpleLambdaExpression, ckImplicitArrayCreationExpression": true
   of "ckAccessor, ckFixedStatement": true
   of "ckForStatement, ckForStatement": true
   of "ckCaseSwitchLabel, ckBinaryExpression": true
   of "ckProperty, ckForEachStatement": true
+  of "ckIfStatement, ckBinaryExpression": true
+  of "ckParenthesizedLambdaExpression, ckThisExpression": true
+  of "ckTypePattern, ckPredefinedType": true
+  of "ckElseClause, ckReturnStatement": true
+  of "ckForEachStatement, ckImplicitArrayCreationExpression": true
   of "ckLabeledStatement, ckReturnStatement": true
+  of "ckConstructor, ckAssignmentExpression": true
+  of "ckAssignmentExpression, ckBinaryExpression": true
+  of "ckInterpolation, ckTypeOfExpression": true
+  of "ckSwitchSection, ckGotoStatement": true
+  of "ckProperty, ckExplicitInterfaceSpecifier": true
   of "ckForEachVariableStatement, ckMemberAccessExpression": true
   of "ckStruct, ckIncompleteMember": true
+  of "ckProperty, ckYieldStatement": true
   of "ckReturnStatement, ckDefaultExpression": true
+  of "ckLiteralExpression, ckIdentifier": true
+  of "ckYieldStatement, ckIdentifier": true
+  of "ckArgument, ckIdentifier": true
+  of "ckAssignmentExpression, ckDeclarationExpression": true
+  of "ckYieldStatement, ckArrayCreationExpression": true
+  of "ckTypeParameterConstraintClause, ckClassOrStructConstraint": true
   of "ckElseClause, ckExpressionStatement": true
+  of "ckArrowExpressionClause, ckLiteralExpression": true
+  of "ckObjectCreationExpression, ckAliasQualifiedName": true
   of "ckStruct, ckEventField": true
   of "ckInterpolation, ckConditionalAccessExpression": true
   of "ckSwitchExpressionArm, ckVarPattern": true
   of "ckForEachVariableStatement, ckTupleExpression": true
+  # of "ckForEachStatement, ckIdentifier": true
+  of "ckParenthesizedExpression, ckIdentifier": true
+  of "ckArrayType, ckTupleType": true
+  of "ckExpressionStatement, ckPrefixUnaryExpression": true
   of "ckRefExpression, ckPrefixUnaryExpression": true
+  of "ckTypeArgumentList, ckOmittedTypeArgument": true
+  of "ckCaseSwitchLabel, ckCheckedExpression": true
   of "ckParenthesizedExpression, ckArrayCreationExpression": true
   of "ckProperty, ckRefType": true
+  of "ckAnonymousObjectMemberDeclarator, ckAnonymousObjectCreationExpression": true
   of "ckAwaitExpression, ckInvocationExpression": true
+  of "ckAnonymousMethodExpression, ckGotoStatement": true
+  of "ckCheckedExpression, ckBinaryExpression": true
+  of "ckInvocationExpression, ckAliasQualifiedName": true
   of "ckIncompleteMember, ckArrayType": true
   of "ckNameEquals, ckGenericName": true
   of "ckIndexer, ckYieldStatement": true
+  of "ckExpressionStatement, ckBinaryExpression": true
   of "ckProperty, ckReturnStatement": true
   of "ckSwitchExpressionArm, ckWhenClause": true
+  of "ckReturnStatement, ckBaseExpression": true
   of "ckNullableType, ckArrayType": true
+  of "ckOperator, ckYieldStatement": true
+  of "ckRefType, ckIdentifier": true
   of "ckParameter, ckPointerType": true
   of "ckExpressionStatement, ckConditionalAccessExpression": true
+  of "ckParameter, ckLiteralExpression": true
+  of "ckProperty, ckDoStatement": true
   of "ckIfStatement, ckAwaitExpression": true
   of "ckMethod, ckSwitchStatement": true
   of "ckCheckedExpression, ckAnonymousObjectCreationExpression": true
   of "ckForStatement, ckAssignmentExpression": true
   of "ckFixedStatement, ckIfStatement": true
+  of "ckElseClause, ckForEachVariableStatement": true
+  of "ckUnaryPattern, ckParenthesizedPattern": true
+  of "ckSubpattern, ckDiscardPattern": true
   of "ckIfStatement, ckIsPatternExpression": true
   of "ckClass, ckField": true
+  of "ckTypeParameterConstraintClause, ckTypeConstraint": true
   of "ckLabeledStatement, ckLocalDeclarationStatement": true
   of "ckStruct, ckOperator": true
+  of "ckAssignmentExpression, ckPredefinedType": true
   of "ckCasePatternSwitchLabel, ckWhenClause": true
   of "ckThrowExpression, ckBinaryExpression": true
   of "ckCheckedExpression, ckInvocationExpression": true
   of "ckEventField, ckLiteralExpression": true
+  of "ckGroupClause, ckParenthesizedExpression": true
   of "ckLabeledStatement, ckExpressionStatement": true
   of "ckParenthesizedExpression, ckPrefixUnaryExpression": true
   of "ckCastExpression, ckTypeOfExpression": true
   of "ckArrowExpressionClause, ckTupleExpression": true
+  of "ckSimpleLambdaExpression, ckLockStatement": true
   of "ckBinaryExpression, ckMemberAccessExpression": true
   of "ckBinaryExpression, ckRefTypeExpression": true
+  of "ckForEachStatement, ckDoStatement": true
+  of "ckSimpleLambdaExpression, ckReturnStatement": true
   of "ckEqualsValueClause, ckRefTypeExpression": true
   of "ckEqualsValueClause, ckElementAccessExpression": true
   of "ckReturnStatement, ckPrefixUnaryExpression": true
+  # of "ckAliasQualifiedName, ckIdentifier": true
+  of "ckDelegate, ckLiteralExpression": true
+  of "ckIfStatement, ckLabeledStatement": true
   of "ckConditionalAccessExpression, ckInvocationExpression": true
   of "ckConditionalExpression, ckThrowExpression": true
+  of "ckBinaryExpression, ckGenericName": true
   of "ckAssignmentExpression, ckImplicitObjectCreationExpression": true
   of "ckSimpleLambdaExpression, ckIsPatternExpression": true
+  # of "ckPrefixUnaryExpression, ckIdentifier": true
+  of "ckIncompleteMember, ckPredefinedType": true
   of "ckArgument, ckTupleExpression": true
   of "ckNamespace, ckEventField": true
+  of "ckPredefinedType, ckIdentifier": true
+  of "ckEqualsValueClause, ckQueryExpression": true
+  of "ckAwaitExpression, ckDefaultExpression": true
+  of "ckForEachStatement, ckLabeledStatement": true
+  of "ckInitializerExpression, ckIsPatternExpression": true
+  of "ckSimpleLambdaExpression, ckConditionalAccessExpression": true
   of "ckAssignmentExpression, ckSimpleLambdaExpression": true
   of "ckDefaultExpression, ckNullableType": true
+  of "ckUsingStatement, ckAssignmentExpression": true
+  # of "ckArrayRankSpecifier, ckIdentifier": true
   of "ckArrowExpressionClause, ckElementAccessExpression": true
+  of "ckRefExpression, ckDefaultExpression": true
+  of "ckElementAccessExpression, ckImplicitArrayCreationExpression": true
+  of "ckLocalFunctionStatement, ckTryStatement": true
   of "ckArrayRankSpecifier, ckPrefixUnaryExpression": true
+  of "ckCheckedExpression, ckPostfixUnaryExpression": true
   of "ckIsPatternExpression, ckUnaryPattern": true
+  of "ckExpressionStatement, ckMemberAccessExpression": true
+  of "ckAliasQualifiedName, ckIdentifier": true
+  of "ckYieldStatement, ckConditionalExpression": true
+  of "ckConstructor, ckYieldStatement": true
   of "ckRefExpression, ckParenthesizedExpression": true
+  of "ckDoStatement, ckExpressionStatement": true
+  of "ckConversionOperator, ckThrowStatement": true
+  of "ckDelegate, ckGenericName": true
+  of "ckSwitchStatement, ckCastExpression": true
   of "ckConstructor, ckUnsafeStatement": true
   of "ckDelegate, ckPredefinedType": true
   of "ckIsPatternExpression, ckConstantPattern": true
   of "ckTypeArgumentList, ckNullableType": true
+  of "ckElementAccessExpression, ckRefValueExpression": true
+  of "ckTypeOfExpression, ckIdentifier": true
+  of "ckAwaitExpression, ckObjectCreationExpression": true
+  of "ckSimpleLambdaExpression, ckForStatement": true
   of "ckConstantPattern, ckPrefixUnaryExpression": true
+  of "ckCastExpression, ckAnonymousMethodExpression": true
+  of "ckElseClause, ckLockStatement": true
   of "ckParenthesizedExpression, ckBinaryExpression": true
+  of "ckAnonymousObjectMemberDeclarator, ckCheckedExpression": true
   of "ckInitializerExpression, ckLiteralExpression": true
   of "ckClass, ckProperty": true
+  of "ckSelectClause, ckAnonymousObjectCreationExpression": true
   of "ckSimpleLambdaExpression, ckTryStatement": true
+  of "ckRefExpression, ckPostfixUnaryExpression": true
   of "ckLocalFunctionStatement, ckThrowStatement": true
+  of "ckPostfixUnaryExpression, ckObjectCreationExpression": true
   of "ckAnonymousMethodExpression, ckLocalDeclarationStatement": true
+  of "ckReturnStatement, ckParenthesizedLambdaExpression": true
+  of "ckConditionalAccessExpression, ckLiteralExpression": true
+  of "ckTypeArgumentList, ckIdentifier": true
+  of "ckAnonymousObjectMemberDeclarator, ckLiteralExpression": true
+  of "ckExplicitInterfaceSpecifier, ckGenericName": true
   of "ckParenthesizedVariableDesignation, ckParenthesizedVariableDesignation": true
+  of "ckEqualsValueClause, ckGenericName": true
   of "ckGotoStatement, ckLiteralExpression": true
+  of "ckConstructor, ckReturnStatement": true
   of "ckSimpleLambdaExpression, ckForEachVariableStatement": true
+  of "ckBinaryExpression, ckRefValueExpression": true
   of "ckLockStatement, ckLiteralExpression": true
+  of "ckParenthesizedLambdaExpression, ckDefaultExpression": true
+  of "ckEvent, ckIdentifier": true
   of "ckIfStatement, ckCastExpression": true
+  of "ckArrayType, ckAliasQualifiedName": true
   of "ckFromClause, ckLiteralExpression": true
   of "ckElementAccessExpression, ckArrayCreationExpression": true
+  of "ckArgument, ckInterpolatedStringExpression": true
   of "ckYieldStatement, ckTypeOfExpression": true
   of "ckMethod, ckThrowStatement": true
   of "ckParenthesizedExpression, ckTypeOfExpression": true
   of "ckLetClause, ckArrayCreationExpression": true
+  of "ckMethod, ckTypeParameterConstraintClause": true
+  of "ckInvocationExpression, ckElementAccessExpression": true
   of "ckConditionalExpression, ckRefValueExpression": true
+  of "ckMethod, ckAliasQualifiedName": true
+  of "ckBinaryExpression, ckRangeExpression": true
+  of "ckArrowExpressionClause, ckAwaitExpression": true
+  of "ckWhileStatement, ckAwaitExpression": true
   of "ckMemberAccessExpression, ckImplicitArrayCreationExpression": true
+  of "ckSimpleBaseType, ckPointerType": true
+  # of "ckArgumentList, ckIdentifier": true
   of "ckArrayRankSpecifier, ckObjectCreationExpression": true
   of "ckLocalFunctionStatement, ckPredefinedType": true
+  of "ckVariableDeclarator, ckObjectCreationExpression": true
+  of "ckSimpleLambdaExpression, ckConditionalExpression": true
+  # of "ckMethod, ckIdentifier": true
+  # of "ckNamespace, ckIdentifier": true
   of "ckReturnStatement, ckAwaitExpression": true
+  # of "ckPointerType, ckIdentifier": true
+  of "ckUsingDirective, ckIdentifier": true
+  of "ckEnumMember, ckLiteralExpression": true
+  of "ckFromClause, ckThisExpression": true
   of "ckAnonymousObjectMemberDeclarator, ckMemberAccessExpression": true
+  of "ckProperty, ckForEachVariableStatement": true
+  of "ckAssignmentExpression, ckDefaultExpression": true
+  of "ckIndexer, ckIfStatement": true
   of "ckProperty, ckPointerType": true
+  of "ckArgument, ckMakeRefExpression": true
   of "ckDestructor, ckDoStatement": true
+  of "ckBinaryExpression, ckPrefixUnaryExpression": true
   of "ckUsingStatement, ckForStatement": true
   of "ckThrowExpression, ckLiteralExpression": true
+  of "ckInterpolationAlignmentClause, ckPrefixUnaryExpression": true
   of "ckLabeledStatement, ckGotoStatement": true
   of "ckParenthesizedExpression, ckGenericName": true
   of "ckMethod, ckLocalFunctionStatement": true
+  of "ckSwitchExpressionArm, ckLiteralExpression": true
+  of "ckSwitchStatement, ckParenthesizedExpression": true
+  of "ckAnonymousMethodExpression, ckParameterList": true
   of "ckElementAccessExpression, ckImplicitObjectCreationExpression": true
   of "ckWhileStatement, ckAssignmentExpression": true
+  of "ckElementAccessExpression, ckInvocationExpression": true
+  of "ckOperator, ckWhileStatement": true
   of "ckConditionalAccessExpression, ckConditionalAccessExpression": true
   of "ckDestructor, ckIfStatement": true
   of "ckAnonymousMethodExpression, ckFixedStatement": true
   of "ckForEachStatement, ckForStatement": true
+  of "ckAnonymousObjectMemberDeclarator, ckNameEquals": true
+  of "ckForEachStatement, ckReturnStatement": true
   of "ckSelectClause, ckElementAccessExpression": true
   of "ckMethod, ckYieldStatement": true
+  of "ckRefType, ckNullableType": true
   of "ckAssignmentExpression, ckPrefixUnaryExpression": true
   of "ckYieldStatement, ckLiteralExpression": true
+  of "ckLockStatement, ckTryStatement": true
+  of "ckForStatement, ckTryStatement": true
   of "ckConstantPattern, ckDefaultExpression": true
   of "ckCastExpression, ckGenericName": true
   of "ckInterface, ckDelegate": true
   of "ckSwitchExpressionArm, ckSimpleLambdaExpression": true
+  of "ckTryStatement, ckSwitchStatement": true
+  of "ckNamespace, ckAliasQualifiedName": true
   of "ckSimpleLambdaExpression, ckElementAccessExpression": true
+  of "ckIndexer, ckBracketedParameterList": true
   of "ckOperator, ckParameterList": true
   of "ckAssignmentExpression, ckLiteralExpression": true
+  of "ckConstructor, ckExpressionStatement": true
   of "ckLabeledStatement, ckLabeledStatement": true
+  of "ckInterpolation, ckObjectCreationExpression": true
+  of "ckLockStatement, ckIdentifier": true
   of "ckElseClause, ckBreakStatement": true
   of "ckTypeConstraint, ckPredefinedType": true
   of "ckSizeOfExpression, ckPredefinedType": true
+  of "ckArgument, ckObjectCreationExpression": true
   of "ckGlobalStatement, ckLabeledStatement": true
   of "ckCastExpression, ckDefaultExpression": true
+  of "ckInterpolation, ckPostfixUnaryExpression": true
+  of "ckForStatement, ckUnsafeStatement": true
   of "ckArrayType, ckArrayRankSpecifier": true
   of "ckReturnStatement, ckObjectCreationExpression": true
+  of "ckAnonymousObjectMemberDeclarator, ckParenthesizedExpression": true
+  of "ckArgument, ckTypeOfExpression": true
   of "ckSwitchSection, ckLocalFunctionStatement": true
+  of "ckEvent, ckGenericName": true
+  of "ckMemberAccessExpression, ckPostfixUnaryExpression": true
+  of "ckArrowExpressionClause, ckSwitchExpression": true
+  of "ckProperty, ckLabeledStatement": true
   of "ckProperty, ckSwitchStatement": true
   of "ckConversionOperator, ckForEachStatement": true
+  of "ckMemberBindingExpression, ckIdentifier": true
   of "ckAccessor, ckForEachStatement": true
+  of "ckSwitchStatement, ckAwaitExpression": true
+  of "ckEqualsValueClause, ckSwitchExpression": true
   of "ckArgument, ckIsPatternExpression": true
+  of "ckEqualsValueClause, ckCheckedExpression": true
+  of "ckReturnStatement, ckAssignmentExpression": true
   of "ckMethod, ckLockStatement": true
+  of "ckForStatement, ckForEachStatement": true
+  of "ckCatchFilterClause, ckLiteralExpression": true
   of "ckParenthesizedLambdaExpression, ckPrefixUnaryExpression": true
   of "ckLocalFunctionStatement, ckWhileStatement": true
+  of "ckSizeOfExpression, ckIdentifier": true
+  of "ckLabeledStatement, ckTryStatement": true
   of "ckConditionalExpression, ckPostfixUnaryExpression": true
+  of "ckBinaryExpression, ckElementAccessExpression": true
+  of "ckSimpleLambdaExpression, ckParameter": true
   of "ckOperator, ckPredefinedType": true
+  of "ckElementAccessExpression, ckMemberAccessExpression": true
+  of "ckArgument, ckQueryExpression": true
   of "ckCatchClause, ckCatchFilterClause": true
   of "ckEqualsValueClause, ckPostfixUnaryExpression": true
+  of "ckArrowExpressionClause, ckParenthesizedLambdaExpression": true
+  of "ckLocalFunctionStatement, ckSwitchStatement": true
+  of "ckProperty, ckFixedStatement": true
+  of "ckSwitchExpressionArm, ckConditionalAccessExpression": true
+  of "ckReturnStatement, ckSwitchExpression": true
+  of "ckIndexer, ckReturnStatement": true
   of "ckConstructor, ckFixedStatement": true
   of "ckIncompleteMember, ckGenericName": true
+  of "ckPostfixUnaryExpression, ckDefaultExpression": true
   of "ckWhileStatement, ckLiteralExpression": true
   of "ckParenthesizedLambdaExpression, ckThrowStatement": true
+  of "ckTypeOfExpression, ckNullableType": true
+  of "ckElementAccessExpression, ckPostfixUnaryExpression": true
+  of "ckParenthesizedLambdaExpression, ckInvocationExpression": true
+  of "ckAccessor, ckSwitchStatement": true
   of "ckEqualsValueClause, ckObjectCreationExpression": true
+  of "ckLockStatement, ckLabeledStatement": true
+  of "ckInitializerExpression, ckObjectCreationExpression": true
+  of "ckMethod, ckVariableDeclarator": true
   of "ckEqualsValueClause, ckAwaitExpression": true
+  of "ckGlobalStatement, ckLocalDeclarationStatement": true
   of "ckQueryBody, ckWhereClause": true
   of "ckInvocationExpression, ckLiteralExpression": true
+  of "ckTryStatement, ckForEachStatement": true
   of "ckArrowExpressionClause, ckBinaryExpression": true
+  of "ckForEachVariableStatement, ckBinaryExpression": true
   of "ckArgument, ckAwaitExpression": true
   of "ckCheckedExpression, ckConditionalExpression": true
   of "ckArgument, ckBinaryExpression": true
   of "ckForStatement, ckSwitchStatement": true
+  of "ckInitializerExpression, ckArrayCreationExpression": true
   of "ckForStatement, ckGotoStatement": true
   of "ckIndexer, ckThrowStatement": true
   of "ckReturnStatement, ckBinaryExpression": true
+  of "ckCheckedExpression, ckAwaitExpression": true
   of "ckInvocationExpression, ckObjectCreationExpression": true
+  of "ckInterpolation, ckAssignmentExpression": true
   of "ckAnonymousMethodExpression, ckWhileStatement": true
+  of "ckDoStatement, ckContinueStatement": true
+  of "ckInterpolation, ckParenthesizedExpression": true
   of "ckDoStatement, ckAwaitExpression": true
+  of "ckMethod, ckGotoStatement": true
+  of "ckIndexer, ckSwitchStatement": true
+  of "ckVariable, ckPredefinedType": true
+  of "ckConditionalExpression, ckSwitchExpression": true
+  of "ckInitializerExpression, ckInvocationExpression": true
+  of "ckIfStatement, ckTryStatement": true
+  of "ckLiteralExpression, ckBinaryExpression": true
   of "ckForStatement, ckTupleExpression": true
   of "ckArrowExpressionClause, ckParenthesizedExpression": true
   of "ckRelationalPattern, ckMemberAccessExpression": true
   of "ckParenthesizedLambdaExpression, ckSimpleLambdaExpression": true
   of "ckTypeOfExpression, ckArrayType": true
+  of "ckBaseList, ckSimpleBaseType": true
   of "ckIndexer, ckLocalDeclarationStatement": true
+  of "ckIncompleteMember, ckIdentifier": true
   of "ckConstructor, ckTryStatement": true
   of "ckForStatement, ckObjectCreationExpression": true
   of "ckMemberAccessExpression, ckLiteralExpression": true
   of "ckBinaryExpression, ckParenthesizedExpression": true
+  of "ckForEachStatement, ckContinueStatement": true
+  of "ckForEachStatement, ckCheckedStatement": true
+  of "ckSwitchStatement, ckMemberAccessExpression": true
+  of "ckFromClause, ckQueryExpression": true
   of "ckAssignmentExpression, ckAnonymousMethodExpression": true
   of "ckTypeConstraint, ckArrayType": true
+  of "ckParenthesizedExpression, ckPredefinedType": true
+  of "ckGlobalStatement, ckThrowStatement": true
+  of "ckAwaitExpression, ckCastExpression": true
+  of "ckArgument, ckCastExpression": true
+  of "ckWhileStatement, ckElementAccessExpression": true
   of "ckTupleElement, ckArrayType": true
   of "ckAccessor, ckCheckedStatement": true
+  of "ckExpressionStatement, ckAssignmentExpression": true
+  of "ckForEachStatement, ckConditionalAccessExpression": true
   of "ckConversionOperator, ckYieldStatement": true
+  of "ckParenthesizedExpression, ckPostfixUnaryExpression": true
   of "ckIncompleteMember, ckNullableType": true
   of "ckForEachStatement, ckArrayType": true
+  of "ckAccessor, ckArrowExpressionClause": true
+  of "ckInterface, ckEventField": true
   of "ckInitializerExpression, ckAnonymousMethodExpression": true
   of "ckVariableDeclarator, ckBracketedArgumentList": true
   of "ckIsPatternExpression, ckMemberAccessExpression": true
   of "ckAssignmentExpression, ckGenericName": true
   of "ckInitializerExpression, ckImplicitObjectCreationExpression": true
   of "ckMethod, ckBreakStatement": true
+  of "ckVariableDeclarator, ckEqualsValueClause": true
   of "ckSwitchExpressionArm, ckCastExpression": true
   of "ckRefExpression, ckInvocationExpression": true
   of "ckTypeOfExpression, ckGenericName": true
   of "ckDestructor, ckArrowExpressionClause": true
+  of "ckSwitchSection, ckBreakStatement": true
+  of "ckConditionalExpression, ckIdentifier": true
+  # of "ckTypeArgumentList, ckIdentifier": true
+  of "ckArrayRankSpecifier, ckAwaitExpression": true
+  of "ckIndexer, ckPredefinedType": true
+  of "ckBinaryExpression, ckCastExpression": true
   of "ckAnonymousObjectCreationExpression, ckAnonymousObjectMemberDeclarator": true
   of "ckSimpleLambdaExpression, ckIfStatement": true
   of "ckYieldStatement, ckAssignmentExpression": true
+  of "ckIfStatement, ckGotoStatement": true
   of "ckConversionOperator, ckTryStatement": true
   of "ckUsingStatement, ckInvocationExpression": true
+  of "ckLockStatement, ckTypeOfExpression": true
   of "ckRelationalPattern, ckLiteralExpression": true
   of "ckUsingStatement, ckYieldStatement": true
   of "ckInitializerExpression, ckCastExpression": true
   of "ckUsingStatement, ckExpressionStatement": true
+  of "ckAssignmentExpression, ckInitializerExpression": true
+  of "ckRefTypeExpression, ckThisExpression": true
   of "ckAssignmentExpression, ckTypeOfExpression": true
+  of "ckUsingStatement, ckCastExpression": true
+  of "ckFinallyClause, ckTryStatement": true
+  of "ckFromClause, ckAwaitExpression": true
+  of "ckOmittedTypeArgument, ckIdentifier": true
   of "ckSwitchExpressionArm, ckTypeOfExpression": true
+  of "ckNullableType, ckIdentifier": true
   of "ckLabeledStatement, ckIfStatement": true
+  of "ckInterface, ckLiteralExpression": true
   of "ckBinaryExpression, ckThrowExpression": true
   of "ckSwitchExpressionArm, ckConstantPattern": true
+  of "ckUsingStatement, ckAwaitExpression": true
   of "ckInterface, ckConstructor": true
   of "ckExpressionStatement, ckAwaitExpression": true
+  of "ckSingleVariableDesignation, ckIdentifier": true
   of "ckPrefixUnaryExpression, ckCastExpression": true
   of "ckLockStatement, ckThrowStatement": true
   of "ckProperty, ckArrowExpressionClause": true
+  of "ckSwitchSection, ckLabeledStatement": true
   of "ckGroupClause, ckInvocationExpression": true
   of "ckClass, ckStruct": true #?
   of "ckProperty, ckUsingStatement": true
   of "ckImplicitObjectCreationExpression, ckArgumentList": true
+  of "ckForEachStatement, ckTryStatement": true
+  of "ckConstructor, ckLocalDeclarationStatement": true
+  of "ckSwitchExpressionArm, ckElementAccessExpression": true
   of "ckConditionalAccessExpression, ckParenthesizedExpression": true
   of "ckGroupClause, ckMemberAccessExpression": true
   of "ckVariable, ckFunctionPointerType": true
+  of "ckConstantPattern, ckLiteralExpression": true
+  of "ckInitializerExpression, ckMemberAccessExpression": true
+  of "ckAccessor, ckTryStatement": true
   of "ckSelectClause, ckCastExpression": true
   of "ckConditionalExpression, ckCastExpression": true
+  of "ckSwitchSection, ckLockStatement": true
+  of "ckTupleElement, ckIdentifier": true
+  of "ckExpressionStatement, ckRangeExpression": true
+  of "ckReturnStatement, ckQueryExpression": true
+  of "ckLetClause, ckParenthesizedExpression": true
   of "ckForStatement, ckBinaryExpression": true
+  of "ckSwitchSection, ckThrowStatement": true
   of "ckCasePatternSwitchLabel, ckConstantPattern": true
+  of "ckForEachVariableStatement, ckYieldStatement": true
   of "ckDoStatement, ckPrefixUnaryExpression": true
   of "ckLocalDeclarationStatement, ckVariable": true
   of "ckConversionOperator, ckReturnStatement": true
+  of "ckCasePatternSwitchLabel, ckRecursivePattern": true
+  of "ckLabeledStatement, ckThrowStatement": true
+  of "ckExpressionStatement, ckParenthesizedLambdaExpression": true
   of "ckQueryBody, ckOrderByClause": true
+  of "ckEqualsValueClause, ckAnonymousObjectCreationExpression": true
   of "ckReturnStatement, ckImplicitObjectCreationExpression": true
+  of "ckOperator, ckExpressionStatement": true
+  of "ckConditionalExpression, ckDefaultExpression": true
   of "ckInitializerExpression, ckElementAccessExpression": true
   of "ckConversionOperator, ckArrayType": true
   of "ckLabeledStatement, ckEmptyStatement": true
+  of "ckInterpolation, ckInterpolationAlignmentClause": true
   of "ckParenthesizedLambdaExpression, ckIfStatement": true
+  of "ckAccessor, ckYieldStatement": true
+  of "ckIfStatement, ckElseClause": true
+  of "ckCastExpression, ckCheckedExpression": true
   of "ckSwitchExpressionArm, ckPrefixUnaryExpression": true
   of "ckCatchFilterClause, ckIsPatternExpression": true
   of "ckInterpolation, ckCastExpression": true
   of "ckExpressionStatement, ckExpressionStatement": true
+  of "ckParenthesizedLambdaExpression, ckConditionalExpression": true
+  of "ckTypeArgumentList, ckPointerType": true
   of "ckBinaryPattern, ckRelationalPattern": true
   of "ckPrefixUnaryExpression, ckCheckedExpression": true
   of "ckAnonymousMethodExpression, ckForStatement": true
   of "ckGotoStatement, ckMemberAccessExpression": true
+  of "ckClass, ckInterface": true # ?
+  of "ckInterpolatedStringExpression, ckInterpolatedStringText": true
+  of "ckParenthesizedExpression, ckParenthesizedExpression": true
   of "ckSelectClause, ckMemberAccessExpression": true
   of "ckBinaryExpression, ckObjectCreationExpression": true
+  of "ckConstructor, ckContinueStatement": true
+  of "ckReturnStatement, ckConditionalAccessExpression": true
   of "ckIfStatement, ckRefValueExpression": true
+  of "ckThrowExpression, ckObjectCreationExpression": true
+  of "ckStruct, ckTypeParameterList": true
   of "ckDeclarationPattern, ckGenericName": true
+  of "ckForEachStatement, ckElementAccessExpression": true
+  of "ckSimpleBaseType, ckPredefinedType": true
   of "ckStruct, ckLiteralExpression": true
+  of "ckStruct, ckIndexer": true
+  of "ckEqualsValueClause, ckSimpleLambdaExpression": true
   of "ckParenthesizedLambdaExpression, ckPostfixUnaryExpression": true
+  of "ckIsPatternExpression, ckIdentifier": true
   of "ckArrayRankSpecifier, ckCheckedExpression": true
+  of "ckParenthesizedExpression, ckInvocationExpression": true
+  of "ckForEachStatement, ckQueryExpression": true
   of "ckEqualsValueClause, ckInitializerExpression": true
   of "ckMethod, ckPredefinedType": true
+  of "ckDeclarationExpression, ckGenericName": true
+  of "ckPrefixUnaryExpression, ckThisExpression": true
+  of "ckInterpolation, ckAwaitExpression": true
   of "ckMethod, ckFixedStatement": true
   of "ckUsingStatement, ckDefaultExpression": true
   of "ckSimpleLambdaExpression, ckParenthesizedExpression": true
   of "ckObjectCreationExpression, ckInitializerExpression": true
+  of "ckFinallyClause, ckIfStatement": true
+  of "ckCasePatternSwitchLabel, ckVarPattern": true
   of "ckNamespace, ckMethod": false
+  of "ckCaseSwitchLabel, ckIdentifier": true
   of "ckParenthesizedExpression, ckParenthesizedLambdaExpression": true
+  of "ckStruct, ckConstructor": true
+  of "ckIfStatement, ckExpressionStatement": true
   of "ckSwitchSection, ckUsingStatement": true
+  of "ckAnonymousMethodExpression, ckReturnStatement": true
+  of "ckArgument, ckPredefinedType": true
+  of "ckExpressionStatement, ckBaseExpression": true
+  of "ckConstantPattern, ckMemberAccessExpression": true
+  of "ckFromClause, ckPredefinedType": true
+  of "ckSwitchStatement, ckInvocationExpression": true
+  of "ckThrowStatement, ckObjectCreationExpression": true
   of "ckCastExpression, ckMemberAccessExpression": true
+  of "ckGlobalStatement, ckContinueStatement": true
+  of "ckArrowExpressionClause, ckInterpolatedStringExpression": true
   of "ckElseClause, ckFixedStatement": true
+  of "ckInterface, ckTypeParameterConstraintClause": true
   of "ckSelectClause, ckObjectCreationExpression": true
   of "ckAccessor, ckForEachVariableStatement": true
+  of "ckSimpleLambdaExpression, ckParenthesizedLambdaExpression": true
   of "ckReturnStatement, ckImplicitArrayCreationExpression": true
   of "ckArgument, ckParenthesizedExpression": true
   of "ckConditionalExpression, ckTupleExpression": true
   of "ckInitializerExpression, ckConditionalExpression": true
+  of "ckForStatement, ckIsPatternExpression": true
   of "ckOrdering, ckElementAccessExpression": true
+  of "ckWhereClause, ckIsPatternExpression": true
+  of "ckOrderByClause, ckOrdering": true
   of "ckParenthesizedLambdaExpression, ckParameterList": true
   of "ckWhileStatement, ckEmptyStatement": true
+  of "ckLockStatement, ckForEachStatement": true
+  of "ckTypeConstraint, ckNullableType": true
+  of "ckForStatement, ckLiteralExpression": true
   of "ckSwitchExpression, ckElementAccessExpression": true
   of "ckWhenClause, ckMemberAccessExpression": true
+  of "ckInvocationExpression, ckThisExpression": true
+  of "ckParenthesizedLambdaExpression, ckLocalDeclarationStatement": true
   of "ckFromClause, ckElementAccessExpression": true
   of "ckArrayType, ckNullableType": true
   of "ckTupleElement, ckRefType": true
+  of "ckInvocationExpression, ckMemberAccessExpression": true
   of "ckWhenClause, ckPrefixUnaryExpression": true
   of "ckEqualsValueClause, ckBaseExpression": true
   of "ckForStatement, ckDoStatement": true
+  of "ckReturnStatement, ckIdentifier": true
+  of "ckAnonymousMethodExpression, ckExpressionStatement": true
   of "ckAnonymousMethodExpression, ckIfStatement": true
   of "ckGlobalStatement, ckForStatement": true
+  # of "ckIsPatternExpression, ckIdentifier": true
   of "ckDestructor, ckForEachStatement": true
+  of "ckUsingStatement, ckVariable": true
+  of "ckElseClause, ckLocalDeclarationStatement": true
+  of "ckConstructor, ckUsingStatement": true
+  of "ckDeclarationExpression, ckArrayType": true
+  of "ckOperator, ckReturnStatement": true
   of "ckSelectClause, ckConditionalExpression": true
   of "ckInitializerExpression, ckParenthesizedExpression": true
+  of "ckSwitchSection, ckContinueStatement": true
   of "ckRangeExpression, ckPrefixUnaryExpression": true
+  of "ckAssignmentExpression, ckRefValueExpression": true
+  of "ckForEachVariableStatement, ckTryStatement": true
   of "ckConditionalExpression, ckMemberAccessExpression": true
   of "ckSwitchSection, ckIfStatement": true
+  of "ckIsPatternExpression, ckDefaultExpression": true
   of "ckStruct, ckBaseList": true
   of "ckSwitchExpressionArm, ckConditionalExpression": true
   of "ckAnonymousMethodExpression, ckUsingStatement": true
+  of "ckAssignmentExpression, ckImplicitArrayCreationExpression": true
+  of "ckTryStatement, ckFinallyClause": true
   of "ckUsingStatement, ckThrowStatement": true
   of "ckArgument, ckArrayCreationExpression": true
   of "ckConversionOperator, ckLocalDeclarationStatement": true
+  of "ckSwitchExpressionArm, ckRecursivePattern": true
   of "ckParenthesizedPattern, ckBinaryPattern": true
   of "ckPrefixUnaryExpression, ckParenthesizedExpression": true
+  of "ckInterface, ckBaseList": true
   of "ckConditionalExpression, ckArrayCreationExpression": true
   of "ckConstantPattern, ckInvocationExpression": true
   of "ckParenthesizedLambdaExpression, ckSwitchExpression": true
+  of "ckSimpleLambdaExpression, ckForEachStatement": true
+  of "ckExpressionStatement, ckImplicitArrayCreationExpression": true
+  of "ckSimpleLambdaExpression, ckTupleExpression": true
   of "ckVariable, ckNullableType": true
+  of "ckIndexer, ckIdentifier": true
   of "ckAccessor, ckUnsafeStatement": true
   of "ckForEachStatement, ckInvocationExpression": true
   of "ckInterface, ckIndexer": true
@@ -1799,27 +1822,54 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckThrowStatement, ckAwaitExpression": true
   of "ckExpressionStatement, ckQueryExpression": true
   of "ckBinaryExpression, ckInvocationExpression": true
+  of "ckCastExpression, ckBaseExpression": true
   of "ckInterpolation, ckLiteralExpression": true
+  of "ckProperty, ckInvocationExpression": true
   of "ckArrowExpressionClause, ckImplicitArrayCreationExpression": true
   of "ckAssignmentExpression, ckArrayCreationExpression": true
+  # of "ckUsingDirective, ckIdentifier": true
   of "ckParameter, ckAliasQualifiedName": true
+  of "ckParenthesizedLambdaExpression, ckParenthesizedLambdaExpression": true
+  of "ckPostfixUnaryExpression, ckTupleExpression": true
   of "ckIfStatement, ckForStatement": true
   of "ckConstructor, ckArrowExpressionClause": true
   of "ckBinaryExpression, ckImplicitArrayCreationExpression": true
+  of "ckConversionOperator, ckIdentifier": true
   of "ckExpressionStatement, ckArgument": true
+  # of "ckIndexer, ckIdentifier": true
+  of "ckConditionalExpression, ckAssignmentExpression": true
   of "ckMemberAccessExpression, ckInterpolatedStringExpression": true
+  of "ckLocalDeclarationStatement, ckArgumentList": true
+  of "ckElementAccessExpression, ckIdentifier": true
+  of "ckReturnStatement, ckAnonymousObjectCreationExpression": true
+  of "ckBinaryExpression, ckSizeOfExpression": true
   of "ckConstructor, ckForEachVariableStatement": true
+  of "ckElseClause, ckDoStatement": true
   of "ckThrowStatement, ckElementAccessExpression": true
   of "ckYieldStatement, ckPrefixUnaryExpression": true
   of "ckObjectCreationExpression, ckGenericName": true
+  of "ckEqualsValueClause, ckCastExpression": true
+  of "ckProperty, ckThrowStatement": true
+  of "ckFromClause, ckImplicitArrayCreationExpression": true
   of "ckAssignmentExpression, ckRefExpression": true
+  of "ckClass, ckDestructor": true
+  of "ckFixedStatement, ckVariable": true
+  of "ckIncompleteMember, ckTupleType": true
   of "ckConditionalExpression, ckImplicitArrayCreationExpression": true
   of "ckTryStatement, ckLocalDeclarationStatement": true
+  of "ckMemberAccessExpression, ckThisExpression": true
+  of "ckTryStatement, ckGotoStatement": true
+  # of "ckIfStatement, ckIdentifier": true
+  of "ckLocalFunctionStatement, ckForEachStatement": true
+  of "ckArgument, ckConditionalExpression": true
   of "ckIfStatement, ckLockStatement": true
+  of "ckLocalFunctionStatement, ckUsingStatement": true
   of "ckForEachStatement, ckTupleType": true
   of "ckReturnStatement, ckPostfixUnaryExpression": true
+  of "ckThrowStatement, ckMemberAccessExpression": true
   of "ckTypeConstraint, ckGenericName": true
   of "ckLabeledStatement, ckContinueStatement": true
+  of "ckWhereClause, ckBinaryExpression": true
   of "ckForStatement, ckYieldStatement": true
   of "ckYieldStatement, ckInvocationExpression": true
   of "ckUsingStatement, ckObjectCreationExpression": true
@@ -1829,77 +1879,153 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckIndexer, ckArrowExpressionClause": true
   of "ckForStatement, ckPrefixUnaryExpression": true
   of "ckSubpattern, ckUnaryPattern": true
+  of "ckRefExpression, ckIdentifier": true
+  of "ckIfStatement, ckPrefixUnaryExpression": true
   of "ckInitializerExpression, ckGenericName": true
+  of "ckAssignmentExpression, ckMakeRefExpression": true
   of "ckInterface, ckOperator": true
   of "ckCaseSwitchLabel, ckDefaultExpression": true
   of "ckReturnStatement, ckRefExpression": true
+  of "ckConditionalExpression, ckConditionalAccessExpression": true
+  of "ckAccessor, ckReturnStatement": true
   of "ckAwaitExpression, ckConditionalAccessExpression": true
+  of "ckArrayRankSpecifier, ckIdentifier": true
+  of "ckDelegate, ckPointerType": true
+  of "ckElementAccessExpression, ckParenthesizedExpression": true
   of "ckExpressionStatement, ckSimpleLambdaExpression": true
+  of "ckConstructor, ckArgumentList": true # likely for initializer
+  of "ckReturnStatement, ckMemberAccessExpression": true
   of "ckInterpolation, ckThisExpression": true
   of "ckForEachStatement, ckPostfixUnaryExpression": true
   of "ckConstructor, ckParameterList": true
+  of "ckCastExpression, ckIdentifier": true
   of "ckUsingDirective, ckNameEquals": true
+  of "ckMemberBindingExpression, ckGenericName": true
+  of "ckReturnStatement, ckSizeOfExpression": true
   of "ckLockStatement, ckDoStatement": true
+  of "ckFixedStatement, ckFixedStatement": true
+  of "ckMethod, ckContinueStatement": true
   of "ckDefaultExpression, ckPointerType": true
+  of "ckArgument, ckRangeExpression": true
   of "ckForEachStatement, ckMemberAccessExpression": true
+  of "ckInterface, ckClass": true
   of "ckJoinClause, ckParenthesizedExpression": true
   of "ckGlobalStatement, ckEmptyStatement": true
   of "ckRefExpression, ckConditionalExpression": true
+  of "ckMethod, ckIdentifier": true
   of "ckCaseSwitchLabel, ckParenthesizedExpression": true
+  of "ckReturnStatement, ckRefValueExpression": true
   of "ckLetClause, ckQueryExpression": true
+  of "ckInterpolationAlignmentClause, ckInvocationExpression": true
   of "ckFromClause, ckConditionalExpression": true
   of "ckOperator, ckLocalDeclarationStatement": true
   of "ckCastExpression, ckImplicitArrayCreationExpression": true
   of "ckParenthesizedLambdaExpression, ckTupleExpression": true
+  of "ckSizeOfExpression, ckGenericName": true
+  of "ckYieldStatement, ckSimpleLambdaExpression": true
+  of "ckStackAllocArrayCreationExpression, ckArrayType": true
   of "ckPrefixUnaryExpression, ckInvocationExpression": true
   of "ckArrayRankSpecifier, ckParenthesizedLambdaExpression": true
   of "ckSwitchExpressionArm, ckMemberAccessExpression": true
+  of "ckDoStatement, ckInvocationExpression": true
+  of "ckInterpolation, ckInterpolatedStringExpression": true
+  of "ckLockStatement, ckInvocationExpression": true
+  of "ckPrefixUnaryExpression, ckAwaitExpression": true
   of "ckIncompleteMember, ckPointerType": true
   of "ckLockStatement, ckForStatement": true
   of "ckSimpleLambdaExpression, ckExpressionStatement": true
+  of "ckArgumentList, ckArgument": true
+  of "ckArrayRankSpecifier, ckConditionalExpression": true
   of "ckLetClause, ckAnonymousObjectCreationExpression": true
+  of "ckEqualsValueClause, ckParenthesizedExpression": true
   of "ckClass, ckLiteralExpression": true
+  of "ckForEachStatement, ckUsingStatement": true
+  of "ckIfStatement, ckCheckedStatement": true
+  of "ckInvocationExpression, ckMemberBindingExpression": true
   of "ckSimpleLambdaExpression, ckSwitchStatement": true
   of "ckTryStatement, ckTryStatement": true
+  of "ckDelegate, ckTypeParameterConstraintClause": true
+  of "ckWhereClause, ckMemberAccessExpression": true
   of "ckArgument, ckAliasQualifiedName": true
+  of "ckElementAccessExpression, ckLiteralExpression": true
   of "ckInitializerExpression, ckBinaryExpression": true
+  of "ckDoStatement, ckCheckedExpression": true
+  of "ckInitializerExpression, ckRangeExpression": true
   of "ckIsPatternExpression, ckElementAccessExpression": true
   of "ckArgument, ckMemberAccessExpression": true
   of "ckUsingDirective, ckLiteralExpression": true
+  of "ckAwaitExpression, ckMemberAccessExpression": true
+  of "ckStruct, ckTypeParameterConstraintClause": true
   of "ckMakeRefExpression, ckMemberAccessExpression": true
   of "ckOrdering, ckParenthesizedExpression": true
+  of "ckAnonymousObjectMemberDeclarator, ckInvocationExpression": true
+  of "ckInterpolation, ckMemberAccessExpression": true
   of "ckBinaryPattern, ckBinaryPattern": true
   of "ckParameter, ckArrayType": true
   of "ckArrowExpressionClause, ckPrefixUnaryExpression": true
+  of "ckConstructor, ckCheckedStatement": true
+  of "ckUsingStatement, ckFixedStatement": true
+  of "ckConstructor, ckInvocationExpression": true
   of "ckLabeledStatement, ckDoStatement": true
+  of "ckEqualsValueClause, ckConditionalAccessExpression": true
+  of "ckInitializerExpression, ckImplicitArrayCreationExpression": true
   of "ckDestructor, ckWhileStatement": true
+  of "ckLabeledStatement, ckForEachStatement": true
+  of "ckCastExpression, ckThisExpression": true
+  of "ckInterpolation, ckIdentifier": true
+  of "ckFinallyClause, ckSwitchStatement": true
+  of "ckIfStatement, ckYieldStatement": true
+  of "ckElementAccessExpression, ckBracketedArgumentList": true
   of "ckCastExpression, ckLiteralExpression": true
+  of "ckExpressionStatement, ckTupleExpression": true
+  of "ckParenthesizedLambdaExpression, ckExpressionStatement": true
+  of "ckWhileStatement, ckPrefixUnaryExpression": true
   of "ckConditionalAccessExpression, ckThisExpression": true
+  of "ckReturnStatement, ckParenthesizedExpression": true
+  of "ckLiteralExpression, ckGenericName": true
   of "ckInterpolation, ckPredefinedType": true
   of "ckGlobalStatement, ckTryStatement": true
+  # of "ckReturnStatement, ckIdentifier": true
+  # of "ckConditionalExpression, ckIdentifier": true
+  of "ckConditionalAccessExpression, ckIdentifier": true
   of "ckClass, ckClass": true # forwards to parent namespace.
   of "ckForStatement, ckWhileStatement": true
+  of "ckIsPatternExpression, ckBinaryPattern": true
   of "ckParenthesizedLambdaExpression, ckUsingStatement": true
   of "ckSwitchStatement, ckBinaryExpression": true
+  of "ckInitializerExpression, ckConditionalAccessExpression": true
+  of "ckField, ckVariableDeclarator": true
   of "ckConditionalExpression, ckElementAccessExpression": true
   of "ckGlobalStatement, ckReturnStatement": true
   of "ckForStatement, ckUsingStatement": true
   of "ckForEachStatement, ckBreakStatement": true
+  of "ckWhileStatement, ckReturnStatement": true
+  of "ckSwitchSection, ckDefaultSwitchLabel": true
   of "ckSwitchSection, ckUnsafeStatement": true
+  of "ckWhereClause, ckInvocationExpression": true
   of "ckSwitchExpression, ckThisExpression": true
   of "ckCatchFilterClause, ckBinaryExpression": true
+  of "ckTupleExpression, ckArgument": true
+  of "ckParenthesizedLambdaExpression, ckUnsafeStatement": true
   of "ckExpressionStatement, ckInvocationExpression": true
+  of "ckOperator, ckUnsafeStatement": true
+  of "ckParameterList, ckParameter": true
+  of "ckCastExpression, ckSizeOfExpression": true
+  of "ckEqualsValueClause, ckParenthesizedLambdaExpression": true
   of "ckSwitchSection, ckForStatement": true
   of "ckArrayRankSpecifier, ckRangeExpression": true
   of "ckSimpleLambdaExpression, ckTypeOfExpression": true
   of "ckArrayType, ckPredefinedType": true
   of "ckConstantPattern, ckCastExpression": true
   of "ckForEachVariableStatement, ckInvocationExpression": true
+  of "ckEqualsValueClause, ckSizeOfExpression": true
+  of "ckRecursivePattern, ckSingleVariableDesignation": true
   of "ckClass, ckEventField": true
+  of "ckCastExpression, ckArrayType": true
   of "ckParenthesizedExpression, ckRangeExpression": true
   of "ckConditionalExpression, ckSizeOfExpression": true
   of "ckPrefixUnaryExpression, ckObjectCreationExpression": true
   of "ckTypeOfExpression, ckPointerType": true
-
+  of "ckArrowExpressionClause, ckIdentifier": true
 
   else: raise newException(Exception, "cfits is missing:  of \"" & $parent.kind & ", " & $item.kind & "\": true")

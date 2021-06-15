@@ -77,9 +77,11 @@ proc jsonWithoutSource*(n: JsonNode): JsonNode =
   result = p
 
 # for constructs in a method body.
-type BodyExpr* = ref object of CsObject # RootObj
-                                        #  name*: string
+type CsIdentifier* = ref object of CsObject
+type BodyExpr* = ref object of CsObject 
+  ident*:CsIdentifier
   ttype*: string
+
 
 type TypeNameDef* = ref object of BodyExpr # CsObject
 

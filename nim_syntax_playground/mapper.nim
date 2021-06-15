@@ -1,5 +1,3 @@
-# mapper.nim
-# import ../parentChildMapping
 import ../constructs/justtypes
 import tables, sequtils, strutils
 
@@ -75,7 +73,7 @@ proc add*(parent, child: Construct; data: AllNeededData) =
   let couple : string = $parent.kind & " -> " & $child.kind
   echo couple
   """
-  let file = "/home/kobi7/currentWork/cs2nim/nim_syntax_playground/parentKidMapping.txt"
+  let file = "/home/kobi/cs2n/nim_syntax_playground/parentKidMapping.txt"
   let fh = open(file)
   let tbl = srcToHash(fh)
   close(fh)
