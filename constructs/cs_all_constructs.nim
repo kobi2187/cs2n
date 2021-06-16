@@ -458,9 +458,9 @@ method genNim*(c: CsArrowExpressionClause): string =
   result = "[GENNIM:CsArrowExpressionClause]"
   echo "--> in  genNim*(c: var CsArrowExpressionClause)"
   echo "for property/accessor, we generate a proc, so it's a ="
-  # TODO: solve indent levels.
-  result = " = \n" & c.body.mapIt(it.genNim()).mapIt("  " & it).join("\n")
-  # todoimplGen()
+  result = " = " & c.body.genBody()#.mapIt(it.genNim()).mapIt("  " & it).join("\n")
+  echo result
+  echo "<-- end of genNim*(c: var CsArrowExpressionClause)"
 
 method genCs*(c: CsAssignmentExpression): string =
   result = "[GENCS:CsAssignmentExpression]"
@@ -2485,9 +2485,12 @@ proc extract*(t: typedesc[CsInterpolatedStringExpression]; info: Info): CsInterp
 
 method genCs*(c: CsInterpolatedStringExpression): string =
   result = "[GENCS:CsInterpolatedStringExpression]"
-
-  echo "--> in genCs*(c: var CsInterpolatedStringExpression): string ="
+  echo "--> in genCs*(c: var CsInterpolatedStringExpression): string"
+  echo "should be smth like fmt\"...\""
+  echo result
+  echo "<-- end of genCs*(c: var CsInterpolatedStringExpression): string"
   todoimplGen()
+
 method genNim*(c: CsInterpolatedStringExpression): string =
   result = "[GENNIM:CsInterpolatedStringExpression]"
 
@@ -3374,10 +3377,20 @@ method genCs*(c: CsPointerType): string =
   todoimplGen()
 method genNim*(c: CsPointerType): string =
   result = "[GENNIM:CsPointerType]"
-
   echo "--> in  genNim*(c: var CsPointerType)"
+  #[
+    Example: 
+      public unsafe static extern BOOL GetKeyboardState(byte* lpKeyState);
+      public unsafe static extern uint SafeArrayGetElemsize(SAFEARRAY* psa);
+  ]#
+  # echo c.name
+  # if not c.gotType.isNil:
+  result = "ptr " & c.gotType.genNim() # TODO: plz check this, ptr or ref 
+  # else: result = "ptr " & c.name
 
-  todoimplGen()
+  echo result
+  echo "end of genNim*(c: var CsPointerType)"
+
 proc newCs*(t: typedesc[CsPostfixUnaryExpression]): CsPostfixUnaryExpression =
   new result
   result.typ = $typeof(t)
