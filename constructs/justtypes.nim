@@ -74,6 +74,7 @@ type CsArrayRankSpecifier* = ref object of BodyExpr
 
 type CsArrayType* = ref object of TypeNameDef
   gotType*:TypeNameDef
+  typename*:string
   rankSpecifier*:CsArrayRankSpecifier
 
 type CsArrowExpressionClause* = ref object of BodyExpr
@@ -353,7 +354,7 @@ type CsEqualsValueClause* = ref object of BodyExpr
   # mrhsValue*: IAssignable
 
 type CsEventField* = ref object of CsObject
-  thevar*:CsVariable #lhs
+  theVar*:CsVariable #lhs
 
 type CsEvent* = ref object of CsObject
   gotType*:TypeNameDef
@@ -682,7 +683,7 @@ type CsStruct* = ref object of CsObject
   delegates*:seq[CsDelegate]
   ns*:CsNamespace
   dtors*:seq[CsDestructor]
-
+  
 
 type CsSwitchSection* = ref object of CsObject
   caseName*:CsCaseSwitchLabel
@@ -761,16 +762,16 @@ type CsYieldStatement* = ref object of BodyExpr
 
 type CsBlock* = ref object of CsObject
 type CsVariable* = ref object of BodyExpr # self is lhs
-  # name*:string
   thetype*: string
   gotType*:TypeNameDef
   # nulType*:CsNullableType #?
   # arrType*:CsArrayType #?
   genericName*: CsGenericName
   declarator*: CsVariableDeclarator # this is the rhs
+  aliasQualifiedName*: CsAliasQualifiedName
   # ?? where do all these come from? where do they get stored?
   refType,functionPointerType,pointerType,tupleType,arrayType,nullableType : float64
-  aliasQualifiedName*: CsAliasQualifiedName
+
 type CsLocalDeclarationStatement* = ref object of BodyExpr
   names*: seq[string]
   vartype*: string

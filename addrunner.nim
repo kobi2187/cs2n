@@ -3,8 +3,8 @@ import nre, osproc, options, system, os
 let cwd = "/home/kobi/cs2n"
 
 proc mkAdd(p, c: string): string =
-  result = "method add*(parent: var " & p & "; item: " & c & ") =\n"
-  result &= "  echo \"in method add*(parent: var " & p & "; item: " & c & ")\"\n"
+  result = "method add*(parent: " & p & "; item: " & c & ") =\n"
+  result &= "  echo \"in method add*(parent: " & p & "; item: " & c & ")\"\n"
   result &= "  todoimplAdd() # TODO(add: " & p & ", " & c & ")\n\n"
 
 let file = cwd / "missingAdds.nim"
