@@ -439,7 +439,7 @@ method genNim*(c: CsArrayType): string =
     result = "array[" & rank & ", " & t & "]"
   echo result
   echo "<-- end of  genNim*(c: var CsArrayType)"
-  # todoimplGen()
+  
 
 proc newCs*(t: typedesc[CsArrowExpressionClause]): CsArrowExpressionClause =
   new result
@@ -692,7 +692,7 @@ method genNim*(c: CsBracketedArgumentList): string =
   result = tmp.join(", ")
   echo "<-- end of  genNim*(c: var CsBracketedArgumentList)"
 
-  # todoimplGen()
+  
 proc newCs*(t: typedesc[CsBracketedParameterList]): CsBracketedParameterList =
   new result
   result.typ = $typeof(t)
@@ -731,7 +731,8 @@ method genNim*(c: CsBreakStatement): string =
   result = "[GENNIM:CsBreakStatement]"
   echo "--> in  genNim*(c: var CsBreakStatement)"
   result = "break\n"
-  # todoimplGen()
+  
+  
 proc newCs*(t: typedesc[CsCasePatternSwitchLabel]): CsCasePatternSwitchLabel =
   new result
   result.typ = $typeof(t)
@@ -799,7 +800,8 @@ method genNim*(c: CsCastExpression): string =
   echo "the expr is " & expression
   result = genType & "(" & expression & ")"
   echo result
-  # todoimplGen()
+  
+  
 proc newCs*(t: typedesc[CsCatchClause]): CsCatchClause =
   new result
   result.typ = $typeof(t)
@@ -913,9 +915,11 @@ method genNim*(c: CsCheckedStatement): string =
     let res = if c.checked.get == true: "checked" else: "unchecked"
     result &= res
     result &= ": " & "# overflow checking explicit disable/enable"
-    for b in c.body:
-      result &= indent() & b.genNim()
-  # todoimplGen()
+    startBlock()
+    result &= c.body.genBody()
+      
+  
+  
 
 method add*(parent: CsProperty, item: CsAccessorList) =
   parent.acclist = item
@@ -2115,24 +2119,32 @@ proc newCs*(t: typedesc[CsForEachStatement]): CsForEachStatement =
 proc extract*(t: typedesc[CsForEachStatement]; info: Info): CsForEachStatement =
   echo info
   result = newCs(CsForEachStatement)
+  let tbl = colonsToTable(info.essentials)
+  result.varName = tbl["identifier"]
+  result.typeName = tbl["type"]
 
 method genCs*(c: CsForEachStatement): string =
   result = "[GENCS:CsForEachStatement]"
 
   echo "--> in genCs*(c: var CsForEachStatement): string ="
   todoimplGen()
+
 method genNim*(c: CsForEachStatement): string =
   result = "[GENNIM:CsForEachStatement]"
   echo "--> in  genNim*(c: var CsForEachStatement)"
+  
   let lst = c.listPart.genNim()
   result = "for "
-  result &= "todo!varName" # TODO!!
-  if not c.gotType.isNil:
+  result &= c.varName
+  if c.gotType.isNil:
+    if c.typeName.len > 0:
+      result &= ": " & c.typeName
+  else:
     result &= ": " & c.gotType.genNim()
   result &= " in " & lst & ":\n" & c.body.genBody()
+  echo "result:" & result
   echo "<-- end of  genNim*(c: var CsForEachStatement)"
 
-  todoimplGen()
 proc newCs*(t: typedesc[CsForEachVariableStatement]): CsForEachVariableStatement =
   new result
   result.typ = $typeof(t)
@@ -2159,7 +2171,8 @@ method genNim*(c: CsForEachVariableStatement): string =
 
   result &= " in " & lst & ":\n" & c.body.genBody()
 
-  # todoimplGen()
+  
+  
 proc newCs*(t: typedesc[CsForStatement]): CsForStatement =
   new result
   result.typ = $typeof(t)
@@ -2184,7 +2197,6 @@ method genNim*(c: CsForStatement): string =
   # body.. gen body normally, if exists. else discard.
   # result = ""; result &= "for "
   # if not c.forPart1var.isNil: ....   .. in .. :\n" & genBody(c.body)
-  let body = genBody(c.body)
   # for now, make it into a while loop, is there a c-like for in nim?
   var pt1 = ""
   var vartype = ""
@@ -2194,9 +2206,14 @@ method genNim*(c: CsForStatement): string =
   assert not c.forPart2.isNil
   let pt2 = c.forPart2.genNim()
   var pt3 = ""
+
   if not c.forPart3.isNil: pt3 = c.forPart3.genNim()
   elif not c.forPart3prefix.isNil: pt3 = c.forPart3prefix.genNim()
-  result = pt1 & vartype & "\n" & "while " & pt2 & ":\n" & indent() & body & "\n" & indent() & pt3
+  result = pt1 & vartype & "\n" 
+  result &= "while " & pt2 & ":\n" 
+  let body = genBody(c.body)
+  result &= indent() & body & "\n"
+  result &= indent() & pt3
   echo "<-- end of genNim*(c: var CsForStatement)"
 
 
@@ -3321,7 +3338,8 @@ method genNim*(c: CsParenthesizedExpression): string =
   let body = c.body.genBody()
   result = "(" & body & ")"
   echo "<-- end of  genNim*(c: var CsParenthesizedExpression)"
-  # todoimplGen()
+  
+  
 
 proc newCs*(t: typedesc[CsParenthesizedLambdaExpression]): CsParenthesizedLambdaExpression =
   new result
@@ -3415,7 +3433,7 @@ method genNim*(c: CsPostfixUnaryExpression): string =
   let obj = x.genNim()
   result = obj & c.postfix
   result = "(" & obj & ")" & c.postfix
-  # todoimplGen()
+  
   echo "<-- end of genNim*(c: var CsPostfixUnaryExpression)"
 
 proc newCs*(t: typedesc[CsPredefinedType]; name: string): CsPredefinedType =
@@ -3780,7 +3798,8 @@ method genNim*(c: CsSizeOfExpression): string =
   result = "[GENNIM:CsSizeOfExpression]"
   echo "--> in  genNim*(c: var CsSizeOfExpression)"
   result = "sizeof(" & c.gotType.genNim() & ")"
-  # todoimplGen()
+  
+  
 
 proc newCs*(t: typedesc[CsStackAllocArrayCreationExpression]): CsStackAllocArrayCreationExpression =
   new result
@@ -3821,6 +3840,7 @@ method genNim*(c: CsStruct): string =
   echo "--> in  genNim*(c: var CsStruct)"
 
   todoimplGen()
+
 proc newCs*(t: typedesc[CsSwitchSection]): CsSwitchSection =
   new result
   result.typ = $typeof(t)
@@ -3828,18 +3848,33 @@ proc newCs*(t: typedesc[CsSwitchSection]): CsSwitchSection =
 proc extract*(t: typedesc[CsSwitchSection]; info: Info): CsSwitchSection =
   echo info
   result = newCs(CsSwitchSection)
+  let tbl = colonsToTable(info.essentials)
+  result.labels=tbl["labels"]
+  result.statements = tbl["statements"]
 
 method genCs*(c: CsSwitchSection): string =
   result = "[GENCS:CsSwitchSection]"
 
   echo "--> in genCs*(c: var CsSwitchSection): string ="
   todoimplGen()
+
 method genNim*(c: CsSwitchSection): string =
-  result = "[GENNIM:CsSwitchSection]"
-
   echo "--> in  genNim*(c: var CsSwitchSection)"
+  result = "[GENNIM:CsSwitchSection]"
+  assert not c.caseName.isNil or not c.default.isNil
+  # assert body.len > 0
+  let lblPart = 
+    if c.isDefault or c.default != nil: "else:"
+    else: "of " & c.caseName.genNim() & "\n" # note, can also use labels:string here
+  startBlock()
+  let b = c.body.genBody()
+  result &= b
+  endBlock()
+  result = lblPart & b & "\n"
+  echo result
+  echo "--> end of genNim*(c: var CsSwitchSection)"
+  # TODO: new C# feature: CasePatterns
 
-  todoimplGen()
 proc newCs*(t: typedesc[CsSwitchStatement]): CsSwitchStatement =
   new result
   result.typ = $typeof(t)
@@ -3854,11 +3889,17 @@ method genCs*(c: CsSwitchStatement): string =
   echo "--> in genCs*(c: var CsSwitchStatement): string ="
   todoimplGen()
 method genNim*(c: CsSwitchStatement): string =
+  echo "--> in genNim*(c: var CsSwitchStatement)"
   result = "[GENNIM:CsSwitchStatement]"
-
-  echo "--> in  genNim*(c: var CsSwitchStatement)"
-
-  todoimplGen()
+  assert c.on != nil
+  result = "case " & c.on.genNim() & "\n"
+  for s in c.sections:
+    let ofpart = s.genNim()  
+    result &= ofpart & "\n"
+  echo result
+  echo "--> end of genNim*(c: var CsSwitchStatement)"
+  
+  
 proc newCs*(t: typedesc[CsThisExpression]): CsThisExpression =
   new result
   result.typ = $typeof(t)
@@ -3878,7 +3919,8 @@ method genNim*(c: CsThisExpression): string =
   result = "[GENNIM:CsThisExpression]"
   echo "--> in  genNim*(c: var CsThisExpression)"
   result = "this"
-  # todoimplGen()
+  
+  
 proc newCs*(t: typedesc[CsThrowExpression]): CsThrowExpression =
   new result
   result.typ = $typeof(t)
@@ -3925,7 +3967,8 @@ method genNim*(c: CsThrowStatement): string =
     echo g
     result &= g & "\n"
 
-  # todoimplGen()
+  
+  
 proc newCs*(t: typedesc[CsTryStatement]): CsTryStatement =
   new result
   result.typ = $typeof(t)
@@ -4275,10 +4318,10 @@ method genNim*(c: CsWhileStatement): string =
   result = "while "
   result &= genPred(c)
   result &= ":\n"
-  for b in c.body:
-    result &= "  " & b.genNim()
-    # TODO: need to track indent levels, globally!!
-  # todoimplGen()
+  startBlock()
+  result &= c.body.genBody()
+  endBlock()
+  
 proc newCs*(t: typedesc[CsYieldStatement]): CsYieldStatement =
   new result
   result.typ = $typeof(t)
@@ -4293,12 +4336,16 @@ method genCs*(c: CsYieldStatement): string =
 
   echo "--> in genCs*(c: var CsYieldStatement): string ="
   todoimplGen()
+
 method genNim*(c: CsYieldStatement): string =
-  result = "[GENNIM:CsYieldStatement]"
-
   echo "--> in  genNim*(c: var CsYieldStatement)"
+  result = "[GENNIM:CsYieldStatement]"
+  result = "yield " & c.expr.genNim()  
+  echo result
+  echo "--> end of genNim*(c: var CsYieldStatement)"
+  
+  
 
-  todoimplGen()
 proc newCs*(t: typedesc[CsBlock]): CsBlock =
   new result
   result.typ = $typeof(t)

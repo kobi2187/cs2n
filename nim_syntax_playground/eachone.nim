@@ -223,8 +223,8 @@ proc main(): bool =
   const hasCountLimit = false
   const limit = 15
   # just fixing up whatever is needed.
-  const earlyBreak = true # TODO: change to true and run with left_report, to quickly fix priority errors (picking libs first fruits).
-  const breakAfter = true
+  const earlyBreak = false # TODO: change to true and run with left_report, to quickly fix priority errors (picking libs first fruits).
+  const breakAfter = false
 
   const addTime = false
   const timeToAdd = 10 # seconds

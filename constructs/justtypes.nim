@@ -383,6 +383,8 @@ type CsFixedStatement* = ref object of BodyExpr
   expr*:BodyExpr # maybe store this first?
   body*: seq[BodyExpr]
 type CsForEachStatement* = ref object of BodyExpr
+  varName*:string
+  typeName*:string
   gotType*:TypeNameDef
   listPart*:BodyExpr
   body*: seq[BodyExpr]
@@ -686,10 +688,12 @@ type CsStruct* = ref object of CsObject
   
 
 type CsSwitchSection* = ref object of CsObject
+  labels*:string
+  statements*:string
   caseName*:CsCaseSwitchLabel
   casePattern*:CsCasePatternSwitchLabel
   body*:seq[BodyExpr]
-  isDefault:bool
+  isDefault*:bool
   default*:CsDefaultSwitchLabel
 
 type CsSwitchStatement* = ref object of BodyExpr

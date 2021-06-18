@@ -948,6 +948,7 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckThrowStatement, ckParenthesizedExpression": true
   of "ckArrowExpressionClause, ckPostfixUnaryExpression": true
   of "ckAssignmentExpression, ckConditionalExpression": true
+  of "ckArrowExpressionClause, ckIdentifier": true
   of "ckSwitchExpressionArm, ckObjectCreationExpression": true
   of "ckOrdering, ckMemberAccessExpression": true
   of "ckNamespace, ckIdentifier": true
@@ -2026,6 +2027,7 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckConditionalExpression, ckSizeOfExpression": true
   of "ckPrefixUnaryExpression, ckObjectCreationExpression": true
   of "ckTypeOfExpression, ckPointerType": true
-  of "ckArrowExpressionClause, ckIdentifier": true
+  of "ckLocalFunctionStatement, ckIdentifier": true
+  of "ckWhileStatement, ckIdentifier": true
 
   else: raise newException(Exception, "cfits is missing:  of \"" & $parent.kind & ", " & $item.kind & "\": true")

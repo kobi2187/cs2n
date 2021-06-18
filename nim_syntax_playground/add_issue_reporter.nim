@@ -111,7 +111,7 @@ proc getLines(file, line:string; n:int):seq[string] =
 let add_re = re"storeInParent\.nim\(\d+\) add"
 const numLines = 9
 const startAfter = 0
-const stopAfterFailures = 50.some #none(int) #some(1000)
+const stopAfterFailures = 5.some #none(int) #some(1000)
 import hashes,sets
 
 proc main() =
