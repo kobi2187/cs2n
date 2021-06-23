@@ -82,7 +82,7 @@ type CsArrowExpressionClause* = ref object of BodyExpr
 
 type CsAssignmentExpression* = ref object of BodyExpr
   gotType*:TypeNameDef
-  leftStr*:  string # TODO: should be some variable
+  rightStr*,leftStr*:  string 
   left*:BodyExpr
   op*: string
   right*: BodyExpr
@@ -99,8 +99,8 @@ type CsAwaitExpression* = ref object of BodyExpr
 type CsBaseExpression* = ref object of BodyExpr
 
 type CsBaseList* = ref object of CsObject
-  baseList*: seq[string]
-  baseList2*: seq[CsSimpleBaseType]
+  sbt*:seq[CsSimpleBaseType]
+  theTypes*: string
 
 type BooleanExpr = ref object of IAssignable
 
@@ -169,7 +169,7 @@ type CsProperty* = ref object of CsObject
   # defaultValue*: BodyExpr # CsEqualsValueClause
 
 type CsTypeArgumentList* = ref object of CsObject
-  types*: seq[string]
+  types*:string
   gotTypes*: seq[TypeNameDef]
 
 type CsGenericName* = ref object of TypeNameDef
@@ -258,8 +258,9 @@ type CsClass* = ref object of CsObject
   typeParamConstraints*: CsTypeParameterConstraintClause
   nsParent*: string
   ns*:CsNamespace
-  extends*: string
-  implements*: seq[string]
+  baseList*:CsBaseList
+  # extends*: string
+  # implements*: seq[string]
   fields*: seq[CsField]
   properties*: seq[CsProperty]
   methods*: seq[CsMethod]
@@ -306,11 +307,14 @@ type CsConversionOperator* = ref object of CsObject
   body*: seq[BodyExpr]
 
 type CsDeclarationExpression* = ref object of BodyExpr
+  theType*:string
+  designation*:string
   gotType*:TypeNameDef
   # Test2 (Test (out var x1), x1);
   svd*:CsSingleVariableDesignation # I think it declares the variable within the argument ('out' var x1) and uses it in the argument of the next expression.
   pvd*:CsParenthesizedVariableDesignation
   # very weird naming.
+  
 type CsDeclarationPattern* = ref object of Pattern
   gotType*:TypeNameDef
   svd*:CsSingleVariableDesignation
@@ -385,6 +389,7 @@ type CsFixedStatement* = ref object of BodyExpr
 type CsForEachStatement* = ref object of BodyExpr
   varName*:string
   typeName*:string
+  expression*:string
   gotType*:TypeNameDef
   listPart*:BodyExpr
   body*: seq[BodyExpr]
@@ -474,13 +479,13 @@ type CsInterface* = ref object of CsObject
   ns*:CsNamespace
   indexers*:seq[CsIndexer]
 
-type CsInterpolatedStringText* = ref object of CsObject
+type CsInterpolatedStringText* = ref object of BodyExpr
 type CsInterpolatedStringExpression* = ref object of BodyExpr
   interpolated*:CsInterpolation
   textPart*:CsInterpolatedStringText
-type CsInterpolationAlignmentClause* = ref object of CsObject
+type CsInterpolationAlignmentClause* = ref object of BodyExpr
   number*:CsLiteralExpression
-type CsInterpolationFormatClause* = ref object of CsObject
+type CsInterpolationFormatClause* = ref object of BodyExpr
 type CsInterpolation* = ref object of BodyExpr
   gotType*:TypeNameDef
   expr*:BodyExpr
@@ -664,7 +669,7 @@ type CsSimpleLambdaExpression* = ref object of BodyExpr
   params*:seq[CsParameter]
   body*: seq[BodyExpr]
 
-type CsSingleVariableDesignation* = ref object of CsObject
+type CsSingleVariableDesignation* = ref object of BodyExpr
 type CsSizeOfExpression* = ref object of BodyExpr
   gotType*:TypeNameDef
 type CsStackAllocArrayCreationExpression*  = ref object of BodyExpr
@@ -807,7 +812,7 @@ type CsRangeExpression* = ref object of BodyExpr
 type CsPrimaryConstructorBaseType* = ref object of TypeNameDef
 type CsSwitchExpression* = ref object of BodyExpr
   on*:BodyExpr
-  arm*:CsSwitchExpressionArm
+  arms*:seq[CsSwitchExpressionArm]
 
 type CsParenthesizedPattern* = ref object of Pattern
 

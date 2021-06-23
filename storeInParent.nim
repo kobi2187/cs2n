@@ -1103,6 +1103,9 @@ proc add*(parent, child: Construct; data: AllNeededData) =
     of ckElementAccessExpression:
       var c = child.elementAccessExpression
       c.parentId = p.id; p.add c
+    of ckIdentifier:
+      var c = child.identifier
+      c.parentId = p.id; p.add c
     of ckInvocationExpression:
       var c = child.invocationExpression
       c.parentId = p.id; p.add c
@@ -1509,6 +1512,9 @@ proc add*(parent, child: Construct; data: AllNeededData) =
     of ckTryStatement:
       var c = child.tryStatement
       c.parentId = p.id; p.add c
+    of ckUnsafeStatement:
+      var c = child.unsafeStatement
+      c.parentId = p.id; p.add c
     of ckUsingStatement:
       var c = child.usingStatement
       c.parentId = p.id; p.add c
@@ -1748,6 +1754,9 @@ proc add*(parent, child: Construct; data: AllNeededData) =
       c.parentId = p.id; p.add c
     of ckElementAccessExpression:
       var c = child.elementAccessExpression
+      c.parentId = p.id; p.add c
+    of ckIdentifier:
+      var c = child.identifier
       c.parentId = p.id; p.add c
     of ckInvocationExpression:
       var c = child.invocationExpression
@@ -2311,6 +2320,9 @@ proc add*(parent, child: Construct; data: AllNeededData) =
       c.parentId = p.id; p.add c
     of ckGenericName:
       var c = child.genericName
+      c.parentId = p.id; p.add c
+    of ckIdentifier:
+      var c = child.identifier
       c.parentId = p.id; p.add c
     of ckIncompleteMember:
       var c = child.incompleteMember
@@ -3197,6 +3209,9 @@ proc add*(parent, child: Construct; data: AllNeededData) =
     of ckExpressionStatement:
       var c = child.expressionStatement
       c.parentId = p.id; p.add c
+    of ckForEachStatement:
+      var c = child.forEachStatement
+      c.parentId = p.id; p.add c
     of ckForStatement:
       var c = child.forStatement
       c.parentId = p.id; p.add c
@@ -3227,6 +3242,12 @@ proc add*(parent, child: Construct; data: AllNeededData) =
     of ckReturnStatement:
       var c = child.returnStatement
       c.parentId = p.id; p.add c
+    of ckSwitchStatement:
+      var c = child.switchStatement
+      c.parentId = p.id; p.add c
+    of ckThrowStatement:
+      var c = child.throwStatement
+      c.parentId = p.id; p.add c
     of ckTupleType:
       var c = child.tupleType
       c.parentId = p.id; p.add c
@@ -3238,6 +3259,9 @@ proc add*(parent, child: Construct; data: AllNeededData) =
       c.parentId = p.id; p.add c
     of ckUsingStatement:
       var c = child.usingStatement
+      c.parentId = p.id; p.add c
+    of ckWhileStatement:
+      var c = child.whileStatement
       c.parentId = p.id; p.add c
     of ckYieldStatement:
       var c = child.yieldStatement
@@ -3387,6 +3411,13 @@ proc add*(parent, child: Construct; data: AllNeededData) =
       c.parentId = p.id; p.add c
     of ckWhereClause:
       var c = child.whereClause
+      c.parentId = p.id; p.add c
+    else: assert false, couple & " plz impl for child: " & $child.kind
+  of ckInterpolatedStringText:
+    var p = parent.interpolatedStringText
+    case child.kind
+    of ckIdentifier:
+      var c = child.identifier
       c.parentId = p.id; p.add c
     else: assert false, couple & " plz impl for child: " & $child.kind
   of ckCatchFilterClause:
@@ -5944,6 +5975,16 @@ proc add*(parent, child: Construct; data: AllNeededData) =
     case child.kind
     of ckArgumentList:
       var c = child.argumentList
+      c.parentId = p.id; p.add c
+    else: assert false, couple & " plz impl for child: " & $child.kind
+  of ckUnsafeStatement:
+    var p = parent.unsafeStatement
+    case child.kind
+    of ckExpressionStatement:
+      var c = child.expressionStatement
+      c.parentId = p.id; p.add c
+    of ckFixedStatement:
+      var c = child.fixedStatement
       c.parentId = p.id; p.add c
     else: assert false, couple & " plz impl for child: " & $child.kind
   of ckInterpolatedStringExpression:

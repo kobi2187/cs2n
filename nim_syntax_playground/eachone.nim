@@ -215,9 +215,9 @@ proc main(): bool =
   const reverse = false
   const startAfterNum: Option[int] =none(int) #some(151_593)
   const startAfterPercent: Option[float] = none(float) # some((20.0).float) # in percent
-  const hasTimeLimit = true
+  const hasTimeLimit = false
   var timeLimit: int64 = 0.int64 + #sec
-    2 * 60 +                       #min
+    5 * 60 +                       #min
     0 * 60 * 60                    # hours
   const iterLimit = some(12.5) # float in seconds
   const hasCountLimit = false

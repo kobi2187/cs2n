@@ -347,7 +347,7 @@ proc determineParentSpecific(obj: Construct; data: AllNeededData): FindParentRes
     ckTryStatement, ckThrowStatement, ckYieldStatement, ckExpressionStatement
     ]:
     echo "got " & $obj.kind
-    let parents = @[
+    let parents = @[ "UnsafeStatement","UsingStatement",
     "DestructorDeclaration", "AccessorDeclaration", "ConversionOperatorDeclaration", "ParenthesizedLambdaExpression",
       "MethodDeclaration", "ForStatement", "ForEachStatement", "ElseClause",
       "SwitchSection", "IndexerDeclaration", "LockStatement","FinallyClause",
