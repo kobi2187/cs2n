@@ -1,0 +1,101 @@
+using System;
+using System.Runtime.InteropServices;
+
+public enum Error {
+	EROFS,
+	ERANGE = TestConst.C,
+	EANOTHER = ERANGE,
+}
+
+public enum Error_2 {
+
+	ERANGE,
+
+	EANOTHER = ERANGE,
+}
+
+public delegate void SignalHandler (int signal);
+
+public sealed class UnixMarshal {
+
+	public static readonly SignalHandler SIG_DFL = new SignalHandler(Default);
+
+	static UnixMarshal ()
+	{
+		Stdlib s = new Stdlib ();
+	}
+	
+	private static void Default (int signal)
+	{
+	}
+
+	public static string GetDescription (Error e) {
+		return null;
+	}
+}
+
+public sealed class UnixMarshal2 {
+
+	public static string GetDescription (Error e) {
+		return null;
+	}
+}
+
+public class Stdlib {
+	
+	enum E {
+		val1 = TestConst.C
+	}
+	
+	internal const string LIBC = "msvcrt.dll";
+
+	public static extern IntPtr signal (int signum, IntPtr handler);
+}
+
+class TestConst {
+
+	public const int C = 3;
+}
+
+public class XX {
+	private static readonly SignalHandler[] registered_signals;
+}
+
+public struct Pollfd {
+}
+
+public class Syscall : XX {
+	public static int poll (Pollfd [] fds, uint nfds, int timeout) {
+		return -1;
+	}
+}
+
+partial struct PS
+{
+}
+
+partial struct PS
+{
+
+	public static void GetDescription (Error e) {}
+}
+
+public class EnumWrapper {
+	public EnumWrapper (int val)
+	{
+	}
+}	
+
+public struct Value 
+{
+
+	public static explicit operator EnumWrapper (Value val)
+	{
+		return new EnumWrapper (334455);
+	}
+}
+
+class Test {
+	public static void Main () {
+	}
+}

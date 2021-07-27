@@ -1,0 +1,14 @@
+using System;
+
+public class A
+{
+
+    public class BAttribute : Attribute
+    {
+    }
+}
+
+public class C
+{
+	public static void Main () {}
+}

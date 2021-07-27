@@ -1,0 +1,14 @@
+public class A<T>
+{
+	public int this  {
+		get {
+			return 1;
+		}
+	}
+	
+	public int this [string arg] {
+		get {
+			return 2;
+		}
+	}
+}

@@ -1,0 +1,8 @@
+class T {
+	public static int Main() {
+		char[] a;
+		long len = 10;
+		a = new char [len];
+		return 0;
+	}
+}

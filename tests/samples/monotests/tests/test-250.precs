@@ -1,0 +1,24 @@
+using System;
+using System.Runtime.InteropServices;
+
+namespace Test {
+
+	struct foo1 {
+		public static int foo;
+	}
+
+	struct foo2 {
+		public static int foo;
+ public int value;
+	}
+
+	class foo3 {
+		public static int foo;
+ public int value;
+	}
+	
+	class Tests {
+		public static void Main () {
+		}
+	}
+}

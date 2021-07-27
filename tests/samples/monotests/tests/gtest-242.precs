@@ -1,0 +1,39 @@
+using System;
+
+public class Container<T>
+	where T : IComparable<T>
+{
+}
+
+public class ReferenceType : IComparable<ReferenceType>
+{
+	public int value;
+
+	public int CompareTo (ReferenceType obj)
+	{
+		return 0;
+	}
+};
+
+public struct MyValueType : IComparable<MyValueType>
+{
+	public int value;
+
+	public int CompareTo (MyValueType obj)
+	{
+		return 0;
+	}
+};
+
+public class Test
+{
+	public static void Main ()
+	{
+		
+		new Container<ReferenceType> ();
+
+		
+		
+		new Container<MyValueType> ();
+	}
+};

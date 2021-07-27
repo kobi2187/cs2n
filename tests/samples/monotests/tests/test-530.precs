@@ -1,0 +1,6 @@
+class X {
+	static void e(params object[] args\u03c4) {
+        }
+	public static void Main () {
+}
+}

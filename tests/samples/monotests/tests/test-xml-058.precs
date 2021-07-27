@@ -1,0 +1,18 @@
+using System; 
+
+
+public class GenericClass <gT>
+{
+    gT m_data; 
+
+    
+    public GenericClass (gT Data)
+    {
+        m_data = Data; 
+    }
+}
+
+class Foo
+{
+    public static void Main () {}
+}

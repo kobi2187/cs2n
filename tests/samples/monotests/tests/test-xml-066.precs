@@ -1,0 +1,15 @@
+static class C
+{
+	static void Foo<T, U> (this int a, T t, U[] u)
+	{
+	}
+	
+	
+	static void Foo2<T> (this int a, T t)
+	{
+	}
+	
+	public static void Main ()
+	{
+	}
+}

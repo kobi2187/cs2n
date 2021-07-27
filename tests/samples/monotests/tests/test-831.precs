@@ -1,0 +1,13 @@
+using System.Diagnostics;
+
+class C
+{
+
+	static void Test ()
+	{
+	}
+
+	public static void Main ()
+	{
+	}
+}

@@ -1,0 +1,13 @@
+using System;
+
+public class Test
+{
+	public static void Main ()
+	{
+		FriendClass fc = new FriendClass ();
+		
+		
+		FriendClass.StaticFriendField = 5;
+		fc.InstanceFriendField = 6;
+	}
+}

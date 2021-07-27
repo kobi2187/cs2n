@@ -1,0 +1,11 @@
+enum E
+{
+	Format
+}
+
+class B
+{
+	public static void Main ()
+	{
+	}
+}

@@ -1,0 +1,27 @@
+public interface IExecutable {
+	
+	void Execute ();
+
+	
+	object Current {
+		get; 
+	}
+}
+
+
+
+
+
+public class A : IExecutable {
+	static void Main () {
+	}
+
+	
+	public void Execute () {
+	}
+
+	
+	public object Current {
+		get { return null; }
+	}
+}

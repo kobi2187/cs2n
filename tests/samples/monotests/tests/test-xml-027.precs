@@ -1,0 +1,36 @@
+using ZZZ = Testing.Test;
+
+namespace Testing
+{
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	class Test
+	{
+		public static void Main () { System.Console.Error.WriteLine ("xml-027 is running fine ;-)"); }
+
+		
+		public void Foo () {}
+
+		public string Bar;
+
+		public string Baz { get { return ""; } }
+	}
+}

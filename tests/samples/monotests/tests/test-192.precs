@@ -1,0 +1,8 @@
+class X {
+	public static void Main ()
+	{
+		unchecked {
+			const int val = (int)0x800B0109;
+		}
+	}
+}

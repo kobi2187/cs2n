@@ -1,0 +1,31 @@
+namespace Schemas {
+
+    public partial class basefieldtype {
+
+        public string id;
+
+        public string datatype;
+    }
+
+    public partial class fieldtype: basefieldtype {}
+
+    public partial class compoundfield: basefieldtype {}
+
+    public partial class field {
+
+        public string id;
+
+        public string type;
+    }
+
+    public partial class formdata {
+
+        public field[] formfields;
+
+        public basefieldtype[] Items;
+    }
+
+    public class M {
+	public static void Main () {}
+    }
+}

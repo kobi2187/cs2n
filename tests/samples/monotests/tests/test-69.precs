@@ -1,0 +1,12 @@
+using System;
+using System.Runtime.CompilerServices;
+
+public class Blah {
+
+	private extern void Start_internal(IntPtr handle);
+
+	public static int Main ()
+	{
+		return 0;
+	}
+}

@@ -1,0 +1,25 @@
+using System;
+using System.Diagnostics;
+
+namespace TestDebug
+{
+	class Program
+	{
+
+		public static void Excluded ()
+		{
+			throw new ApplicationException ("1");
+		}
+
+		public static int Main ()
+		{
+			C.Method (); 
+			
+			Excluded ();
+#if DEBUG
+			throw new ApplicationException ("1");
+#endif
+			return 0;
+		}
+	}
+}

@@ -1,0 +1,6 @@
+class M : B
+{
+	public static void Main ()
+	{
+	}
+}

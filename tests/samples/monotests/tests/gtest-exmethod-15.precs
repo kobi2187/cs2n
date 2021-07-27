@@ -1,0 +1,28 @@
+using System;
+using System.Reflection;
+
+public interface IA
+{
+	void Foo (IA self);
+}
+
+public static class C
+{
+	public static TAttribute GetCustomAttribute<TAttribute> (this ICustomAttributeProvider self)
+	{
+		var attributes = self.GetCustomAttributes<TAttribute> ();
+
+
+
+		return attributes [0];
+	}
+
+	public static TAttribute [] GetCustomAttributes<TAttribute> (this ICustomAttributeProvider self)
+	{
+		return null;
+	}	
+	
+	public static void Main ()
+	{
+	}
+}

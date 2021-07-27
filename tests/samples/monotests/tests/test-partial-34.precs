@@ -1,0 +1,68 @@
+using System;
+using CustomAttributes;
+
+partial class A
+{
+	
+	partial void PartialMethodWith_NoAttr_NoDefn(string s);
+	partial void PartialMethodWith_NoAttr_Decl(string s);
+
+	
+
+	partial void PartialMethodWith_AAttr_NoDefn(string s);
+	partial void PartialMethodWith_BAttr_NoDefn(string s);
+
+	
+
+	partial void PartialMethodWith_AAttr_Decl(string s);
+	partial void PartialMethodWith_BAttr_Decl(string s);
+
+	
+	partial void PartialMethodWith_AAttr_Defn(string s);
+	partial void PartialMethodWith_BAttr_Defn(string s);
+
+	
+
+	partial void PartialMethodWith_ABAttr(string s);
+	partial void PartialMethodWith_BAAttr(string s);
+}
+
+partial class A
+{
+	
+	partial void PartialMethodWith_NoAttr_Decl(string s) { }
+
+	
+	partial void PartialMethodWith_AAttr_Decl(string s) { }
+	partial void PartialMethodWith_BAttr_Decl(string s) { }
+
+	
+
+	partial void PartialMethodWith_AAttr_Defn(string s) { }
+	partial void PartialMethodWith_BAttr_Defn(string s)
+	{
+	}
+
+	
+
+	partial void PartialMethodWith_ABAttr(string s) { }
+	partial void PartialMethodWith_BAAttr(string s) { }
+}
+
+namespace CustomAttributes {
+
+	public class AttributeA : Attribute {
+		public AttributeA(String a) {}
+	}
+
+	public class AttributeB : Attribute {
+		public AttributeB(String a) {}
+	}
+}
+
+class X
+{
+	public static void Main ()
+	{
+	}
+}

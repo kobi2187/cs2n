@@ -1,0 +1,32 @@
+using System;
+using System.Collections.Generic;
+
+public delegate R Fun<A1,R>(A1 x);
+
+class MyTest {
+  public static void Main(String[] args) {
+    foreach (Object d in Map<int,int,String,Object>
+	                    (delegate (int x) { return x.ToString(); }, 
+			     FromTo(10,20)))
+      Console.WriteLine(d);
+  }
+
+  
+  
+
+  public static IEnumerable<Rr> Map<Aa,Af,Rf,Rr>(Fun<Af,Rf> f, 
+                                                 IEnumerable<Aa> xs) 
+    where Aa : Af 
+    where Rf : Rr 
+  { 
+    foreach (Aa x in xs)
+      yield return f(x);    
+  }
+
+  
+
+  public static IEnumerable<int> FromTo(int from, int to) { 
+    for (int i=from; i<=to; i++)
+      yield return i;
+  }
+}

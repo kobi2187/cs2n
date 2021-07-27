@@ -1,0 +1,19 @@
+using System.Runtime.InteropServices;
+
+partial class C
+{
+	public static void Foo (C c,  C c2)
+	{
+	}
+}
+
+partial class C
+{
+	public static void Foo2 ( C c2)
+	{
+	}
+
+	public static void Main ()
+	{
+	}
+}

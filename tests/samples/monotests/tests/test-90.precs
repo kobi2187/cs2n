@@ -1,0 +1,32 @@
+namespace N1
+{	
+	public enum A
+	{
+		A_1, A_2, A_3
+	}
+
+	public interface B
+	{
+		N1.A myProp 
+		{
+			get;
+			set;   
+		}
+	}
+
+	public interface C
+	{
+		A myProp
+		{
+			get;
+			set;  
+		}
+	}
+
+	public class Blah {
+		public static int Main  ()
+		{
+			return 0;
+		}
+	}
+}

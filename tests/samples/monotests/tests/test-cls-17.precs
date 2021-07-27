@@ -1,0 +1,12 @@
+using System;
+
+public enum E
+{
+	Value
+}
+
+public class Foo
+{
+	public E e;
+	public static void Main () {}
+}

@@ -1,0 +1,13 @@
+using System;
+
+public class TestAttribute: Attribute
+{
+}
+
+public class C {
+
+
+    void Method () {}
+    
+    public static void Main () {}
+}

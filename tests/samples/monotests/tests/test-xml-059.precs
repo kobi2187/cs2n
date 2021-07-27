@@ -1,0 +1,34 @@
+using System.Collections.Generic;
+
+
+
+
+
+
+
+
+
+
+
+
+public class Foo
+{
+	static void Main ()
+	{
+	}
+
+	
+	public string Bar;
+
+	
+	public void ListBase (string s)
+	{
+	}
+}
+
+
+
+
+public class ListBase<T>
+{
+}

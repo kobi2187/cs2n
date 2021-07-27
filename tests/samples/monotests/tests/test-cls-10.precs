@@ -1,0 +1,19 @@
+using System;
+
+public interface I {
+
+        void Error (ulong arg);
+}
+
+public interface I2 {
+#pragma warning disable 3018	
+
+        void Error (long arg);
+#pragma warning disable 3018        
+}
+
+
+public class MainClass {
+        public static void Main () {
+        }
+}

@@ -1,0 +1,15 @@
+namespace N1
+{	
+	public class A
+	{		
+		public static int Main  ()
+		{
+			return 0;
+		}
+	}
+
+	
+	
+	
+	public delegate void C(object sender, A a);
+}

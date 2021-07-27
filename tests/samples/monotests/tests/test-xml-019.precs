@@ -1,0 +1,27 @@
+using System;
+
+namespace Testing
+{
+	public class Test
+	{
+		public static void Main ()
+		{
+		}
+
+		
+		
+		
+		public static bool operator ! (Test t)
+		{
+			return false;
+		}
+
+		
+		
+		
+		public static int operator + (Test t, int b)
+		{
+			return b;
+		}
+	}
+}

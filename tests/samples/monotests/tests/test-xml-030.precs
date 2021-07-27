@@ -1,0 +1,34 @@
+using System;
+
+class Test
+{
+	static void Main () {}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void foo2() {
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	public void foo3(string line, params object[] args) {
+	}
+}

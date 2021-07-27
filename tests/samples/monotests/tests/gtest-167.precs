@@ -1,0 +1,43 @@
+#define DEBUG
+
+using System;
+using System.Diagnostics;
+
+public class TestAttribute : Attribute {}
+
+public class TestNotAttribute : Attribute {}
+
+
+
+public class TestMultiAttribute : Attribute {}
+    
+
+
+class Class1 {}
+    
+
+
+class Class2 {}
+
+
+
+class Class3 {}
+
+
+public class TestClass
+{
+    public static int Main ()
+    {
+	if (Attribute.GetCustomAttributes (typeof (Class1)).Length != 1)
+		return 1;
+
+	if (Attribute.GetCustomAttributes (typeof (Class2)).Length != 0)
+		return 1;
+
+	if (Attribute.GetCustomAttributes (typeof (Class3)).Length != 1)
+		return 1;
+	
+	Console.WriteLine ("OK");
+	return 0;
+    }
+}

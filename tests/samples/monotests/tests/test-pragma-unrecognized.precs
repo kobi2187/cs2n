@@ -1,0 +1,6 @@
+#pragma xxx some unrecognized text
+
+public class C
+{
+  public static void Main () {}
+}

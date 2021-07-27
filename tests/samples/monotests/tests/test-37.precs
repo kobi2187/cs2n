@@ -1,0 +1,134 @@
+using System;
+
+class X {
+	static void m (int [] a)
+	{
+		a [0] = 0xdead;
+	}
+
+	static int test_int_single_dim ()
+	{
+		int [] a = new int [10];
+		int i;
+		
+		for (i = 0; i < 10; i++)
+			a [i] = i;
+
+		m (a);
+
+		if (a [0] != 0xdead)
+			return 1;
+
+		a [0] = 0;
+		for (i = 9; i >= 0; i--){
+			if (a [i] != i)
+				return 2;
+		}
+		return 0;
+	}
+
+	static int simple_test_double_dim ()
+	{
+		int [,] b = new int [10, 10];
+
+		b [0, 0] = 1;
+		b [4, 4] = 1;
+
+		if (b [0, 0] != b [4, 4])
+			return 20;
+		if (b [1, 1] != b [5, 5])
+			return 21;
+
+		return 0;
+	}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public static int Main ()
+	{
+		int v;
+		
+		Console.WriteLine ("hello");
+		return 0;
+
+#if FIXME
+		v = test_int_single_dim ();
+
+		if (v != 0)
+			return v;
+
+		
+		
+		
+		
+		
+
+		v = simple_test_double_dim ();
+		if (v != 0)
+			return v;
+
+		int [] a = new int [10];
+		int i;
+		for (i = 0; i < 10; i++){
+			a [i] = i;
+			
+			
+		}
+		return 0;
+#endif
+	}
+}

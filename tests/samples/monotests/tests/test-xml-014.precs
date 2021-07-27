@@ -1,0 +1,19 @@
+using System;
+
+namespace Testing
+{
+	public class Test
+	{
+		public static void Main ()
+		{
+		}
+
+		
+		
+		
+		private string PrivateProperty {
+			get { return null; }
+			set { }
+		}
+	}
+}

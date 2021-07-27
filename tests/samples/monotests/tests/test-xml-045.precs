@@ -1,0 +1,24 @@
+public class EntryPoint {
+	static void Main () {
+	}
+
+	
+	protected void Create (bool test) {
+		Define (true);
+	}
+
+	private void Define (bool test) {
+	}
+
+	
+	protected void Undefine (bool test) {
+	}
+
+	
+	protected void Remove () {
+	}
+
+	
+	public virtual void Destroy (bool test) {
+	}
+}

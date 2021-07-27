@@ -1,0 +1,10 @@
+using System;
+
+public enum X {
+       A,
+       a
+}
+
+class xX {
+       public static void Main () {}
+}

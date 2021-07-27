@@ -1,0 +1,41 @@
+using System;
+
+
+
+
+
+public struct Maybe<T>
+{
+	
+	
+	
+	
+	public void Method ()
+	{
+	}
+}
+
+
+
+
+
+
+public struct Tuple<T1, T2>
+{
+	
+	
+	
+	
+	
+	public TResult Match<TResult> (params Func<T1, T2, Maybe<TResult>>[] ms)
+	{
+		throw new InvalidOperationException ();
+	}
+}
+
+class C
+{
+	static void Main ()
+	{
+	}
+}

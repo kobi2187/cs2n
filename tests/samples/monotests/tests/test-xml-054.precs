@@ -1,0 +1,99 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+public class A {
+	public interface I {
+		void Foo ();
+		void Bar<T>(T value);
+	}
+}
+
+
+public class Container<TKey, TValue> : IList<TValue>, A.I {
+
+	
+	public Container ()
+	{
+	}
+
+	
+	int ICollection<TValue>.Count {get {return 0;}}
+
+	
+	bool ICollection<TValue>.IsReadOnly {get {return true;}}
+
+	
+	void ICollection<TValue>.Add (TValue value) {}
+
+	
+	bool ICollection<TValue>.Remove (TValue value) {return false;}
+
+	
+	void ICollection<TValue>.Clear () {}
+
+	
+	bool ICollection<TValue>.Contains (TValue value) {return false;}
+
+	
+	void ICollection<TValue>.CopyTo (TValue[] array, int arrayIndex) {}
+
+	
+	int IList<TValue>.IndexOf (TValue value) {return -1;}
+
+	
+	void IList<TValue>.Insert (int index, TValue item) {}
+
+	
+	void IList<TValue>.RemoveAt (int index) {}
+
+	
+	TValue IList<TValue>.this [int index] {
+		get {return default (TValue);}
+		set {}
+	}
+
+	
+	IEnumerator IEnumerable.GetEnumerator ()
+	{
+		return GetEnumerator ();
+	}
+
+	
+	public IEnumerator<TValue> GetEnumerator ()
+	{
+		yield break;
+	}
+
+	
+	void A.I.Foo ()
+	{
+	}
+
+	
+	void A.I.Bar<T> (T value)
+	{
+	}
+
+	
+	public class Element : ICloneable {
+
+		
+		object ICloneable.Clone ()
+		{
+			return Clone ();
+		}
+
+		
+		public Element Clone ()
+		{
+			return (Element) MemberwiseClone ();
+		}
+	}
+}
+
+class Test {
+	public static void Main ()
+	{
+	}
+}

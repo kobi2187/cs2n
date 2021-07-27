@@ -1,0 +1,30 @@
+using System;
+
+namespace Testing
+{
+	
+	
+	
+	public interface InterfaceTest
+	{
+	}
+
+	
+	
+	
+	public interface InterfaceTest2
+	{
+	}
+
+	
+	public interface InterfaceTest3
+	{
+	}
+
+	public class Test
+	{
+		public static void Main ()
+		{
+		}
+	}
+}

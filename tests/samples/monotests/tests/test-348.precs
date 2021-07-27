@@ -1,0 +1,20 @@
+using System;
+
+public sealed class BoundAttribute : System.Attribute
+{
+	public BoundAttribute(double min, int i)
+	{
+	}
+}
+
+class C
+{
+
+	int i;
+
+    double d;
+
+    public static void Main ()
+    {
+    }
+}

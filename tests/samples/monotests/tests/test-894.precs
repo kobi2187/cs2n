@@ -1,0 +1,17 @@
+using System;
+
+class A1Attribute : Attribute
+{
+}
+
+class A2Attribute : Attribute
+{
+}
+
+public class Test
+{
+	public static void Main ()
+	{
+		
+	}
+}

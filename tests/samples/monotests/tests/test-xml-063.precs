@@ -1,0 +1,77 @@
+public class A
+{
+}
+
+
+
+
+
+
+
+
+
+public class Test
+{
+	
+	Test ()
+	{
+	}
+
+	
+	public static explicit operator A (Test test)
+	{
+		return new A ();
+	}
+
+	
+	public static explicit operator long (Test test)
+	{
+		return 2;
+	}
+
+	
+	public static implicit operator Test (int test)
+	{
+		return new Test ();
+	}
+
+	
+	public static implicit operator Test (bool test)
+	{
+		return new Test ();
+	}
+
+	
+	public static bool operator !(Test test)
+	{
+		return false;
+	}
+
+	
+	public static bool operator == (Test a, int b)
+	{
+		return true;
+	}
+
+	
+	public static bool operator != (Test a, int b)
+	{
+		return false;
+	}
+
+	
+	public static bool operator == (Test a, long b)
+	{
+		return true;
+	}
+
+	
+	public static bool operator != (Test a, long b)
+	{
+		return false;
+	}
+
+	static void Main ()
+	{
+	}
+}

@@ -215,13 +215,13 @@ proc main(): bool =
   const reverse = false
   const startAfterNum: Option[int] =none(int) #some(151_593)
   const startAfterPercent: Option[float] = none(float) # some((20.0).float) # in percent
-  const hasTimeLimit = false
+  const hasTimeLimit = true
   var timeLimit: int64 = 0.int64 + #sec
-    5 * 60 +                       #min
+    20 * 60 +                       #min
     0 * 60 * 60                    # hours
   const iterLimit = some(12.5) # float in seconds
-  const hasCountLimit = false
-  const limit = 15
+  const hasCountLimit = true
+  const limit = 10
   # just fixing up whatever is needed.
   const earlyBreak = false # TODO: change to true and run with left_report, to quickly fix priority errors (picking libs first fruits).
   const breakAfter = false

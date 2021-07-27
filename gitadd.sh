@@ -11,3 +11,4 @@ git add tests/samples/complex/*.csast
 git add tests/samples/monotests/**/*.csast
 git add tests/samples/monotests/tests/*.nim
 git add tests/samples/monotests/tests/*/*/*.csast
+git add tests/samples/monotests/tests/*.precs

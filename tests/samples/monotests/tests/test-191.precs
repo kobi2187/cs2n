@@ -1,0 +1,31 @@
+class X {
+
+	private class E {
+	}
+	
+	private class D {
+
+		private class P {
+			
+			
+			
+			E c;
+			
+		}
+	}
+}
+
+class Y {
+	private class Op {
+		public D d;
+	}
+
+	private enum D {
+	}
+}
+
+class R {
+	public static void Main ()
+	{
+	}
+}

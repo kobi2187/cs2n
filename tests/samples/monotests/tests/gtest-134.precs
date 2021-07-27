@@ -1,0 +1,38 @@
+using System;
+
+class MyTest {
+  public static void Main(String[] args) {
+    Foo<int?> fni1 = new Foo<int?>(null);
+    Console.WriteLine(fni1.Fmt());
+    Foo<int?> fni2 = new Foo<int?>(17);
+    Console.WriteLine(fni2.Fmt());
+    Foo<int> fi = new Foo<int>(7);
+    Console.WriteLine(fi.Fmt());
+    Foo<String> fs1 = new Foo<String>(null);
+    Console.WriteLine(fs1.Fmt());
+    Foo<String> fs2 = new Foo<String>("haha");
+    Console.WriteLine(fs2.Fmt());
+  }
+}
+
+class Foo<T> {
+  T x;
+  public Foo(T x) { 
+    this.x = x;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+
+  public String Fmt() {
+    if (x != null)
+      return x.ToString();
+    else
+      return "null";
+  }  
+}

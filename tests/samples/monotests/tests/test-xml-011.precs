@@ -1,0 +1,24 @@
+using System;
+
+namespace Testing
+{
+	public class Test
+	{
+		
+		
+		
+		public string PublicField;
+
+		
+		
+		
+		public string PublicField2;
+
+		
+		public string PublicField3;
+
+		public static void Main ()
+		{
+		}
+	}
+}

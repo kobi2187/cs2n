@@ -1,0 +1,14 @@
+using System.Diagnostics;
+
+static class Test
+{
+	const bool logEnabled = false;
+
+	internal static void WriteLine (string text)
+	{
+	}
+
+	public static void Main ()
+	{
+	}
+}

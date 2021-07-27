@@ -1,0 +1,7 @@
+unsafe class X {
+	static int x = 0;
+	public static void Main () {
+		fixed (void* p = &x) {}
+		fixed (void* p = &x) {}
+	}
+}

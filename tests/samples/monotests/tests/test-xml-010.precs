@@ -1,0 +1,24 @@
+using System;
+
+namespace Testing
+{
+	public class Test
+	{
+		
+		
+		
+		const string Constant = "CONSTANT STRING";
+
+		
+		
+		
+		const string Constant2 = "CONSTANT STRING";
+
+		
+		const string Constant3 = "CONSTANT STRING";
+
+		public static void Main ()
+		{
+		}
+	}
+}

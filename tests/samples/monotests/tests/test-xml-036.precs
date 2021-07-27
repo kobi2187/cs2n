@@ -1,0 +1,16 @@
+public enum Test {
+	
+	@true,
+	
+	@false,
+	
+	Whatever
+}
+
+
+public abstract class Foo {
+	
+	public abstract void @true();
+	
+	public static void Main() {}
+}

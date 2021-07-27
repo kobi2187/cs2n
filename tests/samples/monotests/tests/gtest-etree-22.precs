@@ -1,0 +1,24 @@
+using System;
+using System.Linq.Expressions;
+
+namespace FieldInfoBug
+{
+	public class MonoRuntime
+	{
+		public static int Main ()
+		{
+			
+			
+			new GenericClass<object> ("value");
+			return 0;
+		}
+	}
+
+	public class GenericClass<T>
+	{
+		public GenericClass (string argument)
+		{
+			Expression<Func<string>> expression = () => argument;
+		}
+	}
+}

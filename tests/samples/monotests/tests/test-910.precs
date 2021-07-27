@@ -1,0 +1,11 @@
+using System.Security;
+using System.Security.Permissions;
+
+delegate void D ();
+
+class X
+{
+	public static void Main ()
+	{
+	}
+}

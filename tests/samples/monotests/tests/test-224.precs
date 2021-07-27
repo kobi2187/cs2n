@@ -1,0 +1,66 @@
+using System;
+using System.Reflection;
+
+	
+	
+	
+	
+	
+
+	public class XmlMemberArrayAttribute : Attribute
+	{
+		char[]   separator = new char[] { ',' };
+		string name;
+		bool   isRequired;
+		
+		
+		
+		
+		public XmlMemberArrayAttribute(string name)
+		{
+			this.name  = name;
+			isRequired = false;
+		}
+		
+		public char[] Separator {
+			get {
+				return separator;
+			}
+			set {
+				separator = value;
+			}
+		}
+		
+		
+		
+		
+		public string Name {
+			get {
+				return name;
+			}
+			set {
+				name = value;
+			}
+		}
+		
+		
+		
+		
+		public bool IsRequired {
+			get {
+				return isRequired;
+			}
+			set {
+				isRequired = value;
+			}
+		}
+	}
+
+public class t
+{
+
+	string[] shortcut;
+
+	public static void Main () { }
+
+}

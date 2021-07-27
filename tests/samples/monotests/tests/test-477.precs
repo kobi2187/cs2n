@@ -1,0 +1,7 @@
+class C
+{
+
+	public void Test (ref int i) {}
+
+	public static void Main () {}
+}

@@ -1,0 +1,7 @@
+class Goo
+{
+	public static void Main ()
+	{
+		string s = new Foo () ["foo"];
+	}
+}

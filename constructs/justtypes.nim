@@ -42,15 +42,16 @@ type CsField* = ref object of CsObject
   isStatic*: bool
   #NOTE: in c# you can assign a field on the spot. we'll probably add them to the default ctor.
   defaultInit*:CsAssignmentExpression # ?
+
 type CsAnonymousMethodExpression* = ref object of BodyExpr
   paramList*:CsParameterList
   body*: seq[BodyExpr]
+
 type CsAnonymousObjectCreationExpression* = ref object of BodyExpr
   members*:seq[CsAnonymousObjectMemberDeclarator]
 
-type CsAnonymousObjectMemberDeclarator* = ref object of CsObject
+type CsAnonymousObjectMemberDeclarator* = ref object of BodyExpr
   memberName*:CsNameEquals
-  body*: seq[BodyExpr] # unused?
   value*: BodyExpr
 
 type CsArgument* = ref object of CsObject
@@ -483,8 +484,11 @@ type CsInterpolatedStringText* = ref object of BodyExpr
 type CsInterpolatedStringExpression* = ref object of BodyExpr
   interpolated*:CsInterpolation
   textPart*:CsInterpolatedStringText
+
 type CsInterpolationAlignmentClause* = ref object of BodyExpr
   number*:CsLiteralExpression
+  pue*:CsPrefixUnaryExpression # if it's a minus, it is aligned to the ...
+
 type CsInterpolationFormatClause* = ref object of BodyExpr
 type CsInterpolation* = ref object of BodyExpr
   gotType*:TypeNameDef
@@ -734,6 +738,7 @@ type CsTypeParameterConstraintClause* = ref object of BodyExpr
 
 
 type CsUnsafeStatement* = ref object of BodyExpr
+  body*:seq[BodyExpr]
 type CsUsingStatement* = ref object of BodyExpr
   # variable*:CsVariable
   variable*:BodyExpr
@@ -801,6 +806,7 @@ type CsMemberAccessExpression* = ref object of IAssignable
   genericName*:CsGenericName
   leftAsType*:TypeNameDef
   left*:BodyExpr
+  aqn*:CsAliasQualifiedName
   optoken*:string
   member*: string
   right*:BodyExpr
@@ -829,6 +835,7 @@ type CsRelationalPattern* = ref object of Pattern
 type CsSubpattern* = ref object of Pattern
   pat*:Pattern
   namecolon*:CsNameColon
+
 type CsSwitchExpressionArm* = ref object of BodyExpr
   pat*:Pattern
   body*: seq[BodyExpr]

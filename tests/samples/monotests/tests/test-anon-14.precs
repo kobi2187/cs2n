@@ -1,0 +1,18 @@
+class X {
+	delegate void T ();
+	static event T Click;
+
+	static void Method ()
+	{
+	}
+
+	public static void Main ()
+	{
+		T t;
+
+		
+		t = Method;
+
+		Click += Method;
+	}
+}

@@ -26,7 +26,8 @@ a list of mappings:
   - add, remove delegates ...
 - operators in C# are regular procs in Nim, with backticks to define them. example: proc `+`*(arg1,arg2:int) : int =
 - destructors in C#... not sure what in Nim, maybe dispose i don't have experience with them
-  - using clause - C# calls dispose on the object automatically when it exits the scope. don't know equivalence in Nim, perhaps a macro or template is enough.
+  - using clause - C# calls dispose on the object automatically when it exits the scope. 
+    : probably better as a template: can create a block (block "using":), create the var if that's what happens in the using clause (or use a named var directly) and use defer: someVar.close, immediately after.
 - properties are regular functions.
   - but an object field is created for get; or set; with no body. cannot use _ underscore so I am using m_
 - a class variable in C#, even if just used for the next function, will be in Nim a field in the object.
@@ -45,3 +46,5 @@ a list of mappings:
 - casting in C# is a type conversion in Nim. for example lossly converting float to int -- but maybe can also be a bit casting operation.
 - member access expression in C# X[d.Times - 1] or X[7] etc. is the same in Nim.
 - lock clause in C# -- has an equivalent withLock macro in Nim
+- what to do about string interpolation. Nim has a similar fmt macro, but syntax probably differs. (need to check the manual first)
+  - make the target look like: csfmt"", unless there are other arguments, in which case it'd be a proc. the handling will come later in a supporting library. we have the c# source for that as well.

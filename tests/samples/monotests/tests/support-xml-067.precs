@@ -1,0 +1,10 @@
+namespace Testing
+{
+	public partial class Test
+	{
+		
+		public void OneMore ()
+		{
+		}
+	}
+}

@@ -1,0 +1,19 @@
+using System;
+
+public class A {
+
+	public virtual string Warning {
+		get { return ""; }
+	}
+}
+
+public class B : A {
+
+	public override string Warning {
+		get { return ""; }
+	}
+        
+        public static void Main ()
+        {
+        }
+}

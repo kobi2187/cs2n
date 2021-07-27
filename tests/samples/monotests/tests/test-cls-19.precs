@@ -1,0 +1,32 @@
+using System;
+
+
+
+public partial class A
+{
+	public partial class PartialClass
+	{
+		public void Method1 (int arg)
+		{
+		}
+
+		public void Method2 (uint arg)
+		{
+		}
+	}
+	
+	public static void Main ()
+	{
+	}
+}
+
+partial class A
+{
+	 partial class PartialClass
+	{
+
+		public void Method3 (uint arg)
+		{
+		}
+	}
+}

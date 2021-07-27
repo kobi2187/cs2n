@@ -1,0 +1,21 @@
+using System;
+using System.Runtime.InteropServices;
+
+class UnsafeTest
+{
+
+	public unsafe struct Foo
+	{
+		public Bar* bar;
+	}
+
+	public struct Bar
+	{
+		public Foo foo;
+	}
+
+	unsafe public static void Main ()
+	{
+		Console.WriteLine (sizeof (Foo));
+	}
+}

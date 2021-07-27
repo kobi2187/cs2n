@@ -1,0 +1,24 @@
+public class Foo
+{
+	public static class Nested
+	{
+		public static int Bar {
+			get {
+				
+				return bar.value;
+			}
+		} 
+
+		static class bar {
+			
+			public const int value = 3;
+		}
+	}
+
+	
+	int bar; 
+
+	public static void Main ()
+	{
+	}
+}

@@ -1,0 +1,20 @@
+using System;
+
+
+public class CLSClass {
+
+        static public implicit operator CLSClass(byte value) {
+               return new CLSClass();
+        }
+
+#pragma warning disable 3019, 169
+
+        private void Error (bool arg) {
+        }
+#pragma warning restore 3019, 169
+}
+
+public class MainClass {
+        public static void Main () {
+        }
+}

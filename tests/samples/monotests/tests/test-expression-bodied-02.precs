@@ -1,0 +1,16 @@
+using System.Runtime.InteropServices;
+
+public struct Cs0842ExpressionBodyGetterBug
+{
+
+	public int DummyVariable;
+
+	public int MyGetter => 5;
+}
+
+class C
+{
+	public static void Main ()
+	{
+	}
+}

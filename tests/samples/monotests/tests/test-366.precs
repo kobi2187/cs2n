@@ -1,0 +1,19 @@
+using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
+
+struct foo2 {
+}
+
+class C
+{
+	public static int Main ()
+	{
+		foo2 f = new foo2 ();
+
+		
+		
+		Console.WriteLine ("PASS: Test passes on Mono");
+		return 0;
+    }
+}

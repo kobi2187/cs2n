@@ -1,0 +1,13 @@
+interface I
+{
+}
+
+class X
+{
+	
+	
+	
+	public static void Main ()
+	{
+	}
+}

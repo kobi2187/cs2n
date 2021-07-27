@@ -1,0 +1,11 @@
+class MYAttr : System.Attribute {
+}
+
+partial class A {
+  public static void Main () {
+  }
+}
+
+partial class A {
+  int i;
+}

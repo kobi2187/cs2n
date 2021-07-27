@@ -1,0 +1,24 @@
+namespace Testing
+{
+   
+   public class Test
+   {
+	
+	
+	public static void Main ()
+	{
+	}
+
+	
+	
+	public void Bar (int x)
+	{
+	}
+
+	
+	
+	public void Baz (int x)
+	{
+	}
+   }
+}

@@ -1,0 +1,33 @@
+using System;
+
+namespace Testing
+{
+	public class Test
+	{
+		public static void Main ()
+		{
+		}
+
+		
+		
+		
+		public string this [int i] {
+			get { return null; }
+		}
+
+		
+		
+		
+		public string this [string s] {
+			get { return null; }
+		}
+
+		
+		
+		
+		public string this [int i, Test t] {
+			get { return null; }
+		}
+
+	}
+}

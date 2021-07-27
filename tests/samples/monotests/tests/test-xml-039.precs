@@ -1,0 +1,17 @@
+using System;
+
+
+
+
+
+public interface ITest {
+        
+        event EventHandler Start;
+	
+	int Foo { get; }
+}
+
+class Test
+{
+	public static void Main () {}
+}

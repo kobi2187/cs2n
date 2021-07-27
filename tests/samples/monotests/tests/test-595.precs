@@ -1,0 +1,32 @@
+using System;
+
+public struct SymbolId
+{
+}
+
+public interface IAttributesCollection
+{
+	object this  { get; set; }
+}
+
+class AttributesCollection : IAttributesCollection
+{
+	public object this  { 
+		get { return null; } 
+		set { }
+	}
+}
+
+class Program
+{
+	public static object SetDictionaryValue (object self, SymbolId name, object value)
+	{
+		IAttributesCollection dict = new AttributesCollection ();
+		return dict [name] = value;
+	}
+
+	public static void Main ()
+	{
+		SetDictionaryValue (null, new SymbolId (), 1);
+	}
+}

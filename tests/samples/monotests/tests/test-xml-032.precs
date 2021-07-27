@@ -1,0 +1,12 @@
+using System;
+
+class Test
+{
+	
+	
+	protected Test(string name) 
+	{
+	}
+
+	static void Main () {}
+}

@@ -1,0 +1,13 @@
+using System;
+
+public class MyAttribute : Attribute {}
+
+public class SubAttribute : MyAttribute {}
+
+public class test {
+
+
+	public void method() {}
+
+	public static void Main (){}
+}

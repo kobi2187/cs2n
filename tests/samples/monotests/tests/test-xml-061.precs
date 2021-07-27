@@ -1,0 +1,16 @@
+class Test
+{
+	static void Main ()
+	{
+	}
+}
+
+
+public interface Interface
+{
+	
+	int this[int index]
+	{
+		get;
+	}
+}

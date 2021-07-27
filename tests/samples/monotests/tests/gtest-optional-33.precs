@@ -1,0 +1,72 @@
+using System.Runtime.CompilerServices;
+using System;
+
+class TestCallerLineNumber
+{
+    static void Test ( object  line = null)
+    {
+    }
+
+    static void Test ( decimal line = 1)
+    {
+    }
+
+    static void Test ( double  line = 1)
+    {
+    }
+
+    static void Test ( float   line = 1)
+    {
+    }
+
+    static void Test ( int     line = 1)
+    {
+    }
+
+    static void Test ( uint    line = uint.MaxValue)
+    {
+    }
+
+    static void Test ( long    line = 1)
+    {
+    }
+
+    static void Test ( ulong   line = 1)
+    {
+    }
+
+    static void Test ( decimal? line = 1)
+    {
+    }
+
+    static void Test ( double?  line = 1)
+    {
+    }
+
+    static void Test ( float?   line = 1)
+    {
+    }
+
+    static void Test ( int?    line = 1)
+    {
+    }
+
+    static void Test ( uint?    line = uint.MaxValue)
+    {
+    }
+
+    static void Test ( long?    line = 1)
+    {
+    }
+
+    static void Test ( ulong?   line = 1)
+    {
+    }
+}
+
+class D
+{
+    public static void Main ()
+    {
+    }
+}

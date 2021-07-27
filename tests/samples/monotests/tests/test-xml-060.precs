@@ -1,0 +1,28 @@
+using System.Collections.Generic;
+
+namespace Test {
+	
+	
+	class DocMe {
+
+		
+		public static void UseList (List<int> list) {}
+
+		
+		public static void Main ()
+		{
+		}
+	}
+
+	
+	class DocMe<T> {
+		
+		public void UseList (List<T> list) {}
+
+		
+		public void UseList<U> (List<U> list) {}
+
+		
+		public void RefMethod<U> (ref T t, ref U u) {}
+	}
+}

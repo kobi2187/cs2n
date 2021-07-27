@@ -1,0 +1,27 @@
+namespace NAnt.Core.Filters
+{
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public class FilterChain
+	{
+		static void Main ()
+		{
+		}
+	}
+}
+
+namespace NAnt.Core.Tasks
+{
+	
+	
+	
+	public class CopyTask { }
+}

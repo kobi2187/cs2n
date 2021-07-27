@@ -1,0 +1,25 @@
+using System;
+
+namespace XmlComments
+{
+	
+	class Program
+	{
+		
+		private enum MyEnum
+		{
+			
+			One,
+		}
+
+		
+		
+		
+		
+		
+		
+		static void Main(string[] args)
+		{
+		}
+	}
+}

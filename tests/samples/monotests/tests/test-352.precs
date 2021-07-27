@@ -1,0 +1,14 @@
+using System.Runtime.InteropServices;
+
+public struct CONNECTDATA
+{
+
+	public object pUnk;
+
+	public int dwCookie;
+}
+
+public class C
+{
+    public static void Main () {}
+}

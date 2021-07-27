@@ -1,0 +1,78 @@
+public class Outer<T, U> {
+	
+	public void CopyTo(T[] array, int n)
+	{
+	}
+
+	
+	public void CopyTo(T[,,] array, int n)
+	{
+	}
+
+	
+	public void CopyTo(T[][,][,,] array)
+	{
+	}
+
+	
+	public void CopyTo(System.Collections.Generic.KeyValuePair<T,System.Collections.Generic.List<U>>[] array, int n)
+	{
+	}
+
+	
+	public void CopyTo<W,X>(System.Collections.Generic.KeyValuePair<W,System.Collections.Generic.List<X>>[] array, int n)
+	{
+	}
+
+	
+	public void CopyTo<V>(System.Collections.Generic.KeyValuePair<U,System.Collections.Generic.List<V>>[] array, int n)
+	{
+	}
+
+	
+	public void Foo<T>(T[] array)
+	{
+	}
+
+	
+	public void Foo<S>(S[] array, T value)
+	{
+	}
+
+	
+	public class Inner<V> {
+		
+		public static void Bar(ref T t, U u, V v)
+		{
+		}
+	}
+}
+
+
+public class Util {
+	
+	public static TResult Convert<TResult,TSource>(TSource[] input)
+		where TResult : TSource
+	{
+		return default (TResult);
+	}
+}
+
+interface IFoo<T>
+{
+	void Foo ();
+}
+
+class C : IFoo<int>
+{
+	
+	void IFoo<int>.Foo ()
+	{
+	}
+}
+
+class Test {
+	public static void Main ()
+	{
+	}
+}

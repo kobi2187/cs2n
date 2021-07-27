@@ -1,0 +1,51 @@
+using System;
+using System.Reflection;
+
+namespace Test {
+
+	public class My1Attribute : Attribute
+	{
+		public My1Attribute (object o)
+		{
+			if (o != null)
+				throw new ApplicationException ();
+		}
+	}
+
+	public class My2Attribute : Attribute
+	{
+		public My2Attribute (string[] s)
+		{
+			if (s.Length != 0)
+				throw new ApplicationException ();
+		}
+	}
+
+	public class My3Attribute : Attribute
+	{
+		public My3Attribute (byte b)
+		{
+			if (b != 0xFF)
+				throw new ApplicationException ();
+		}
+	}
+
+
+
+
+	public class Test {
+		public static int Main() {
+			System.Reflection.MemberInfo info = typeof (Test);
+			object[] attributes = info.GetCustomAttributes (false);
+			
+			if (attributes.Length != 4)
+				return 1;
+
+			for (int i = 0; i < attributes.Length; i ++) {
+				Console.WriteLine (attributes [i]);
+			}
+			
+			return 0;
+		}
+	}
+}

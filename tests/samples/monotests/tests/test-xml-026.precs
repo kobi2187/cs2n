@@ -1,0 +1,23 @@
+namespace Testing
+{
+	
+	public class Test
+	{
+		public static void Main ()
+		{
+		}
+
+		
+		public void Foo (int i) {}
+
+		
+		
+		public void Bar (int i) {}
+
+		
+		public void Baz (int i) {}
+
+		
+		public void Var (params int [] arr) {}
+	}
+}

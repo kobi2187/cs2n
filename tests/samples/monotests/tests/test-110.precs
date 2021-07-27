@@ -1,0 +1,27 @@
+using System;
+
+namespace test
+{
+        public class test
+        {
+                static int test_method(int vv)
+                {
+			byte b = 45;
+
+			
+			
+			
+			
+                        b |= (byte)(vv << 1);
+
+                        return b;
+                }
+
+                public static int Main ()
+                {
+			if (test_method (1) != 47)
+				return 1;
+			return 0;
+                }
+        }
+}

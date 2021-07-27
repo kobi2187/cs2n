@@ -1,0 +1,12 @@
+using System;
+
+public class A: Attribute {
+
+	public A (object o) {
+	}
+}
+
+public class Test {
+        static public void Main() {
+	}
+}

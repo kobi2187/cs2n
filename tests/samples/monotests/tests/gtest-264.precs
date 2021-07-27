@@ -1,0 +1,22 @@
+public class BaseList<SubType>
+{
+        
+        object obj = new object ();
+}
+
+public class XXX : BaseList<object>
+{
+}
+
+public class Crash
+{
+        public static void Main()
+        {
+                
+                XXX [] arr = new XXX [0];
+                
+                
+
+                new BaseList<object> (); 
+        }
+}

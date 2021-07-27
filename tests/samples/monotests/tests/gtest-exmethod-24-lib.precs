@@ -1,0 +1,12 @@
+using System.Runtime.CompilerServices;
+
+namespace lib1
+{
+	internal static class Foo
+	{
+		
+		public static void Extend (this string aString)
+		{
+		}
+	}
+}

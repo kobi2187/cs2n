@@ -1,0 +1,15 @@
+using System.Collections.Generic;
+
+ 
+ public class Test
+ {
+	
+	protected Dictionary<string, object> Foo { get; set; } = new Dictionary<string, object>();
+
+	
+	protected bool TestFoo;
+
+	static void Main ()
+	{
+	}
+ }

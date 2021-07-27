@@ -1,0 +1,15 @@
+using System.Runtime.InteropServices;
+
+class X {
+	static UnmanagedType UnmanagedType;
+
+	public static int Main ()
+	{
+		UnmanagedType = (UnmanagedType) 0;
+
+		if (UnmanagedType != 0)
+			return 1;
+
+		return 0;
+	}
+}

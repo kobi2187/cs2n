@@ -1,0 +1,12 @@
+using System;
+
+public class Test
+{
+	public static void Main ()
+	{
+		
+		new InternalFriendClass ();
+		new FriendClass.NestedInternalClass ();
+		new FriendClass.NestedProtectedInternalClass ();
+	}
+}

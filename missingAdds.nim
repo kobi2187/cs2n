@@ -1,16 +1,12 @@
-method add*(parent: CsArrayRankSpecifier; item: CsAwaitExpression) =
-  echo "in method add*(parent: CsArrayRankSpecifier; item: CsAwaitExpression)"
-  todoimplAdd() # TODO(add: CsArrayRankSpecifier, CsAwaitExpression)
+method add*(parent: CsUsingStatement; item: CsYieldStatement) =
+  echo "in method add*(parent: CsUsingStatement; item: CsYieldStatement)"
+  todoimplAdd() # TODO(add: CsUsingStatement, CsYieldStatement)
 
-method add*(parent: CsUnsafeStatement; item: CsExpressionStatement) =
-  echo "in method add*(parent: CsUnsafeStatement; item: CsExpressionStatement)"
-  todoimplAdd() # TODO(add: CsUnsafeStatement, CsExpressionStatement)
+method add*(parent: CsUnsafeStatement; item: CsForStatement) =
+  echo "in method add*(parent: CsUnsafeStatement; item: CsForStatement)"
+  todoimplAdd() # TODO(add: CsUnsafeStatement, CsForStatement)
 
-method add*(parent: CsAnonymousMethodExpression; item: CsUnsafeStatement) =
-  echo "in method add*(parent: CsAnonymousMethodExpression; item: CsUnsafeStatement)"
-  todoimplAdd() # TODO(add: CsAnonymousMethodExpression, CsUnsafeStatement)
-
-method add*(parent: CsUnsafeStatement; item: CsFixedStatement) =
-  echo "in method add*(parent: CsUnsafeStatement; item: CsFixedStatement)"
-  todoimplAdd() # TODO(add: CsUnsafeStatement, CsFixedStatement)
+method add*(parent: CsUnsafeStatement; item: CsIfStatement) =
+  echo "in method add*(parent: CsUnsafeStatement; item: CsIfStatement)"
+  todoimplAdd() # TODO(add: CsUnsafeStatement, CsIfStatement)
 

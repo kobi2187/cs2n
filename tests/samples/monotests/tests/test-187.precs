@@ -1,0 +1,42 @@
+using System.Collections.Specialized;
+
+public class MyClass
+{
+	public Container this [ string s ]
+	{
+		get { return null; }
+		set { ; }
+	}		
+}
+
+
+public class Container
+{
+	public static Container operator + ( Container c, object o )
+	{
+		return c;
+	}	
+}
+
+class D {
+	static void A (NameValueCollection n, MyClass m, object o)
+        {
+		
+		
+		
+		
+                n ["a"] += ";";
+
+		
+		
+		
+		
+		m["apple"] += o;
+        }
+
+	
+	public static int Main ()
+	{
+		return 0;
+	}
+}

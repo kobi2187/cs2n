@@ -1,0 +1,16 @@
+using System;
+public delegate TResult Func<TArg0, TResult> (TArg0 arg0);
+
+class Demo {
+	static Z F<X,Y,Z>(X value, Func<X,Y> f1, Func<Y,Z> f2)
+	{
+		return f2 (f1(value));
+	}
+	public static int Main ()
+	{
+		double d = F("1:15:30", s => TimeSpan.Parse(s), t => t.TotalSeconds);
+		if (d < 4529 || d > 4531)
+			return 1;
+		return 0;
+	}
+}

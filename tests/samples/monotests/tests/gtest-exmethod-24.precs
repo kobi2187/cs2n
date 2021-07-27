@@ -1,0 +1,8 @@
+using lib1;
+
+public class Bar
+{
+	public static void Main ()
+	{
+	}
+}

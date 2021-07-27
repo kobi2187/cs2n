@@ -1,0 +1,31 @@
+using System;
+
+
+
+public partial class Test
+{
+	string Bar;
+
+	public static void Main () {}
+
+	
+	
+	internal partial class Inner
+	{
+		public string Hoge;
+	}
+}
+
+
+
+public partial class Test
+{
+	public string Foo;
+
+	
+	
+	internal partial class Inner
+	{
+		string Fuga;
+	}
+}

@@ -1,0 +1,19 @@
+using System;
+
+namespace Testing
+{
+	public class Test
+	{
+		public static void Main ()
+		{
+		}
+
+		
+		
+		
+		public event EventHandler MyEvent;
+
+		
+		private event EventHandler MyEvent2;
+	}
+}

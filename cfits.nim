@@ -233,6 +233,7 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckSwitchSection, ckWhileStatement": true
   of "ckCheckedExpression, ckIdentifier": true
   of "ckAssignmentExpression, ckCastExpression": true
+  of "ckWhereClause, ckIdentifier": true
   of "ckDeclarationExpression, ckTupleType": true
   of "ckWhileStatement, ckForStatement": true
   of "ckTypeParameter, ckIdentifier": true
@@ -377,6 +378,7 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckGlobalStatement, ckExpressionStatement": true
   of "ckMethod, ckForStatement": true
   of "ckLockStatement, ckReturnStatement": true
+  of "ckVariableDeclarator, ckIdentifier": true
   of "ckArrayCreationExpression, ckArrayType": true
   of "ckAssignmentExpression, ckCheckedExpression": true
   of "ckForStatement, ckEmptyStatement": true
@@ -602,6 +604,7 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckUsingStatement, ckIdentifier": true
   of "ckTypeArgumentList, ckTupleType": true
   of "ckSimpleLambdaExpression, ckUsingStatement": true
+  of "ckEmptyStatement, ckIdentifier": true
   of "ckInvocationExpression, ckIdentifier": true
   of "ckDeclarationExpression, ckPredefinedType": true
   of "ckParenthesizedExpression, ckSimpleLambdaExpression": true
@@ -712,6 +715,7 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckAwaitExpression, ckIdentifier": true
   of "ckDoStatement, ckIsPatternExpression": true
   of "ckParenthesizedLambdaExpression, ckIsPatternExpression": true
+  of "ckUnsafeStatement, ckForStatement": true
   of "ckObjectCreationExpression, ckTupleType": true
   of "ckAwaitExpression, ckAwaitExpression": true
   of "ckParenthesizedLambdaExpression, ckCastExpression": true
@@ -1081,6 +1085,7 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckWhileStatement, ckWhileStatement": true
   of "ckCaseSwitchLabel, ckSizeOfExpression": true
   of "ckTupleType, ckTupleElement": true
+  of "ckWhereClause, ckElementAccessExpression": true
   of "ckExplicitInterfaceSpecifier, ckAliasQualifiedName": true
   of "ckIsPatternExpression, ckCastExpression": true
   of "ckRefExpression, ckLiteralExpression": true
@@ -1288,6 +1293,7 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckExpressionStatement, ckBinaryExpression": true
   of "ckProperty, ckReturnStatement": true
   of "ckSwitchExpressionArm, ckWhenClause": true
+  of "ckRangeExpression, ckIdentifier": true
   of "ckReturnStatement, ckBaseExpression": true
   of "ckNullableType, ckArrayType": true
   of "ckOperator, ckYieldStatement": true
@@ -1419,6 +1425,7 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckMemberAccessExpression, ckImplicitArrayCreationExpression": true
   of "ckSimpleBaseType, ckPointerType": true
   # of "ckArgumentList, ckIdentifier": true
+  of "ckThrowExpression, ckIdentifier": true
   of "ckArrayRankSpecifier, ckObjectCreationExpression": true
   of "ckLocalFunctionStatement, ckPredefinedType": true
   of "ckVariableDeclarator, ckObjectCreationExpression": true
@@ -1500,6 +1507,7 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckConversionOperator, ckForEachStatement": true
   of "ckMemberBindingExpression, ckIdentifier": true
   of "ckAccessor, ckForEachStatement": true
+  of "ckUnsafeStatement, ckIfStatement": true
   of "ckSwitchStatement, ckAwaitExpression": true
   of "ckEqualsValueClause, ckSwitchExpression": true
   of "ckArgument, ckIsPatternExpression": true
@@ -1672,6 +1680,7 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckReturnStatement, ckQueryExpression": true
   of "ckLetClause, ckParenthesizedExpression": true
   of "ckForStatement, ckBinaryExpression": true
+  of "ckClass, ckIdentifier": true
   of "ckSwitchSection, ckThrowStatement": true
   of "ckCasePatternSwitchLabel, ckConstantPattern": true
   of "ckForEachVariableStatement, ckYieldStatement": true
@@ -1685,6 +1694,7 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckEqualsValueClause, ckAnonymousObjectCreationExpression": true
   of "ckReturnStatement, ckImplicitObjectCreationExpression": true
   of "ckOperator, ckExpressionStatement": true
+  of "ckUnsafeStatement, ckFixedStatement": true
   of "ckConditionalExpression, ckDefaultExpression": true
   of "ckInitializerExpression, ckElementAccessExpression": true
   of "ckConversionOperator, ckArrayType": true
@@ -1703,6 +1713,7 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckBinaryPattern, ckRelationalPattern": true
   of "ckPrefixUnaryExpression, ckCheckedExpression": true
   of "ckAnonymousMethodExpression, ckForStatement": true
+  of "ckConstantPattern, ckIdentifier": true
   of "ckGotoStatement, ckMemberAccessExpression": true
   of "ckClass, ckInterface": true # ?
   of "ckInterpolatedStringExpression, ckInterpolatedStringText": true
@@ -2033,8 +2044,8 @@ proc cfits*(parent, item: Construct; data: AllNeededData): bool = # asks the inn
   of "ckConditionalExpression, ckSizeOfExpression": true
   of "ckPrefixUnaryExpression, ckObjectCreationExpression": true
   of "ckTypeOfExpression, ckPointerType": true
-  of "ckClass, ckIdentifier": true
-  of "ckUnsafeStatement, ckFixedStatement": true
-  of "ckConstantPattern, ckIdentifier": true
+  of "ckUsingStatement, ckParenthesizedExpression": true
+  of "ckPropertyPatternClause, ckIdentifier": true
+  of "ckInterpolationAlignmentClause, ckIdentifier": true
 
   else: raise newException(Exception, "cfits is missing:  of \"" & $parent.kind & ", " & $item.kind & "\": true")

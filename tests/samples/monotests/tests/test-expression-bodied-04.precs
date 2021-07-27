@@ -1,0 +1,14 @@
+class VV
+{
+    VV () => Test ();
+
+    ~VV () => Test ();
+
+    void Test ()
+    {
+    }
+
+    public static void Main ()
+    {
+    }
+}

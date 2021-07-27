@@ -1,0 +1,21 @@
+interface a <t> { void x (); }
+
+interface b <t> : a <t> {}
+
+class kv <k,v> {} 
+
+interface c <k,v>: b <kv<k,v>>,  
+                   a <kv<k,v>>    
+{}
+
+class m <k,v> : c <k,v>,
+                b <kv<k,v>> 
+{
+        void a <kv <k,v>>.x () {} 
+}
+
+class X
+{
+	public static void Main ()
+	{ }
+}

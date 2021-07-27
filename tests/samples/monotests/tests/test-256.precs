@@ -1,0 +1,27 @@
+using System;
+
+public class TableColumn : Attribute
+{
+	public object MagicValue 
+	{
+                get { return null; }
+		set { }
+	}
+        
+        public object Value2;
+}
+        
+class Bug
+{
+
+    public int TInt 
+    {
+         get { return 0; }
+    }    
+    
+    public static void Main ()
+    {
+        const object o = null;       
+    }
+
+}

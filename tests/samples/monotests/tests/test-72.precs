@@ -1,0 +1,16 @@
+using System;
+
+public class outer {
+        public class inner {
+                public void meth(Object o) {
+                        inner inst = (inner)o;
+                }
+        }
+	
+	public static int Main ()
+	{
+		
+		
+		return 0;
+	}
+  }

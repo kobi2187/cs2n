@@ -1,0 +1,22 @@
+using System;
+
+namespace TestBUG
+{
+	public class myAttribute : Attribute
+	{
+		public myAttribute(string p1, string p2, string p3, int p4) {}
+	}
+
+	
+	
+	
+
+	public class Test
+	{
+
+		public static int Main  ()
+		{
+			return 0;
+		}
+	}
+}

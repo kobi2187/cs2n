@@ -1,0 +1,26 @@
+using C = System.Console;
+
+class Test  {
+    
+    public static void Main (string[] args) {
+      switch (1) {
+        default:
+          switch (2) {
+            default:
+              int flag = 1;       
+	      if (flag == 1) {
+		C.WriteLine("**** This one is expected");
+                break;  
+	      }  
+              else  goto lbl;
+          }
+	  break;  
+	          
+        
+        lbl:
+          C.WriteLine("**** THIS SHOULD NOT APPEAR, since break-1 was supposed to fire ***");
+          break;
+        
+      }
+    }
+}

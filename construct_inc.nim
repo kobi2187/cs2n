@@ -69,7 +69,7 @@ type ConstructKind* = enum
 
 import options
 type CNode {.acyclic.} = object
-  id*: Option[UUID]
+  id*: Option[UUID] 
   parentId*: Option[UUID]
   parentRawKind*: int
   rawKind*: int

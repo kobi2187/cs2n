@@ -1,0 +1,41 @@
+using System;
+
+delegate void PersonArrivedHandler (object source, PersonArrivedArgs args);
+
+class PersonArrivedArgs  {
+    public string name;
+    public PersonArrivedArgs (string name) {
+	this.name = name;
+    }
+}
+
+class Greeter {
+    string greeting;
+
+    public Greeter (string greeting) {
+	this.greeting = greeting;
+    }
+
+    public void HandlePersonArrived (object source, PersonArrivedArgs args) {
+	Console.WriteLine(greeting, args.name);
+    }
+}
+
+class Room {
+    public event PersonArrivedHandler PersonArrived;
+
+    public Room () {
+	    
+	    PersonArrived = null;
+    }
+
+    public void AddPerson (string name) {
+	PersonArrived(this, null); 
+    }
+}
+
+class DelegateTest {
+    public static int Main () {
+	return 0;
+    }
+}

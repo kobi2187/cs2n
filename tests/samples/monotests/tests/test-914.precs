@@ -1,0 +1,10 @@
+class ClassMain {
+        static bool test = true;
+    
+        public static void Main() {
+                if (true) {
+                        bool test = false;
+                }
+                test = false;
+        }
+}

@@ -1,0 +1,52 @@
+public class EntryPoint {
+  static void Main () {
+  }
+}
+
+
+public interface IA {
+  
+  string Name {
+    get;
+  }
+
+  
+  string Execute ();
+}
+
+
+public interface IB : IA {
+  
+  new int Name {
+    get;
+  }
+
+  
+  new int Execute ();
+}
+
+
+public class A {
+  
+  public string Name {
+    get { return null; }
+  }
+
+  
+  public string Execute () {
+    return null;
+  }
+}
+
+
+public class B : A {
+  
+  public new int Name {
+    get { return 0; }
+  }
+
+  
+  public new int Execute () {
+    return 0;
+  }
+}

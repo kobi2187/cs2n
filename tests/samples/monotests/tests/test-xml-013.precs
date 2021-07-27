@@ -1,0 +1,40 @@
+using System;
+
+namespace Testing
+{
+	public class Test
+	{
+		public static void Main ()
+		{
+		}
+
+		
+		
+		
+		public string PublicProperty {
+			
+			
+			
+			get { return null; }
+			
+			
+			
+			set { }
+		}
+
+		
+		
+		
+		public string PublicProperty2 {
+			get { return null; }
+		}
+
+		
+		public string PublicProperty3 {
+			
+			get { return null; }
+			
+			set { }
+		}
+	}
+}

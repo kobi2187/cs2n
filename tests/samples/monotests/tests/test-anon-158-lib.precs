@@ -1,0 +1,4 @@
+public class Call<T>
+{
+	public T Field;
+}

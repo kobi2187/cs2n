@@ -1,0 +1,7 @@
+public class C : I
+{
+	public static void Main ()
+	{
+
+	}
+}

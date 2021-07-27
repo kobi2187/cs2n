@@ -1,0 +1,13 @@
+using System.ComponentModel;
+
+public class PropertySorter : ExpandableObjectConverter {
+}
+
+class PathItemBase {
+	internal class TypeConverter : PropertySorter {
+	}
+}
+
+class X {
+	public static void Main () {}
+}

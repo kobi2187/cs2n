@@ -1,0 +1,18 @@
+using System;
+
+public class C
+{
+	public event EventHandler MyDelegate = delegate { };
+
+	internal void DoSomething (bool bValue)
+	{
+		if (!bValue) {
+			
+			return;
+		}
+	}
+	
+	public static void Main ()
+	{
+	}
+}

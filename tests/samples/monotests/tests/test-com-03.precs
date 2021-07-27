@@ -1,0 +1,22 @@
+using System;
+
+class X
+{
+	void Test_PropertyOptionalParameters (C c)
+	{
+		
+		if (c == null)
+			return;
+
+		Console.WriteLine (c.Value);
+		c.Value2 = 1;
+	}
+
+	public static int Main ()
+	{
+		var x = new X ();
+		x.Test_PropertyOptionalParameters (null);
+
+		return 0;
+	}
+}

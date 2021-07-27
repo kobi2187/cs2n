@@ -1,0 +1,17 @@
+namespace Test
+{
+	using System;
+
+	
+	public delegate void FirstTestDelegate<T> (T obj) where T : Exception;
+
+	
+	public interface TestInterface { }
+}
+
+class A
+{
+	static void Main ()
+	{
+	}
+}

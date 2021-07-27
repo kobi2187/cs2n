@@ -1,0 +1,26 @@
+using System;
+
+namespace Testing
+{
+	public class Test
+	{
+		public static void Main ()
+		{
+		}
+
+		
+		public static void Foo ()
+		{
+		}
+
+		
+		public static void Foo (long l, Test t, System.Collections.ArrayList al)
+		{
+		}
+
+		
+		public static void Foo (params string [] param)
+		{
+		}
+	}
+}

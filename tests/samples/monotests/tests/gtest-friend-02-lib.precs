@@ -1,0 +1,60 @@
+using System;
+using System.Runtime.CompilerServices;
+
+
+
+
+
+
+
+
+
+
+public class FriendClass
+{
+	
+	
+	internal static int StaticFriendField;
+	
+	internal static int StaticFriendProperty {
+		get {
+			return 1;
+		}
+	}
+
+	internal static int StaticFriendMethod ()
+	{
+		return 2;
+	}
+
+	
+	
+	internal int InstanceFriendField;
+	
+	internal int InstanceFriendProperty {
+		get {
+			return 1;
+		}
+	}
+
+	internal int InstanceFriendMethod () 
+	{
+		return 2;
+	}
+
+	
+	internal class NestedInternalClass
+	{
+	}
+
+	protected internal class NestedProtectedInternalClass
+	{
+	}
+}
+
+
+
+
+class InternalFriendClass
+{
+}

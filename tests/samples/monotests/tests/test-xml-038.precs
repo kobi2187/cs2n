@@ -1,0 +1,19 @@
+using System;
+using System.Reflection;
+using System.Xml;
+
+
+
+
+public class Whatever {
+  
+  
+  public static void Main() {
+	foreach (MemberInfo mi in typeof (XmlDocument).FindMembers (
+		MemberTypes.All,
+		BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance,
+		Type.FilterName,
+		"NodeInserted"))
+		Console.WriteLine (mi.GetType ());
+  }
+}

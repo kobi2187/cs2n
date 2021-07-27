@@ -1,0 +1,35 @@
+using System;
+
+class S {
+	delegate void T ();
+
+	T t;
+
+	int f;
+
+	public void Test ()
+	{
+		
+		
+		
+		int a = 1;
+		for (int i = a; i < 10; i++){
+			int j = i;
+			t = delegate {
+				Console.WriteLine ("Before: {0} {1} {2}", f, i, j);
+				f = i;
+			};
+		}
+	}
+	
+	public static int Main ()
+	{
+	    S s = new S ();
+	    s.Test ();
+	    s.t ();
+	    if (s.f == 10)
+		    return 0;
+	    Console.WriteLine ("Failed:" + s.f);
+	    return 1;
+	}
+}

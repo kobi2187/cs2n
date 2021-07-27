@@ -1,0 +1,28 @@
+public class A {
+	static void Main () {
+	}
+
+	
+	public virtual string Level {
+		get { return null; }
+	}
+
+	
+	public virtual void Test () {
+	}
+}
+
+
+
+
+
+public class B : A {
+	
+	public override string Level {
+		get { return null; }
+	}
+
+	
+	public override void Test () {
+	}
+}

@@ -1,0 +1,10 @@
+#line 1 "@@file_does_not_exist@@"
+
+#line 3 "test-650.cs" 
+
+class App
+{
+    public static void Main ()
+    {
+    }
+}

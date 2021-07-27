@@ -1,0 +1,20 @@
+using System;
+using System.Runtime.InteropServices;
+
+	public class CorMetaDataDispenserExClass { }
+
+	public interface IMetaDataDispenserEx { }
+
+	
+public class Test
+{
+	public static void XXX ()
+	{
+		IMetaDataDispenserEx o = new IMetaDataDispenserEx();
+	}
+
+	public static void Main()
+	{
+		
+	}
+}

@@ -1,0 +1,27 @@
+using System;
+
+namespace Testing
+{
+	
+	
+	
+	public partial class Test
+	{
+		
+		public Test ()
+		{
+		}
+	}
+
+	public partial class Test
+	{
+		
+		public void Foo ()
+		{
+		}
+
+		static void Main ()
+		{
+		}
+	}
+}

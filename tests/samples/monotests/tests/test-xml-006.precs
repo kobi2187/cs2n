@@ -1,0 +1,36 @@
+using System;
+
+namespace Testing
+{
+	
+	
+	
+	public enum EnumTest
+	{
+		Foo,
+		Bar,
+	}
+
+	
+	
+	
+	public enum EnumTest2
+	{
+		Foo,
+		Bar,
+	}
+
+	
+	public enum EnumTest3
+	{
+		Foo,
+		Bar,
+	}
+
+	public class Test
+	{
+		public static void Main ()
+		{
+		}
+	}
+}

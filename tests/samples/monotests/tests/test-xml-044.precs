@@ -1,0 +1,23 @@
+using System.Xml;
+
+
+public class EntryPoint
+{
+  static void Main()
+  {
+  }
+
+  
+  
+  
+  internal class A
+  {
+    public virtual void Decide(int a)
+    {
+    }
+  }
+
+  internal class B : A
+  {
+  }
+}

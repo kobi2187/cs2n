@@ -1,0 +1,30 @@
+using System;
+
+namespace Testing
+{
+	
+	
+	
+	public struct StructTest
+	{
+	}
+
+	
+	
+	
+	public struct StructTest2
+	{
+	}
+
+	
+	public struct StructTest3
+	{
+	}
+
+	public class Test
+	{
+		public static void Main ()
+		{
+		}
+	}
+}

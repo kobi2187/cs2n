@@ -1,0 +1,77 @@
+using System;
+using System.Security;
+using System.Security.Permissions;
+
+struct LinkDemandStruct {
+	internal string Info;
+}
+
+public class Program {
+
+	private static string _message = "Hello Mono!";
+	private LinkDemandStruct info;
+
+	public Program () {
+		info = new LinkDemandStruct ();
+		info.Info = ":-)";
+	}
+
+	public static string Message {
+
+		get { return _message; }
+
+		set { _message = value; }
+	}
+
+	private bool DenyMethod () {
+		return false;
+	}
+
+
+
+	public void Test2 ()
+	{
+	}
+
+
+	public void Test3 ()
+	{
+	}
+
+	public void Test4 ()
+	{
+	}
+
+
+	public static int Main (string[] args)
+	{
+		
+		Type program = typeof (Program);
+		
+		if (program.GetCustomAttributes (true).Length != 0)
+			return 1;
+		
+		if (program.GetConstructor (System.Type.EmptyTypes).GetCustomAttributes (true).Length != 0)
+			return 2;
+
+		if (program.GetProperty ("Message").GetSetMethod ().GetCustomAttributes (true).Length != 0)
+			return 3;
+
+		if (program.GetMethod ("Main").GetCustomAttributes (true).Length != 0)
+			return 4;
+
+		if (program.GetMethod ("Test2").GetCustomAttributes (true).Length != 0)
+			return 5;		
+		
+		Type test2 = typeof (Test2);
+		if (test2.GetCustomAttributes (true).Length != 0)
+			return 6;
+		
+		Console.WriteLine ("OK");
+		return 0;
+	}
+}
+
+public partial class Test2 {}
+
+public partial class Test2 {}

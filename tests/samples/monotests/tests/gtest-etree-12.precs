@@ -1,0 +1,30 @@
+using System;
+using System.Reflection;
+using System.Linq.Expressions;
+
+public static class TestCase
+{
+	
+	public static bool DUMMY = StaticMethodTakingAnExpression ((i) => true);
+
+	public static bool StaticMethodTakingAnExpression (
+	  Expression<Func<object, bool>> expression)
+	{
+		
+		return false;
+	}
+
+	public static void DummyToMakeTheStaticsInitialize ()
+	{
+		
+	}
+}
+
+public class Program
+{
+	public static int Main ()
+	{
+		TestCase.DummyToMakeTheStaticsInitialize ();
+		return 0;
+	}
+}

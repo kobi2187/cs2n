@@ -1,0 +1,24 @@
+public class Thing
+{
+    public delegate void Handler ();
+    
+    static void Foo ()
+    {
+    }
+
+    public static int Main ()
+    {
+        Method (delegate { }, 
+            "Hello", "How", "Are", "You"); 
+        Method (delegate { });             
+
+        Method (null, null);               
+        Method (null);                     
+        Method (Foo, "Hi");               
+        return 0;
+    }
+
+    public static void Method (Handler handler, params string [] args)
+    {
+    }
+}

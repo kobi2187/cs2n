@@ -1,0 +1,13 @@
+public class Test
+   {
+       public class A {}
+
+       public static void Main ()
+       {
+       }
+
+       
+       public static void Foo (A a, int x)
+       {
+       }
+   }

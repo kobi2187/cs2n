@@ -1,0 +1,19 @@
+public class MyClass
+{
+   
+   public static void Main()
+   {
+   }
+
+   
+   public static explicit operator int(MyClass f)
+   {
+      return 0;
+   }
+
+   
+   public static implicit operator char(MyClass f)
+   {
+      return ' ';
+   }
+}

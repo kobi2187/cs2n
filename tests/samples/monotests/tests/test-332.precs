@@ -1,0 +1,10 @@
+
+#define FOO
+
+ 
+#define BAR
+
+public class C
+{
+    public static void Main () {}
+}

@@ -1,0 +1,11 @@
+public class Test
+{
+	
+	unsafe Test (byte* o)
+	{
+	}
+
+	static void Main ()
+	{
+	}
+}

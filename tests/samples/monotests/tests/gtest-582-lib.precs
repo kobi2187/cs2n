@@ -1,0 +1,7 @@
+public class C : I
+{
+}
+
+interface I
+{
+}

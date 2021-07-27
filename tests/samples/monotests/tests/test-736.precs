@@ -1,0 +1,42 @@
+using System;
+
+
+
+public class TestGeneric<T>
+{
+	public event EventHandler Event;
+
+	public void Raise ()
+	{
+		Event (this, EventArgs.Empty);
+	}
+}
+
+
+
+public class TestGeneric2<T>
+{
+	public delegate void GenericHandler (T t);
+	public event GenericHandler Event;
+
+	public void Raise ()
+	{
+		Event (default (T));
+	}
+}
+
+
+
+public class Test
+{
+	public event EventHandler Event;
+
+	public void Raise ()
+	{
+		Event (this, EventArgs.Empty);
+	}
+
+	public static void Main ()
+	{
+	}
+}

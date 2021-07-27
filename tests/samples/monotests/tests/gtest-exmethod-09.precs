@@ -1,0 +1,15 @@
+static class Test
+{
+	public static void Foo<T> (this string p1)
+	{
+	}
+}
+
+class C
+{
+	public static void Main ()
+	{
+		
+		"a".Foo<bool> ();
+	}
+}

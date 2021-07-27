@@ -1,0 +1,13 @@
+using System;
+using System.Reflection;
+
+using StringList = System.String;
+
+
+
+class Test {
+	public static void Main ()
+	{
+	}
+}
+

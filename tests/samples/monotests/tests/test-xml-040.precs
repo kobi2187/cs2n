@@ -1,0 +1,12 @@
+using System.Collections;
+
+
+public class Test {
+	static void Main () {
+	}
+
+	
+	public string this [string name] {
+		get { return null; }
+	}
+}

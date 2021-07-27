@@ -1,0 +1,31 @@
+using System;
+
+class Test1 {
+	
+	
+	
+	void Foo(){}
+
+	public static void Main () {}
+}
+
+
+
+
+public interface ITest2 {
+
+	
+	
+	
+	void Foo();
+
+	
+	
+	
+	long Bar { get; }
+
+	
+	
+	
+	event EventHandler EventRaised;
+}

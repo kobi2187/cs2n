@@ -1,0 +1,26 @@
+using log4net.Repository.Hierarchy;
+
+namespace log4net
+{
+  
+  
+  
+  public interface IFoo {}
+}
+
+namespace log4net.Repository {
+  
+  
+  
+  
+  public interface ILog {
+  }
+}
+
+namespace log4net.Repository.Hierarchy {
+  
+  public class Hierarchy {
+    static void Main () {
+    }
+  }
+}

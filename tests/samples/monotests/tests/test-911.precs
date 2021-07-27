@@ -1,0 +1,14 @@
+class N
+{
+	public static void Foo ()
+	{
+	}
+}
+
+class X
+{
+	public static void Main ()
+	{
+		N.Foo ();
+	}
+}

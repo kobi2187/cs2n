@@ -1,0 +1,27 @@
+using System;
+using System.Runtime.CompilerServices;
+
+
+
+public interface Indexed
+{
+
+	int this [int ix] {
+		get;
+	}
+}
+
+public class Foo<G>
+	where G : Indexed
+{
+	public static void Bar()
+	{
+		int i = default(G) [0];
+	}
+}
+
+class X
+{
+	public static void Main ()
+	{ }
+}

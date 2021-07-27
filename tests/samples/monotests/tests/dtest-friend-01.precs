@@ -1,0 +1,8 @@
+class C
+{
+	public static void Main ()
+	{
+		dynamic d = new A();
+		d.Test ();
+	}
+}

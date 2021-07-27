@@ -1,0 +1,10 @@
+
+public class M {
+	public static void Main()
+	{
+	}
+}
+
+public class AttrA : System.Attribute {}
+
+public class AttrB : AttrA {}

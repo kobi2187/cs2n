@@ -1,0 +1,12 @@
+using System;
+
+namespace Testing
+{
+	public class Test
+	{
+		public static void Main ()
+		{
+			
+		}
+	}
+}

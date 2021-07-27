@@ -1,0 +1,9 @@
+using N;
+
+public class Test: Lib
+{
+	public static void Main ()
+	{
+		new Test ();
+	}
+}

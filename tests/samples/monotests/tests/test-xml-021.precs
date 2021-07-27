@@ -1,0 +1,21 @@
+using System;
+
+namespace Testing
+{
+	public class Test
+	{
+		public static void Main ()
+		{
+		}
+
+		
+		public class InternalClass
+		{
+		}
+
+		
+		public struct InternalStruct
+		{
+		}
+	}
+}

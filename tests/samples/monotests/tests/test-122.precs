@@ -1,0 +1,15 @@
+class A {
+        private static int X = 0;
+
+        class B {
+                void Foo ()
+                {
+                        ++ X;
+                }
+        }
+
+        public static int Main ()
+        {
+		return 0;
+        }
+}

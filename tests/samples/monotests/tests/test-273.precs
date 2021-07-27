@@ -1,0 +1,12 @@
+using System;
+
+public class FooAttribute : Attribute {
+	public char [] Separator;
+}
+
+public class Tests {
+	public static void Main () {
+		FooAttribute foo = (FooAttribute) (typeof (Tests).GetCustomAttributes (false) [0]);
+		Console.WriteLine (foo.Separator);
+	}
+}

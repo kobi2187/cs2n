@@ -2,7 +2,7 @@
 # import ../state_utils
 import nre, sequtils, strutils, sets, re, uuids, options, tables, hashes
 import ../types, justtypes
-import sequtils, algorithm
+import sequtils
 # import :store_utils
 include "../missingAdds.nim"
 
@@ -45,6 +45,7 @@ proc genPred(c:CsWhereClause|CsWhileStatement|CsDoStatement|CsIfStatement|CsCond
   echo "end of genPred"
 
 method addToUsing(parent: CsUsingStatement; item: BodyExpr) =
+  # this relies on order.
   if parent.variable.isNil:
     parent.variable = item
   else:
@@ -60,16 +61,18 @@ proc `$`*(parent:CsConditionalExpression):string =
 
 method addConditional*(parent: CsConditionalExpression; item: BodyExpr) =
   echo "in method add*(parent: CsConditionalExpression; item: BodyExpr)"
-  echo "before", parent
-  # assert not parent.hasNoPredicate # commented out, because we ignore identifierName which is sometimes in the predicate part.
-  if parent.bodyTrue.isNil:
-    parent.bodyTrue = item
+  # echo "before", parent
+  if parent.hasNoPredicate:
+    parent.exprThatLeadsToBoolean = item
   else:
-    if parent.bodyFalse.isNil:
-      parent.bodyFalse = item
+    if parent.bodyTrue.isNil:
+      parent.bodyTrue = item
     else:
-      assert false, "t = " & parent.bodyTrue.typ & parent.bodyTrue.src & ": f = " & parent.bodyFalse.typ & parent.bodyFalse.src
-  echo "after", parent
+      if parent.bodyFalse.isNil:
+        parent.bodyFalse = item
+      else:
+        assert false, "t = " & parent.bodyTrue.typ & parent.bodyTrue.src & ": f = " & parent.bodyFalse.typ & parent.bodyFalse.src
+  # echo "after", parent
 
 proc colonsToTable*(s: seq[string]): TableRef[string, string] =
   new result
@@ -175,7 +178,8 @@ proc genGet(c:CsAccessor):string =
   result = "TODO!! proc c.name(this:ClassName): type = "
   # echo c.statements.len
   echo c.body.len
-  if c.body.len == 0 and c.expressionBody.isNil: result &= "return this._name" # simple case
+  if c.body.len == 0 and c.expressionBody.isNil: 
+    result &= "return this._name" # simple case
   else:
     if not c.body.len == 0: # umm, or statements?
       result &= genBody(c.body)
@@ -198,6 +202,7 @@ method genNim*(c: CsAccessor): string =
     result = genRemoveForEvent(c)
   else:
     assert false
+  result &= "\n"
   echo result
   echo "<-- end of genNim*(c: var CsAccessor)"
 
@@ -1203,13 +1208,17 @@ method genNim*(c: CsProperty): string =
     result &= # this is a getter
       "method " & c.name.lowerFirst() &
       "*(this: " & c.parentClass & "): " & c.retType & " = " &
-      "this.u_" & c.name
+      "this.u_" & c.name & "\n"
   if c.hasSet:
     result &=
       "method " & c.name.lowerFirst &
       "*(this: " & c.parentClass & ", value: " & c.retType & "): " & c.retType &
           " = " &
-      "this.u_" & c.name & " = value"
+      "this.u_" & c.name & " = value" & "\n"
+  # result &= "\n"
+  echo result
+  echo "<-- end of genNim*(c: CsProperty)"
+
 
 # import ../type_utils
 
@@ -2108,11 +2117,10 @@ proc newCs*(t: typedesc[CsExternAliasDirective]): CsExternAliasDirective =
 
 proc extract*(t: typedesc[CsExternAliasDirective];
     info: Info): CsExternAliasDirective =
+  result = newCs(t) # rare, it's a name for the dll when ns+class ambiguity occurs, should be in Namespace i think.
   echo info
   let tbl = colonsToTable(info.essentials)
-
   result.name = tbl["identifier"]
-  result = newCs(t) # rare, it's a name for the dll when ns+class ambiguity occurs, should be in Namespace i think.
 
 method genCs*(c: CsExternAliasDirective): string =
   result = "[GENCS:CsExternAliasDirective]"
@@ -3832,10 +3840,13 @@ method genCs*(c: CsSimpleLambdaExpression): string =
   todoimplGen() #CS
 method genNim*(c: CsSimpleLambdaExpression): string =
   result = "[GENNIM:CsSimpleLambdaExpression]"
-
   echo "--> in  genNim*(c: var CsSimpleLambdaExpression)"
+  let bd = c.body.genBody()
+  let params = c.params.mapIt(it.genNim()).join(", ")
+  result = "(" & params & ") => " & bd
+  echo result
+  echo "<-- end of genNim*(c: var CsSimpleLambdaExpression)"
 
-  todoimplGen() #Nim
 proc newCs*(t: typedesc[CsSingleVariableDesignation]): CsSingleVariableDesignation =
   new result
   result.typ = $typeof(t)
@@ -6819,24 +6830,23 @@ method add*(parent: CsArrayRankSpecifier; item: CsPrefixUnaryExpression) = # PUE
 
 method add*(parent: CsInterpolation; item: CsAssignmentExpression) = # AE
   echo "in method add*(parent: CsInterpolation; item: CsAssignmentExpression)"
-  todoimplAdd() # TODO(add: CsInterpolation, CsAssignmentExpression)
+  parent.expr = item
 
 method add*(parent: CsInterpolation; item: CsElementAccessExpression) = # EAE
   echo "in method add*(parent: CsInterpolation; item: CsElementAccessExpression)"
-  todoimplAdd() # TODO(add: CsInterpolation, CsElementAccessExpression)
+  parent.expr = item
 
 method add*(parent: CsInterpolation; item: CsObjectCreationExpression) = # OCE
   echo "in method add*(parent: CsInterpolation; item: CsObjectCreationExpression)"
-  todoimplAdd() # TODO(add: CsInterpolation, CsObjectCreationExpression)
+  parent.expr = item
 
 method add*(parent: CsInterpolation; item: CsParenthesizedExpression) = # PE
   echo "in method add*(parent: CsInterpolation; item: CsParenthesizedExpression)"
-
-  todoimplAdd() # TODO(add: CsInterpolation, CsParenthesizedExpression)
+  parent.expr = item
 
 method add*(parent: CsInterpolation; item: CsPostfixUnaryExpression) = # PUE
   echo "in method add*(parent: CsInterpolation; item: CsPostfixUnaryExpression)"
-  todoimplAdd() # TODO(add: CsInterpolation, CsPostfixUnaryExpression)
+  parent.expr = item
 
 method add*(parent: CsInterpolation; item: CsTypeOfExpression) = # TOE
   echo "in method add*(parent: CsInterpolation; item: CsTypeOfExpression)"
@@ -7061,7 +7071,7 @@ method add*(parent: CsArrowExpressionClause; item: CsThisExpression) = # TE
 
 method add*(parent: CsMemberAccessExpression; item: CsAliasQualifiedName) = # AQN
   echo "in method add*(parent: CsMemberAccessExpression; item: CsAliasQualifiedName)"
-  todoimplAdd() # TODO(add: CsMemberAccessExpression, CsAliasQualifiedName)
+  parent.aqn = item
 
 method add*(parent: CsMemberAccessExpression; item: CsAnonymousObjectCreationExpression) = # AOCE
   echo "in method add*(parent: CsMemberAccessExpression; item: CsAnonymousObjectCreationExpression)"
@@ -8672,7 +8682,7 @@ method add*(parent: CsYieldStatement; item: CsTypeOfExpression) = # TOE
 
 method add*(parent: CsSwitchExpression; item: CsMemberAccessExpression) = # MAE
   echo "in method add*(parent: CsSwitchExpression; item: CsMemberAccessExpression)"
-  todoimplAdd() # TODO(add: CsSwitchExpression, CsMemberAccessExpression)
+  parent.on = item
 
 method add*(parent: CsElementAccessExpression; item: CsArrayCreationExpression) = # ACE
   echo "in method add*(parent: CsElementAccessExpression; item: CsArrayCreationExpression)"
@@ -8752,7 +8762,7 @@ method add*(parent: CsBinaryExpression; item: CsImplicitArrayCreationExpression)
 
 method add*(parent: CsAnonymousObjectMemberDeclarator; item: CsCastExpression) = # CE
   echo "in method add*(parent: CsAnonymousObjectMemberDeclarator; item: CsCastExpression)"
-  todoimplAdd() # TODO(add: CsAnonymousObjectMemberDeclarator, CsCastExpression)
+  parent.value = item
 
 method add*(parent: CsAnonymousObjectMemberDeclarator; item: CsDefaultExpression) = # DE
   echo "in method add*(parent: CsAnonymousObjectMemberDeclarator; item: CsDefaultExpression)"
@@ -9005,7 +9015,7 @@ method add*(parent: CsSwitchExpressionArm; item: CsCastExpression) = # CE
 
 method add*(parent: CsSwitchExpressionArm; item: CsInterpolatedStringExpression) = # ISE
   echo "in method add*(parent: CsSwitchExpressionArm; item: CsInterpolatedStringExpression)"
-  todoimplAdd() # TODO(add: CsSwitchExpressionArm, CsInterpolatedStringExpression)
+  parent.body.add item
 
 method add*(parent: CsSwitchExpressionArm; item: CsThrowExpression) = # TE
   echo "in method add*(parent: CsSwitchExpressionArm; item: CsThrowExpression)"
@@ -9724,7 +9734,7 @@ method add*(parent: CsUsingStatement; item: CsForStatement) = # FS
 
 method add*(parent: CsInterpolationAlignmentClause; item: CsPrefixUnaryExpression) = # PUE
   echo "in method add*(parent: CsInterpolationAlignmentClause; item: CsPrefixUnaryExpression)"
-  todoimplAdd() # TODO(add: CsInterpolationAlignmentClause, CsPrefixUnaryExpression)
+  parent.pue = item
 
 method add*(parent: CsIfStatement; item: CsWhileStatement) = # WS
   echo "in method add*(parent: CsIfStatement; item: CsWhileStatement)"
@@ -10511,7 +10521,7 @@ method add*(parent: CsForEachStatement; item: CsForStatement) = # FS
 
 method add*(parent: CsForEachStatement; item: CsThrowStatement) = # TS
   echo "in method add*(parent: CsForEachStatement; item: CsThrowStatement)"
-  todoimplAdd() # TODO(add: CsForEachStatement, CsThrowStatement)
+  parent.body.add item
 
 method add*(parent: CsWhenClause; item: CsMemberAccessExpression) = # MAE
   echo "in method add*(parent: CsWhenClause; item: CsMemberAccessExpression)"
@@ -17286,4 +17296,20 @@ method add*(parent: CsTryStatement; item: CsContinueStatement) =
 # method add*(parent: CsArrayRankSpecifier; item: CsAwaitExpression) =
 #   echo "in method add*(parent: CsArrayRankSpecifier; item: CsAwaitExpression)"
 #   todoimplAdd() # TODO(add: CsArrayRankSpecifier, CsAwaitExpression)
+
+method add*(parent: CsArrayRankSpecifier; item: CsAwaitExpression) =
+  echo "in method add*(parent: CsArrayRankSpecifier; item: CsAwaitExpression)"
+  todoimplAdd() # TODO(add: CsArrayRankSpecifier, CsAwaitExpression)
+
+method add*(parent: CsUnsafeStatement; item: CsExpressionStatement) =
+  echo "in method add*(parent: CsUnsafeStatement; item: CsExpressionStatement)"
+  parent.body.add item
+
+method add*(parent: CsAnonymousMethodExpression; item: CsUnsafeStatement) =
+  echo "in method add*(parent: CsAnonymousMethodExpression; item: CsUnsafeStatement)"
+  todoimplAdd() # TODO(add: CsAnonymousMethodExpression, CsUnsafeStatement)
+
+method add*(parent: CsUnsafeStatement; item: CsFixedStatement) =
+  echo "in method add*(parent: CsUnsafeStatement; item: CsFixedStatement)"
+  todoimplAdd() # TODO(add: CsUnsafeStatement, CsFixedStatement)
 

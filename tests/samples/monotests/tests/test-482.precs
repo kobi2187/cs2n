@@ -1,0 +1,8 @@
+class X {
+        public void M4(int arg) { }
+        public void M4(int arg, __arglist) { }
+
+	public static void Main ()
+	{
+	}
+}

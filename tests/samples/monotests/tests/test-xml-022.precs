@@ -1,0 +1,154 @@
+using System;
+
+
+
+
+namespace Testing
+{
+	
+	
+	public class Test2
+	{
+		
+		public static void Foo ()
+		{
+			
+		}
+
+		public static void Main ()
+		{
+		}
+	}
+
+	
+	
+	
+	public struct StructTest
+	{
+	}
+
+	
+	
+	
+	public interface InterfaceTest
+	{
+	}
+
+	
+	
+	
+	public enum EnumTest
+	{
+		
+		
+		
+		Foo,
+		Bar,
+	}
+
+	
+	
+	
+	public class Dummy {}
+
+	
+	
+	
+	public delegate void MyDelegate (object o, EventArgs e);
+
+	
+	
+	
+	public class Test
+	{
+		
+		const string Constant = "CONSTANT STRING";
+
+		
+		public string BadPublicField;
+
+		
+		private string PrivateField;
+
+		
+		public string PublicProperty {
+			
+			get { return null; }
+		}
+
+		
+		private string PrivateProperty {
+			get { return null; }
+			
+			set { }
+		}
+
+		int x;
+
+		
+		public event EventHandler MyEvent;
+
+		int y;
+
+		
+		public static void Foo ()
+		{
+		}
+
+		
+		public static void Foo (long l, Test t, System.Collections.ArrayList al)
+		{
+		}
+
+		
+		public string this [int i] {
+			get { return null; }
+		}
+
+		
+		public string this [int i, Test t] {
+			get { return null; }
+		}
+
+		
+		
+		
+		public static bool operator ! (Test t)
+		{
+			return false;
+		}
+
+		
+		
+		
+		public static int operator + (Test t, int b)
+		{
+			return b;
+		}
+
+		
+		~Test ()
+		{
+		}
+
+		
+		public Test ()
+		{
+		}
+
+		
+		public Test (string arg, string [] args)
+		{
+		}
+
+		
+		public class InternalClass
+		{
+		}
+
+		
+		public struct InternalStruct
+		{
+		}
+	}
+}

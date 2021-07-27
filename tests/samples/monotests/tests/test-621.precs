@@ -1,0 +1,31 @@
+using System;
+
+using System.Runtime.InteropServices;
+
+struct A {
+
+	public int a;
+
+	public byte b1;
+
+	public byte b2;
+
+	public byte b3;
+
+	public byte b4;
+}
+
+class X {
+	public static void Main ()
+	{
+		A a = new A ();
+
+		a.a = 0x12345678;
+
+		Console.WriteLine ("b1: " + a.b1);
+		Console.WriteLine ("b2: " + a.b2);
+		Console.WriteLine ("b3: " + a.b3);
+		Console.WriteLine ("b4: " + a.b4);
+		
+	}
+}

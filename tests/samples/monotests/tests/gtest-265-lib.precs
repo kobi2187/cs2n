@@ -1,0 +1,12 @@
+public class A : X
+{
+        public override void Whoa<T> (object arg)
+        {
+        }
+}
+
+public abstract class X
+{
+        
+        public abstract void Whoa<T> (object arg);
+}
